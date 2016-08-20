@@ -1,0 +1,19 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	.important {
+		font-weight: bold;
+	}
+	</ui:style>
+	<g:HTMLPanel>
+		<h2>Edit</h2>
+		<table>
+		<tr> <td><g:Button styleName="{style.important}" ui:field="button" /></td></tr>
+		<tr> <td><g:Button styleName="{style.important}" ui:field="buttonChooseLexique" ui:text="Choose Lexique"/></td></tr>
+		<tr> <td><g:Button styleName="{style.important}" ui:field="buttonSaveLexique" ui:text="Save Lexique"/></td></tr>
+		<tr> <td><g:Button styleName="{style.important}" ui:field="buttonSaveLexiqueIn" ui:text="Save Lexique in ..."/></td></tr>
+		<tr> <td><g:Button styleName="{style.important}" ui:field="buttonCreateLexique" ui:text="Create Lexique"/></td></tr>
+		</table>
+	</g:HTMLPanel>
+</ui:UiBinder> 
