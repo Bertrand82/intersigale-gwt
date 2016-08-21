@@ -1,7 +1,7 @@
 package bg.client;
 
 import bg.client.menu.Menu;
-import bg.client.register.RegisterForm;
+import bg.client.ui.register.RegisterForm;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;

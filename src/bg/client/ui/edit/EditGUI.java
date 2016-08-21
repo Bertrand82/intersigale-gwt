@@ -1,8 +1,10 @@
 package bg.client.ui.edit;
 
+import java.util.List;
+
 import bg.client.EntryPointSigale;
 import bg.client.inter.sigale.model.LexiqueFactory;
-import bg.client.register.RegisterForm;
+import bg.client.ui.register.RegisterForm;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -53,7 +55,8 @@ public class EditGUI extends Composite {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				Window.alert("Choose Lexique No Implemented yet");
+				List<String> list = LexiqueFactory.getInstance().getLexiquesInLocalStorage();
+				Window.alert("Choose Lexique No Implemented yet list: "+list.size()+"  "+list);
 			}
 		});
 		buttonSaveLexique.addClickHandler(new ClickHandler() {

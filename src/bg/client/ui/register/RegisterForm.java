@@ -1,4 +1,4 @@
-package bg.client.register;
+package bg.client.ui.register;
 
 import bg.client.SigaleService;
 import bg.client.SigaleServiceAsync;

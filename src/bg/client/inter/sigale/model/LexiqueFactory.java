@@ -2,6 +2,8 @@ package bg.client.inter.sigale.model;
 
 
 
+import java.util.List;
+
 import bg.client.inter.sigale.model.statistic.StatistiquesLexiqueFactory;
 import bg.client.inter.sigale.util.ILogListener;
 
@@ -121,13 +123,13 @@ public class LexiqueFactory implements ILogListener {
 		}
 	}
 
-	public static String toXml(Lexique lexique) {
+	public  String toXml(Lexique lexique2) {
 		Document document = XMLParser.createDocument();
 		document.appendChild(document.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"UTF-8\""));
 		Element elementLexique = document.createElement(Lexique.TAG_ROOT);
-		elementLexique.setAttribute(Lexique.TAG_name, ""+lexique.getName());
+		elementLexique.setAttribute(Lexique.TAG_name, ""+lexique2.getName());
 		document.appendChild(elementLexique);
-		for (UniteLexicale uniteLexicale: lexique.getListUniteLexicale()){
+		for (UniteLexicale uniteLexicale: lexique2.getListUniteLexicale()){
 			Element elementUL = document.createElement(UniteLexicale.TAG_ROOT);
 			Phrase phrase_0 = uniteLexicale.getPhrase_0();
 			Phrase phrase_1 = uniteLexicale.getPhrase_1();
@@ -140,7 +142,7 @@ public class LexiqueFactory implements ILogListener {
 		return document.toString();
 	}
 	
-	private static Element toXML(Phrase phrase, Document document){
+	private   Element toXML(Phrase phrase, Document document){
 		Element elementPhrase = document.createElement(Phrase.TAG_ROOT);
 		elementPhrase.appendChild(document.createTextNode(""+phrase.getText()));
 		for(Visible visible : phrase.getListVisible()){
@@ -150,5 +152,10 @@ public class LexiqueFactory implements ILogListener {
 			elementPhrase.appendChild(elementVisible);
 		}
 		return elementPhrase;
+	}
+
+	public List<String> getLexiquesInLocalStorage() {
+		
+		return this.persister.getListLexiqueInStorage();
 	}
 }
