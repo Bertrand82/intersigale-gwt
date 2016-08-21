@@ -1,6 +1,7 @@
 package bg.client.ui.edit;
 
 import bg.client.EntryPointSigale;
+import bg.client.inter.sigale.model.LexiqueFactory;
 import bg.client.register.RegisterForm;
 
 import com.google.gwt.core.client.GWT;
@@ -24,9 +25,7 @@ public class EditGUI extends Composite {
 
 	
 
-	@UiField
-	Button button;
-	
+
 	@UiField
 	Button buttonChooseLexique;
 	
@@ -54,14 +53,19 @@ public class EditGUI extends Composite {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				Window.alert("No Implemented yet");
+				Window.alert("Choose Lexique No Implemented yet");
 			}
 		});
 		buttonSaveLexique.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				Window.alert("No Implemented yet");
+				try {
+					LexiqueFactory.getInstance().saveLexique();
+				} catch (Exception e) {
+					Window.alert("Save Lexique Exception "+e.getMessage());
+					e.printStackTrace();
+				}
 			}
 		});
 		buttonSaveLexiqueIn.addClickHandler(new ClickHandler() {

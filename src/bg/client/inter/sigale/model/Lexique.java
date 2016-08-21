@@ -10,7 +10,8 @@ import bg.client.inter.sigale.model.statistic.StatistiquesUL;
 public class Lexique implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	public static final String TAG_name = "name";
+	public static String TAG_ROOT="lexique";
 	private String name = "intersigale-default";
 
 	private List<UniteLexicale> listUniteLexicale = new ArrayList<UniteLexicale>();
@@ -151,5 +152,7 @@ public class Lexique implements Serializable {
 			return false;
 		return true;
 	}
+
+	
 
 }

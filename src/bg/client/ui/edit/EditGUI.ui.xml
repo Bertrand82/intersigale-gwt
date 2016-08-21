@@ -9,7 +9,6 @@
 	<g:HTMLPanel>
 		<h2>Edit</h2>
 		<table>
-		<tr> <td><g:Button styleName="{style.important}" ui:field="button" /></td></tr>
 		<tr> <td><g:Button styleName="{style.important}" ui:field="buttonChooseLexique" ui:text="Choose Lexique"/></td></tr>
 		<tr> <td><g:Button styleName="{style.important}" ui:field="buttonSaveLexique" ui:text="Save Lexique"/></td></tr>
 		<tr> <td><g:Button styleName="{style.important}" ui:field="buttonSaveLexiqueIn" ui:text="Save Lexique in ..."/></td></tr>

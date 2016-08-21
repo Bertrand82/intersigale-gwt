@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Phrase {
 
+	public static final String TAG_ROOT = "phrase";
+
 	String text;
 
 	public List<Visible> listVisible = new ArrayList<Visible>();

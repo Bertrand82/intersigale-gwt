@@ -12,17 +12,17 @@ public class UniteLexicale {
 	 * ListUnion({ List(entry="p2", inline=true, type=Phrase.class) })
 	 */
 
+	public static final String TAG_ROOT = "UL";
+
 	private Phrase phrase_0;
 
 	private Phrase phrase_1;
 
-	private List<Vote> listVotes = new ArrayList<Vote>();
 
 	private StatistiquesUL statistique = new StatistiquesUL();
 
 	public UniteLexicale() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public UniteLexicale(Phrase phrase_0_, Phrase phrase_1_) {
@@ -58,9 +58,7 @@ public class UniteLexicale {
 		phrase_1 = phrase_1_;
 	}
 
-	public List<Vote> getListVotes() {
-		return listVotes;
-	}
+
 
 	@Override
 	public String toString() {

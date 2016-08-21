@@ -9,6 +9,10 @@ package bg.client.inter.sigale.model;
 
 public class Visible {
 
+	public static final String TAG_ROOT = "visible";
+	public static final String TAG_start = "start";
+	public static final String TAG_end = "end";
+
 	private int start = 0;
 
 	private int end = 0;
