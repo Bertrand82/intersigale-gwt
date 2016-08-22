@@ -1,4 +1,4 @@
-package bg.client.lesson;
+package bg.client.ui.lesson;
 
 import com.google.gwt.user.client.ui.Widget;
 

@@ -11,6 +11,7 @@ public class LexiqueGwtTest extends GWTTestCase {
 
 	@Test
 	public void test() {
+		
 		Lexique lexique = LexiqueFactory.getInstance().getLexique();
 		String xml = LexiqueFactory.getInstance().toXml(lexique);
 		System.out.println("xml "+xml);

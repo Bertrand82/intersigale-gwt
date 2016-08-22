@@ -4,14 +4,16 @@ package bg.client.inter.sigale.model;
 
 import java.util.List;
 
+import bg.client.Log;
 import bg.client.inter.sigale.model.statistic.StatistiquesLexiqueFactory;
 import bg.client.inter.sigale.util.ILogListener;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.xml.client.Document;
 import com.google.gwt.xml.client.Element;
 import com.google.gwt.xml.client.XMLParser;
 
-public class LexiqueFactory implements ILogListener {
+public class LexiqueFactory  {
 	
 	
 	private PersisterLexique persister = new PersisterLexique();
@@ -19,7 +21,7 @@ public class LexiqueFactory implements ILogListener {
 
 	private Lexique lexique;
 
-	private static LexiqueFactory instance = new LexiqueFactory();
+	private final static LexiqueFactory instance = new LexiqueFactory();
 
 	public static LexiqueFactory getInstance() {
 		return instance;
@@ -33,21 +35,19 @@ public class LexiqueFactory implements ILogListener {
 	}
 
 	private void initLexique() {
+		Log.log("initLexique");
 		this.lexique = null;
 		lexique = getLexiqueDefault();
 		log("No file Lexique");
 
 	}
 
-	private String getLexiqueName() {
-		//return System.getProperty(KEY_LexiqueName);
-		return "defaultLexique";
-	}
 
 	private static Lexique getLexiqueDefault() {
 		Lexique lexique = new Lexique();
-		lexique.add(new UniteLexicale(new Phrase("Qui a créé intersigale ?"), new Phrase("Bertrand")));
-		lexique.add(new UniteLexicale(new Phrase("Pourquoi il a fait ça ?"), new Phrase("Pour apprendre")));
+		lexique.setName("Default Lexique");
+		lexique.add(new UniteLexicale(new Phrase("Qui a crÃ©Ã© intersigale ?"), new Phrase("Bertrand")));
+		lexique.add(new UniteLexicale(new Phrase("Pourquoi il a fait Ã§a ?"), new Phrase("Pour apprendre")));
 		lexique.add(new UniteLexicale(new Phrase("Pour apprendre quoi ?"), new Phrase("Tout")));
 		Phrase p1 = new Phrase("La capitale du Quercy est ?");
 		Phrase p2 = new Phrase("Montpezat de Quercy ");
@@ -85,9 +85,16 @@ public class LexiqueFactory implements ILogListener {
 	 * @throws Exception
 	 */
 	public void saveLexique() throws Exception {
-		String name = this.lexique.getName();
-		String xml = toXml(lexique);
-		this.persister.save(xml, name);
+		Log.log("saveLexique");
+		try {
+			String name = ""+this.getLexique().getName();
+			String xml = toXml(lexique);
+			GWT.log("saveLexique "+xml);
+			this.persister.save(xml, name);
+		} catch (Throwable e) {
+			GWT.log("saveLexique",e);
+			throw e;
+		}
 	}
 
 
@@ -103,7 +110,7 @@ public class LexiqueFactory implements ILogListener {
 		}
 	}
 
-	private ILogListener logListener;
+	private ILogListener logListener = new Log();
 
 	public void setLogListener(ILogListener logListener_) {
 		this.logListener = logListener_;
@@ -112,7 +119,7 @@ public class LexiqueFactory implements ILogListener {
 	public void log(String s) {
 		System.out.println(s);
 		if (logListener != null) {
-			logListener.log(s);
+			logListener.logText(s);
 		}
 
 	}

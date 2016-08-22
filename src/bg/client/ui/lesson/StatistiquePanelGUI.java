@@ -1,4 +1,4 @@
-package bg.client.lesson;
+package bg.client.ui.lesson;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;

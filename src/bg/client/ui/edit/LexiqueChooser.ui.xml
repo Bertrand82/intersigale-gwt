@@ -1,0 +1,18 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	
+	</ui:style>
+	<g:HTMLPanel>
+	    <g:HTMLPanel>
+		<h2>Choose Lexique</h2>
+		<g:Label ui:field="labelComment" ui:text=""/>
+		<g:FlexTable ui:field="tableLexiques" />
+		<table>
+		<tr> <td><g:Button  ui:field="buttonBlabla" ui:text="blabla"/></td></tr>
+		</table>
+	</g:HTMLPanel>
+	    
+	</g:HTMLPanel>
+</ui:UiBinder> 

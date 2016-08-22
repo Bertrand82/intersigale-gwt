@@ -4,8 +4,8 @@
 package bg.client.menu;
 
 import bg.client.EntryPointSigale;
-import bg.client.lesson.Lesson;
 import bg.client.ui.edit.EditGUI;
+import bg.client.ui.lesson.Lesson;
 import bg.client.ui.register.RegisterForm;
 
 import com.google.gwt.core.client.GWT;

@@ -21,14 +21,19 @@ public class PersisterLexique {
 	
 	public List<String> getListLexiqueInStorage(){
 		List<String> list = new ArrayList<String>();
-		Storage storage = Storage.getLocalStorageIfSupported();
-		if (storage!= null){
-			for (int i = 0; i < storage.getLength(); i++){
-			    String key = storage.key(i);
-			    if(key.startsWith(TAG_Lexique)){
-			    	list.add(getLexiqueNameFromKey(key));
-			    }
-			  }
+		try {
+			Storage storage = Storage.getLocalStorageIfSupported();
+			if (storage!= null){
+				for (int i = 0; i < storage.getLength(); i++){
+				    String key = storage.key(i);
+				    if(key.startsWith(TAG_Lexique)){
+				    	list.add(getLexiqueNameFromKey(key));
+				    }
+				  }
+			}
+		} catch (Exception e) {
+			
+			e.printStackTrace();
 		}
 		return list;
 	}

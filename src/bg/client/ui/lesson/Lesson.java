@@ -1,4 +1,4 @@
-package bg.client.lesson;
+package bg.client.ui.lesson;
 
 import java.awt.Color;
 
