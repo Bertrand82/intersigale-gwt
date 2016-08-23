@@ -1,10 +1,12 @@
 package bg.client;
 
-import bg.client.menu.Menu;
+import bg.client.ui.log.LogUI;
+import bg.client.ui.menu.Menu;
 import bg.client.ui.register.RegisterForm;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -14,6 +16,7 @@ import com.google.gwt.user.client.ui.Widget;
 public class EntryPointSigale implements EntryPoint {
 
 	private static RootPanel rootPanelRegister;
+	private static Label labelTitle =  new Label("InterSigale");
 	/**
 	 * The message displayed to the user when the server cannot be reached or
 	 * returns an error.
@@ -42,12 +45,29 @@ public class EntryPointSigale implements EntryPoint {
 			final RegisterForm crypto = RegisterForm.getInstance();
 			rootPanelRegister.add(crypto);
 		}
+		
+		RootPanel rootPanelTitle = RootPanel.get("sigaleTitle");
+		if (rootPanelTitle != null) {
+			
+			rootPanelTitle.add(labelTitle);
+		}
+		RootPanel rootPanelLog = RootPanel.get("sigaleLog");
+		if (rootPanelLog != null) {
+			final LogUI logUI = LogUI.getInstance();
+			rootPanelLog.add(logUI);
+		}
+		
+		
 
 	}
 
 	public static void showView(Widget composite) {
 		rootPanelRegister.remove(0);
 		rootPanelRegister.add(composite);
+	}
+	
+	public static void setTitle(String message){
+		labelTitle.setText(message);
 	}
 
 }

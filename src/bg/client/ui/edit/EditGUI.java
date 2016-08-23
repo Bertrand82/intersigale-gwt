@@ -3,6 +3,7 @@ package bg.client.ui.edit;
 import java.util.List;
 
 import bg.client.inter.sigale.model.LexiqueFactory;
+import bg.client.ui.edit.chooser.LexiqueChooser;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -22,81 +23,87 @@ public class EditGUI extends Composite {
 	interface EditGUIUiBinder extends UiBinder<Widget, EditGUI> {
 	}
 
+	private static class MyPopup extends PopupPanel {
 
-	private  static class MyPopup extends PopupPanel {
+		public MyPopup() {
 
-	    public MyPopup() {
-	      // PopupPanel's constructor takes 'auto-hide' as its boolean parameter.
-	      // If this is set, the panel closes itself automatically when the user
-	      // clicks outside of it.
-	      super(true);
-
-	      // PopupPanel is a SimplePanel, so you have to set it's widget property to
-	      // whatever you want its contents to be.
-	      setWidget(LexiqueChooser.getInstance());
-	    }
-
-		public void setLexiques(List<String> list) {
-			LexiqueChooser.getInstance().setLexiques(list);
+			super(true);
 		}
-	  }
+
+		Widget wOld = null;
+
+		public void showWidget(Widget w) {
+			if (wOld != null) {
+				this.remove(wOld);
+			}
+			wOld=w;
+			MyPopup.this.add(w);
+			MyPopup.this.center();
+			MyPopup.this.show();
+		}
+
+	}
 
 	MyPopup myPopup = new MyPopup();
-		
+	LexiqueSaveIn lexiqueSaveIn = new LexiqueSaveIn();
+	
 	@UiField
 	Button buttonChooseLexique;
-	
+
 	@UiField
 	Button buttonSaveLexique;
-	
+
 	@UiField
 	Button buttonSaveLexiqueIn;
-	
+
 	@UiField
 	Button buttonCreateLexique;
 
 	private static EditGUI instance;
+
 	public static Widget getInstancMyPopupe() {
-		if (instance == null){
+		if (instance == null) {
 			instance = new EditGUI();
 		}
 		return instance;
 	}
 
-
 	private EditGUI() {
 		initWidget(uiBinder.createAndBindUi(this));
 		buttonChooseLexique.addClickHandler(new ClickHandler() {
-	
+
 			@Override
 			public void onClick(ClickEvent event) {
-				List<String> list = LexiqueFactory.getInstance().getLexiquesInLocalStorage();
-				myPopup.setLexiques(list);
-				myPopup.center();
-				myPopup.show();
+				List<String> list = LexiqueFactory.getInstance()
+						.getLexiquesInLocalStorage();
+				LexiqueChooser.getInstance().setLexiques(list);
+				myPopup.showWidget(LexiqueChooser.getInstance().getWidget());
+
 			}
+
 		});
 		buttonSaveLexique.addClickHandler(new ClickHandler() {
-	
+
 			@Override
 			public void onClick(ClickEvent event) {
 				try {
 					LexiqueFactory.getInstance().saveLexique();
+					Window.alert("Save Lexique done");
 				} catch (Exception e) {
-					Window.alert("Save Lexique Exception "+e.getMessage());
+					Window.alert("Save Lexique Exception " + e.getMessage());
 					e.printStackTrace();
 				}
 			}
 		});
 		buttonSaveLexiqueIn.addClickHandler(new ClickHandler() {
-	
+
 			@Override
 			public void onClick(ClickEvent event) {
-				Window.alert("No Implemented yet");
+				myPopup.showWidget(lexiqueSaveIn);;
 			}
 		});
 		buttonCreateLexique.addClickHandler(new ClickHandler() {
-	
+
 			@Override
 			public void onClick(ClickEvent event) {
 				Window.alert("No Implemented yet");
@@ -104,12 +111,17 @@ public class EditGUI extends Composite {
 		});
 	}
 
-
 	public static EditGUI getInstance() {
-		if(instance==null){
+		if (instance == null) {
 			instance = new EditGUI();
 		}
 		return instance;
 	}
-	
+
+	public void hidePopup() {
+		this.myPopup.hide();
+	}
+
+
+
 }

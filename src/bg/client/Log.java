@@ -1,6 +1,7 @@
 package bg.client;
 
 import bg.client.inter.sigale.util.ILogListener;
+import bg.client.ui.log.LogUI;
 
 import com.google.gwt.core.shared.GWT;
 
@@ -18,13 +19,12 @@ public class Log implements ILogListener{
 	
 	@Override
 	public void logText(String message) {
-		// TODO Auto-generated method stub
+		LogUI.getInstance().setText(message);
 		
 	}
 	@Override
 	public void logTitle(String s) {
-		// TODO Auto-generated method stub
-		
+		EntryPointSigale.setTitle(s);
 	}
 
 }

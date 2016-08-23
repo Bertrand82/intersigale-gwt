@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.storage.client.Storage;
+import com.google.gwt.user.client.Window;
 
 
 
@@ -32,7 +33,7 @@ public class PersisterLexique {
 				  }
 			}
 		} catch (Exception e) {
-			
+			Window.alert("Exception 342 :"+e.getMessage());
 			e.printStackTrace();
 		}
 		return list;
@@ -44,6 +45,18 @@ public class PersisterLexique {
 	
 	public static String getLexiqueNameFromKey(String key){
 		return key.substring(TAG_Lexique.length());
+	}
+
+
+
+	public void delete(String name) {
+		String key = getLexiqueKeyStoreFromName(name);
+		try {
+			Storage storage = Storage.getLocalStorageIfSupported();
+			storage.removeItem(key);
+		} catch (Exception e) {
+			Window.alert("Exception 343 :"+e.getMessage());
+		}
 	}
 
 }

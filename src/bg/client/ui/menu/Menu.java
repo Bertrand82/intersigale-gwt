@@ -1,7 +1,7 @@
 /**
  * 
  */
-package bg.client.menu;
+package bg.client.ui.menu;
 
 import bg.client.EntryPointSigale;
 import bg.client.ui.edit.EditGUI;

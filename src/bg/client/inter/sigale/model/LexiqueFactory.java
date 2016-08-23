@@ -21,6 +21,8 @@ public class LexiqueFactory  {
 
 	private Lexique lexique;
 
+	private final ILogListener logListener = new Log();
+
 	private final static LexiqueFactory instance = new LexiqueFactory();
 
 	public static LexiqueFactory getInstance() {
@@ -38,14 +40,14 @@ public class LexiqueFactory  {
 		Log.log("initLexique");
 		this.lexique = null;
 		lexique = getLexiqueDefault();
-		log("No file Lexique");
+		
 
 	}
 
 
-	private static Lexique getLexiqueDefault() {
+	private  Lexique getLexiqueDefault() {
 		Lexique lexique = new Lexique();
-		lexique.setName("Default Lexique");
+		lexique.setName("Welcome Lexique");
 		lexique.add(new UniteLexicale(new Phrase("Qui a créé intersigale ?"), new Phrase("Bertrand")));
 		lexique.add(new UniteLexicale(new Phrase("Pourquoi il a fait ça ?"), new Phrase("Pour apprendre")));
 		lexique.add(new UniteLexicale(new Phrase("Pour apprendre quoi ?"), new Phrase("Tout")));
@@ -53,6 +55,8 @@ public class LexiqueFactory  {
 		Phrase p2 = new Phrase("Montpezat de Quercy ");
 		p2.setSelected(0, 9);
 		lexique.add(new UniteLexicale(p1,p2));
+		logListener.logText("Load welcome Listener");
+		logListener.logTitle(lexique.getName());
 		return lexique;
 	}
 
@@ -75,6 +79,8 @@ public class LexiqueFactory  {
 		this.lexique = new Lexique();
 		lexique.setName(name);
 		this.saveLexique();
+		this.logListener.logText("Create Lexique "+name);
+		this.logListener.logTitle(name);
 		UtilInterSigale.saveProperties(KEY_LexiqueName, name);
 	}
 
@@ -84,14 +90,16 @@ public class LexiqueFactory  {
 	 * 
 	 * @throws Exception
 	 */
-	public void saveLexique() throws Exception {
+	public void saveLexique()  {
 		Log.log("saveLexique");
 		try {
 			String name = ""+this.getLexique().getName();
 			String xml = toXml(lexique);
 			GWT.log("saveLexique "+xml);
 			this.persister.save(xml, name);
+			this.logListener.logText("Lexique "+name+" saved");
 		} catch (Throwable e) {
+			this.logListener.logText("Exception 201 "+e.getMessage());
 			GWT.log("saveLexique",e);
 			throw e;
 		}
@@ -108,27 +116,15 @@ public class LexiqueFactory  {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 	}
 
-	private ILogListener logListener = new Log();
+	
+	
 
-	public void setLogListener(ILogListener logListener_) {
-		this.logListener = logListener_;
-	}
+	
 
-	public void log(String s) {
-		System.out.println(s);
-		if (logListener != null) {
-			logListener.logText(s);
-		}
-
-	}
-
-	public void logTitle(String s) {
-		if (logListener != null) {
-			logListener.logTitle(s);
-		}
-	}
+	
 
 	public  String toXml(Lexique lexique2) {
 		Document document = XMLParser.createDocument();
@@ -164,5 +160,22 @@ public class LexiqueFactory  {
 	public List<String> getLexiquesInLocalStorage() {
 		
 		return this.persister.getListLexiqueInStorage();
+	}
+
+	public void saveLexique(String newName) {
+		this.getLexique().setName(newName);
+		saveLexique();
+		logListener.logTitle(newName);
+		logListener.logText("Save Lexique "+newName+" done");
+		
+	}
+
+	public void getLexiqueByName(String name) {
+		this.logListener.logText("get Lexique in local storage by Name : "+name);
+	}
+
+	public void deleteLexiqueByName(String name) {
+		this.logListener.logText("Delete Lexique in local storage by Name : "+name);
+		this.persister.delete(name);
 	}
 }
