@@ -1,0 +1,26 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	.important {
+		font-weight: bold;
+	}
+	</ui:style>
+	<g:HTMLPanel>
+		<h2>Edit</h2>
+		
+		<table>
+		<tr><td colspan="3"> <g:TextBox styleName="{style.important}" ui:field="textBoxQuestion" text=" "/>  </td></tr>
+	    <tr><td colspan="3"> <g:TextBox styleName="{style.important}" ui:field="textBoxReponse" text=" " width="500"/>  </td></tr>
+		 <tr>
+			<td colspan="1"> <g:Button styleName="{style.important}" ui:field="buttonOK" text="OK"/>  </td>
+			<td colspan="1"> <g:Button styleName="{style.important}" ui:field="buttonPrevious" text="Previous"/>  </td>
+			<td colspan="1"> <g:Button styleName="{style.important}" ui:field="buttonNext" text="Next"/>  </td>
+		</tr> 
+		 <tr><td colspan="3"> <g:Button styleName="{style.important}" ui:field="buttonNew" text="New"/>  </td></tr>
+	     
+		</table>
+	
+	</g:HTMLPanel>
+</ui:UiBinder> 
+

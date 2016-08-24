@@ -1,10 +1,10 @@
-package bg.client.ui.edit.chooser;
+package bg.client.ui.admin.chooser;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import bg.client.inter.sigale.model.LexiqueFactory;
-import bg.client.ui.edit.EditGUI;
+import bg.client.ui.admin.AdminGUI;
 
 import com.google.gwt.cell.client.ButtonCell;
 import com.google.gwt.cell.client.FieldUpdater;
@@ -16,6 +16,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -42,19 +43,22 @@ public class LexiqueChooser {
 	        listTest.add("bbbbbbbb");
 	        return listTest;
 	}
-
+	/**
+	 * Un datagrid est tellement long a decrire, que le uiBinder n'apprte pas grand chose. 
+	 * Autant s'en passer: Le code gagne ainsi en lisibilité.
+	 */
 	public void initGrid() {
 		dataGrid = new DataGrid<LexiqueBean>();
 		dataGrid.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
 
-		TextColumn<LexiqueBean> houseNumber = new TextColumn<LexiqueBean>() {
+		TextColumn<LexiqueBean> lexiqueName = new TextColumn<LexiqueBean>() {
 			@Override
 			public String getValue(LexiqueBean object) {
 				return object.getName();
 			}
 		};
-		dataGrid.addColumn(houseNumber, "Lexique");
-		/* ****************************************************************************** */
+		dataGrid.addColumn(lexiqueName, "Lexique");
+		/* **********  Colonne de buttons Display ******************************************************** */
 
 		ButtonCell buttonDisplay = new ButtonCell();
 		Column<LexiqueBean, String> buttonDisplayColumn = new Column<LexiqueBean, String>(
@@ -65,16 +69,17 @@ public class LexiqueChooser {
 				return "Display";
 			}
 		};
+		/* Le listener sur le button */
 		buttonDisplayColumn
 				.setFieldUpdater(new FieldUpdater<LexiqueBean, String>() {
 					public void update(int index, LexiqueBean lexiqueBean, String value) {
 						LexiqueFactory.getInstance().getLexiqueByName(lexiqueBean.getName());
-						EditGUI.getInstance().hidePopup();
+						AdminGUI.getInstance().hidePopup();
 						
 					}
 				});
 		dataGrid.addColumn(buttonDisplayColumn, "Display");
-		/* ***************************************************************************************** */
+		/* ************ Colonne de buttons delete   ***************************************************************** */
 		ButtonCell buttonCellDelete = new ButtonCell();
 		Column<LexiqueBean, String> buttonColumn = new Column<LexiqueBean, String>(
 				buttonCellDelete) {
@@ -87,25 +92,27 @@ public class LexiqueChooser {
 		buttonColumn.setFieldUpdater(new FieldUpdater<LexiqueBean, String>() {
 			public void update(int index, LexiqueBean lexiqueBean, String value) {
 				LexiqueFactory.getInstance().deleteLexiqueByName(lexiqueBean.getName());
-				EditGUI.getInstance().hidePopup();
+				AdminGUI.getInstance().hidePopup();
 				
 			}
 		});
 		dataGrid.addColumn(buttonColumn, "Action");
 		/* ***************************************************************************************** */
        
-		setLexiques(getListTest());
-		/* **********/
+		
+		/* ******Si l'on ne met pas la taille, ca ne marche pas ****/
 		dataGrid.setWidth("400px");
 		dataGrid.setHeight("400px");
-
+		/* On ne peut pas le mettre dans n'importe quel conteneur : Dans la litterature , on voit souvent (uniquement ?) le dockPanel*/
 		dockPanel = new DockPanel();
-		dockPanel.setTitle("blablab");
+		dockPanel.setTitle("List Lexiques");
 		dockPanel.add(dataGrid, DockPanel.EAST);
 		Button buttonExit = new Button("Exit");
 		VerticalPanel panelSouth = new VerticalPanel();
 		panelSouth.add(buttonExit);
 		dockPanel.add(panelSouth, DockPanel.SOUTH);
+		// If no Center, it doen't work !!! 
+		dockPanel.add(new Label(" "), DockPanel.CENTER);
 
 	}
 

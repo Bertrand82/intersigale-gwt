@@ -1,4 +1,4 @@
-package bg.client.ui.edit;
+package bg.client.ui.admin;
 
 import bg.client.inter.sigale.model.LexiqueFactory;
 
@@ -36,7 +36,7 @@ public class LexiqueSaveIn extends Composite  {
 	@UiHandler("buttonSaveIn")
 	void onClick(ClickEvent e) {
 		String newName = this.textBox.getText();
-		EditGUI.getInstance().hidePopup();
+		AdminGUI.getInstance().hidePopup();
 		LexiqueFactory.getInstance().saveLexique(newName);
 	}
 

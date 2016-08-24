@@ -31,6 +31,10 @@ public class UniteLexicale {
 		phrase_1 = phrase_1_;
 	}
 
+	public UniteLexicale(String text1, String text2) {
+	   this(new Phrase(text1), new Phrase(text2));
+	}
+
 	public boolean resultProcess(String text) {
 		String text2 = UtilDivers.removeAccents(text);
 		String text2_ref = UtilDivers.removeAccents(getPhrase_1().text);
@@ -89,4 +93,38 @@ public class UniteLexicale {
 		this.statistique = statistique;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((phrase_0 == null) ? 0 : phrase_0.hashCode());
+		result = prime * result
+				+ ((phrase_1 == null) ? 0 : phrase_1.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UniteLexicale other = (UniteLexicale) obj;
+		if (phrase_0 == null) {
+			if (other.phrase_0 != null)
+				return false;
+		} else if (!phrase_0.equals(other.phrase_0))
+			return false;
+		if (phrase_1 == null) {
+			if (other.phrase_1 != null)
+				return false;
+		} else if (!phrase_1.equals(other.phrase_1))
+			return false;
+		return true;
+	}
+
+	
 }

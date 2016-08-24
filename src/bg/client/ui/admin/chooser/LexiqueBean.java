@@ -1,4 +1,4 @@
-package bg.client.ui.edit.chooser;
+package bg.client.ui.admin.chooser;
 
 public class LexiqueBean {
 	

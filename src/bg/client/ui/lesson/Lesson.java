@@ -65,6 +65,8 @@ public class Lesson extends Composite {
 				nextPhrase();
 			}
 		});
+		displayUniteLexicaleCourante();
+
 	}
 
 	private static Lesson instance = new Lesson();

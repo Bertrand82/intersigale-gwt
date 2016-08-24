@@ -1,9 +1,9 @@
-package bg.client.ui.edit;
+package bg.client.ui.admin;
 
 import java.util.List;
 
 import bg.client.inter.sigale.model.LexiqueFactory;
-import bg.client.ui.edit.chooser.LexiqueChooser;
+import bg.client.ui.admin.chooser.LexiqueChooser;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -16,11 +16,11 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class EditGUI extends Composite {
+public class AdminGUI extends Composite {
 
-	private static EditGUIUiBinder uiBinder = GWT.create(EditGUIUiBinder.class);
+	private static AdminGUIUiBinder uiBinder = GWT.create(AdminGUIUiBinder.class);
 
-	interface EditGUIUiBinder extends UiBinder<Widget, EditGUI> {
+	interface AdminGUIUiBinder extends UiBinder<Widget, AdminGUI> {
 	}
 
 	private static class MyPopup extends PopupPanel {
@@ -59,16 +59,16 @@ public class EditGUI extends Composite {
 	@UiField
 	Button buttonCreateLexique;
 
-	private static EditGUI instance;
+	private static AdminGUI instance;
 
 	public static Widget getInstancMyPopupe() {
 		if (instance == null) {
-			instance = new EditGUI();
+			instance = new AdminGUI();
 		}
 		return instance;
 	}
 
-	private EditGUI() {
+	private AdminGUI() {
 		initWidget(uiBinder.createAndBindUi(this));
 		buttonChooseLexique.addClickHandler(new ClickHandler() {
 
@@ -111,9 +111,9 @@ public class EditGUI extends Composite {
 		});
 	}
 
-	public static EditGUI getInstance() {
+	public static AdminGUI getInstance() {
 		if (instance == null) {
-			instance = new EditGUI();
+			instance = new AdminGUI();
 		}
 		return instance;
 	}

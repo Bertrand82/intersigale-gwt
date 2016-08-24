@@ -4,7 +4,8 @@
 package bg.client.ui.menu;
 
 import bg.client.EntryPointSigale;
-import bg.client.ui.edit.EditGUI;
+import bg.client.ui.admin.AdminGUI;
+import bg.client.ui.edit.EditLexiqueGUI;
 import bg.client.ui.lesson.Lesson;
 import bg.client.ui.register.RegisterForm;
 
@@ -70,7 +71,14 @@ public class Menu extends Composite {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				EntryPointSigale.showView(EditGUI.getInstance());
+				EntryPointSigale.showView(EditLexiqueGUI.getInstance());
+			}
+		});
+		buttonAdmin.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				EntryPointSigale.showView(AdminGUI.getInstance());
 			}
 		});
 	}
