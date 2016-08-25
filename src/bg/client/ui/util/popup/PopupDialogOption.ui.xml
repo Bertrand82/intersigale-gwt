@@ -11,6 +11,7 @@
 			
 			<g:HTMLPanel>
 				<g:Label  ui:field="label" ui:text=""/>
+				<g:TextBox ui:field="textBox" ui:text="" visible="false"/>
 				<g:Button ui:field='buttonCancel' >Cancel</g:Button>
 				<g:Button ui:field='buttonOk'>Okay</g:Button>
 			</g:HTMLPanel>

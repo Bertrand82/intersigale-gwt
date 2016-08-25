@@ -75,7 +75,7 @@ public class LexiqueFactory  {
 	 * @param name
 	 * @throws Exception
 	 */
-	public void createLexique(String name) throws Exception {
+	public void createLexique(String name) {
 		this.lexique = new Lexique();
 		lexique.setName(name);
 		this.saveLexique();

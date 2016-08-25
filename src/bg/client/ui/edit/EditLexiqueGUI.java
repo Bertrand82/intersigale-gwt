@@ -4,8 +4,8 @@ import bg.client.inter.sigale.model.Lexique;
 import bg.client.inter.sigale.model.LexiqueFactory;
 import bg.client.inter.sigale.model.Phrase;
 import bg.client.inter.sigale.model.UniteLexicale;
-import bg.client.ui.util.IPopupListener;
-import bg.client.ui.util.PopupDialogOption;
+import bg.client.ui.util.popup.IPopupListener;
+import bg.client.ui.util.popup.PopupDialogOption;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -153,7 +153,7 @@ public class EditLexiqueGUI extends Composite  {
 			IPopupListener listener = new IPopupListener() {
 				
 				@Override
-				public void actionPerformed(int n) {
+				public void actionPerformed(int n, String s) {
 					if (n==PopupDialogOption.YES_OPTION){
 						record();
 						;

@@ -4,6 +4,8 @@ import java.util.List;
 
 import bg.client.inter.sigale.model.LexiqueFactory;
 import bg.client.ui.admin.chooser.LexiqueChooser;
+import bg.client.ui.util.popup.IPopupListener;
+import bg.client.ui.util.popup.PopupDialogOption;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -106,7 +108,17 @@ public class AdminGUI extends Composite {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				Window.alert("No Implemented yet");
+				IPopupListener listener = new IPopupListener() {
+					
+					@Override
+					public void actionPerformed(int option, String name) {
+						if (option == PopupDialogOption.YES_OPTION){
+							LexiqueFactory.getInstance().createLexique(name);
+						}
+						
+					}
+				};
+				PopupDialogOption.getInstance().showConfirmDialog("New Name ?", "Cancel", "OK", true, listener);
 			}
 		});
 	}
