@@ -36,6 +36,9 @@ public class Lexique implements Serializable {
 	}
 
 	public UniteLexicale getUniteLexicaleCourante() {
+		if (listUniteLexicale.size() == 0){
+			return new UniteLexicale("", "");
+		}
 		if (iCourrante >= listUniteLexicale.size()) {
 			iCourrante = listUniteLexicale.size() - 1;
 		}

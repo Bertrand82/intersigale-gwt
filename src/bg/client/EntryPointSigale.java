@@ -1,11 +1,16 @@
 package bg.client;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Arrays;
+
 import bg.client.ui.log.LogUI;
 import bg.client.ui.menu.Menu;
 import bg.client.ui.register.RegisterForm;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.impl.AsyncFragmentLoader.Logger;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -33,7 +38,7 @@ public class EntryPointSigale implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-
+		GWT.setUncaughtExceptionHandler(uncaughtExceptionHandler);
 		RootPanel rootPanelMenu = RootPanel.get("sigaleMenu");
 		if (rootPanelMenu != null) {
 			final Menu menu = Menu.getInstance();
@@ -69,5 +74,40 @@ public class EntryPointSigale implements EntryPoint {
 	public static void setTitle(String message){
 		labelTitle.setText(message);
 	}
-
+	
+	
+	private static  GWT.UncaughtExceptionHandler uncaughtExceptionHandler= new  GWT.UncaughtExceptionHandler() {
+		
+		@Override
+		public void onUncaughtException(Throwable e) {
+			
+			
+			logThrowable(e,0);
+			
+		}
+	}; 
+	
+	private static final int nMax = 3;
+	/**
+	 * Method recursive utile pour logguer avec precaution et clarté les exceptions ...
+	 * @param e
+	 * @param n
+	 */
+	public static void logThrowable(Throwable e,int n){
+		if (e == null){
+			return;
+		}
+		if (n > nMax){
+			GWT.log("Stop logging");
+			return;
+		}
+		GWT.log(e.toString());
+		for(StackTraceElement  element : e.getStackTrace()){
+			GWT.log("     "+element);
+		}
+		logThrowable(e.getCause(),n++);
+	}
+	
+	
+	
 }
