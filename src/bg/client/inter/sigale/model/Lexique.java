@@ -24,6 +24,9 @@ public class Lexique implements Serializable {
 
 	public UniteLexicale next(int n) {
 		iCourrante += n;
+		if (listUniteLexicale.size() == 0){
+			return new UniteLexicale("","");
+		}
 		iCourrante = iCourrante % listUniteLexicale.size();
 		return getUniteLexicaleCourante();
 	}

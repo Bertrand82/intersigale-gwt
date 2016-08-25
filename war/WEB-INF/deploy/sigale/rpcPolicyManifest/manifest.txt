@@ -1,3 +1,3 @@
 # Module sigale
 # RPC service class, partial path of RPC policy file
-bg.client.SigaleService, A7D019530B10B7BD2BB004BBD1C95DA4.gwt.rpc
+bg.client.SigaleService, D4D66419BBF5D94CA4CAC128A6700AD3.gwt.rpc

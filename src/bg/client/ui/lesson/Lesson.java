@@ -80,7 +80,6 @@ public class Lesson extends Composite {
 	}
 
 	private void nextPhrase() {
-		System.out.println("NextPhrase ");
 		getLexique().next();
 		displayUniteLexicaleCourante();
 		labelCorrection.setText(STR_VIDE);

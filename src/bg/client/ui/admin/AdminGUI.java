@@ -90,7 +90,6 @@ public class AdminGUI extends Composite {
 			public void onClick(ClickEvent event) {
 				try {
 					LexiqueFactory.getInstance().saveLexique();
-					Window.alert("Save Lexique done");
 				} catch (Exception e) {
 					Window.alert("Save Lexique Exception " + e.getMessage());
 					e.printStackTrace();
