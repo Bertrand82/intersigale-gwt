@@ -107,10 +107,6 @@ public class LexiqueChooser {
 		dockPanel = new DockPanel();
 		dockPanel.setTitle("List Lexiques");
 		dockPanel.add(dataGrid, DockPanel.EAST);
-		Button buttonExit = new Button("Exit");
-		VerticalPanel panelSouth = new VerticalPanel();
-		panelSouth.add(buttonExit);
-		dockPanel.add(panelSouth, DockPanel.SOUTH);
 		// If no Center, it doen't work !!! 
 		dockPanel.add(new Label(" "), DockPanel.CENTER);
 

@@ -67,11 +67,12 @@ public class PopupDialogOption extends Composite  {
 	DialogBox dialogBox;
 
 	public void showConfirmDialog(String message, String buttonCancelStr, String buttonOKStr, IPopupListener listener_) {
-		Window.alert(message);
 		label.setText(message);
 		buttonCancel.setText(buttonCancelStr);
 		buttonOk.setText(buttonOKStr);
 		this.listener = listener_;
+		this.dialogBox.setModal(true);
+		this.dialogBox.center();
 		this.dialogBox.show();
 	}
 
