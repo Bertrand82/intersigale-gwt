@@ -4,6 +4,7 @@ import bg.client.inter.sigale.model.Lexique;
 import bg.client.inter.sigale.model.LexiqueFactory;
 import bg.client.inter.sigale.model.Phrase;
 import bg.client.inter.sigale.model.UniteLexicale;
+import bg.client.ui.util.IPopupListener;
 import bg.client.ui.util.PopupDialogOption;
 
 import com.google.gwt.core.client.GWT;
@@ -142,32 +143,38 @@ public class EditLexiqueGUI extends Composite  {
 	 * 
 	 * @return
 	 */
-	private boolean checkIfRecordedOK() {
+	private void createNew() {
 		boolean isTheSame = isTheSame();
 		System.out.println("  isTheSame "+isTheSame);
-		if (!isTheSame ) {
-			
-			int n = PopupDialogOption.showConfirmDialog( "Save modifications ?");
-			if (n==PopupDialogOption.YES_OPTION){
-				record();
-				return true;
-			}else if (n== PopupDialogOption.CANCEL_OPTION){
-				return false;
-			}else {// No_Option 
-				return true;
-			}
-
-		}
-
-		return true;
-	}
-	
-	private void createNew(){
-		if (checkIfRecordedOK()) {
+		if (isTheSame ) {
 			item = null;
 			displayUniteLexicaleCourante(null);
+		}else {
+			IPopupListener listener = new IPopupListener() {
+				
+				@Override
+				public void actionPerformed(int n) {
+					if (n==PopupDialogOption.YES_OPTION){
+						record();
+						;
+					}else if (n== PopupDialogOption.CANCEL_OPTION){
+						;
+					}else {// No_Option 
+					   ; ;
+					}
+					item = null;
+					displayUniteLexicaleCourante(null);
+				}
+			};
+			PopupDialogOption.getInstance().showConfirmDialog( "Save modifications ?","NO","Yes",listener);			
+			
+
 		}
+
+		
 	}
+	
+
 	
 	private boolean isTheSame() {
 		UniteLexicale ul_1 = this.item;

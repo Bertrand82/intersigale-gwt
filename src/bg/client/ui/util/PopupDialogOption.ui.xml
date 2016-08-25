@@ -7,12 +7,10 @@
 		}
 	</ui:style>
 	<g:HTMLPanel visible="false">
-		<g:DialogBox autoHide="true" modal="true">
-			<g:caption>
-				<b>Caption text</b>
-			</g:caption>
+		<g:DialogBox ui:field='dialogBox' autoHide="true" modal="true">
+			
 			<g:HTMLPanel>
-				Body text
+				<g:Label  ui:field="label" ui:text=""/>
 				<g:Button ui:field='buttonCancel' >Cancel</g:Button>
 				<g:Button ui:field='buttonOk'>Okay</g:Button>
 			</g:HTMLPanel>
