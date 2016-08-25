@@ -59,4 +59,13 @@ public class PersisterLexique {
 		}
 	}
 
+
+
+	public String getLexiqueXMLFromName(String name) {
+		String key = getLexiqueKeyStoreFromName(name);
+		Storage storage = Storage.getLocalStorageIfSupported();
+		String xml = storage.getItem(key);
+		return xml;
+	}
+
 }

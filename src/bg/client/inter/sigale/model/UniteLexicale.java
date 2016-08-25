@@ -126,5 +126,14 @@ public class UniteLexicale {
 		return true;
 	}
 
+	public void setPhrase(Phrase phrase, int k) {
+		if (k == 0){
+			phrase_0 = phrase;
+		}else if (k == 1){
+			phrase_1 = phrase;
+		}
+		
+	}
+
 	
 }
