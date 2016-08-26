@@ -13,7 +13,7 @@
 		<tr><td colspan="3"> <g:TextBox styleName="{style.important}" ui:field="textBoxQuestion" text=" "/>  </td></tr>
 	    <tr><td colspan="3"> <g:TextBox styleName="{style.important}" ui:field="textBoxReponse" text=" " width="500"/>  </td></tr>
 		 <tr>
-			<td colspan="1"> <g:Button styleName="{style.important}" ui:field="buttonOK" text="OK"/>  </td>
+			<td colspan="1"> <g:Button styleName="{style.important}" ui:field="buttonRecord" text="Record"/>  </td>
 			<td colspan="1"> <g:Button styleName="{style.important}" ui:field="buttonPrevious" text="Previous"/>  </td>
 			<td colspan="1"> <g:Button styleName="{style.important}" ui:field="buttonNext" text="Next"/>  </td>
 		</tr> 

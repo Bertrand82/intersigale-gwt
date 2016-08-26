@@ -29,7 +29,7 @@ public class EditLexiqueGUI extends Composite {
 	private static EditLexiqueGUI instance;
 
 	@UiField
-	Button buttonOK;
+	Button buttonRecord;
 
 	@UiField
 	Button buttonNext;
@@ -55,11 +55,11 @@ public class EditLexiqueGUI extends Composite {
 
 	private EditLexiqueGUI() {
 		initWidget(uiBinder.createAndBindUi(this));
-		buttonOK.addClickHandler(new ClickHandler() {
+		buttonRecord.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				Window.alert("Debug Ok");
+				recordAction();
 			}
 		});
 		buttonNext.addClickHandler(new ClickHandler() {
@@ -111,12 +111,17 @@ public class EditLexiqueGUI extends Composite {
 			textBoxReponse.setText("");
 		} else {
 			textBoxQuestion.setText(ul.getPhrase_0().getText());
-			textBoxReponse.setText(ul.getPhrase_1().getText());
+			Phrase pr = ul.getPhrase_1();
+			textBoxReponse.setText(pr.getText());
+			int start = pr.getwStartVisible(0);
+			int end = pr.getEndVisible(0);
+			int range = Math.abs(end - start);
+			
+			textBoxReponse.setSelectionRange(start, range);
 		}
 	}
 
 	private void record() {
-		System.out.println("Record ");
 		if (this.item == null) {
 			this.item = new UniteLexicale(new Phrase(), new Phrase());
 			getLexique().getListUniteLexicale().add(item);
@@ -124,11 +129,14 @@ public class EditLexiqueGUI extends Composite {
 		}
 		this.item.getPhrase_0().setText(textBoxQuestion.getText());
 		this.item.getPhrase_1().setText(textBoxReponse.getText());
-		// String selectedTExt = textField_1.getSelectedText();
-		// System.out.println(" selectedTExt "+selectedTExt);
-		// int selectionStart = textField_1.getSelectionStart();
-		// int selectionEnd = textField_1.getSelectionEnd();
-		// this.item.getPhrase_1().setSelected(selectionStart, selectionEnd);
+		String textReponse = textBoxReponse.getText();
+		String selectedText = textBoxReponse.getSelectedText();
+		int selectedLength = textBoxReponse.getSelectionLength();
+	
+		//int selectionStart = textBoxReponse.getCursorPos();
+		int selectionStart = textReponse.indexOf(selectedText);
+		GWT.log("Start "+selectionStart+" Length :"+selectedLength+"  text : "+selectedText+"  ");
+		item.getPhrase_1().setSelected(selectionStart, selectionStart+selectedLength);
 		LexiqueFactory.getInstance().saveItem(this.item);
 
 	}
@@ -163,6 +171,28 @@ public class EditLexiqueGUI extends Composite {
 			};
 			PopupDialogOption.getInstance().showConfirmDialog("Save modifications ?", "NO", "Yes", listener);
 
+		}
+
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	private void recordAction() {
+		boolean isTheSame = isTheSame();
+		if (!isTheSame) {
+			IPopupListener listener = new IPopupListener() {
+
+				@Override
+				public void actionPerformed(int n, String s) {
+					if (n == PopupDialogOption.YES_OPTION) {
+						record();
+						;
+					}
+				}
+			};
+			PopupDialogOption.getInstance().showConfirmDialog("Save modifications ?", "NO", "Yes", listener);
 		}
 
 	}

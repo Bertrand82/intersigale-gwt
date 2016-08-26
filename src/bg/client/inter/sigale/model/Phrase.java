@@ -42,21 +42,26 @@ public class Phrase {
 	}
 
 	public int getEndVisible(int i) {
-		if (this.listVisible.isEmpty()) {
+		if (i >= listVisible.size()) {
 			return 0;
 		}
 		return listVisible.get(i).getEnd();
 	}
 
 	public int getwStartVisible(int i) {
-		if (this.listVisible.isEmpty()) {
+		if (i >= listVisible.size()) {
 			return 0;
 		}
 		return listVisible.get(i).getStart();
 	}
 
 	public void setSelected(int selectionStart, int selectionEnd) {
-		System.out.println(" selectionStart " + selectionStart + "  selectionEnd " + selectionEnd);
+		if (selectionStart< 0){
+			return;
+		}
+		if (selectionEnd <0){
+			return;
+		}
 		boolean showText = (selectionStart != selectionEnd);
 		if (showText) {
 			Visible visible;

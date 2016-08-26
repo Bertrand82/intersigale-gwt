@@ -68,4 +68,19 @@ public class Visible {
 		return true;
 	}
 
+	public void setStart(String start2) {
+		try {
+			int i =Integer.parseInt(start2);
+		}catch(Exception e){
+			
+		}
+	}
+	public void setEnd(String end2) {
+		try {
+			int i =Integer.parseInt(end2);
+		}catch(Exception e){
+			
+		}
+	}
+
 }

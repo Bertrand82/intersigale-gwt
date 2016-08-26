@@ -53,7 +53,7 @@ public class LexiqueFactory {
 		return lexique;
 	}
 
-	private void fetchStatistique() {
+	private void fetchStatistique(String dname) {
 		StatistiquesLexiqueFactory.getInstance().fetchStatistique();
 
 	}
