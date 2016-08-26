@@ -14,10 +14,9 @@ import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
-public class LexiqueSaveIn extends Composite  {
+public class LexiqueSaveIn extends Composite {
 
-	private static LexiqueSaveInUiBinder uiBinder = GWT
-			.create(LexiqueSaveInUiBinder.class);
+	private static LexiqueSaveInUiBinder uiBinder = GWT.create(LexiqueSaveInUiBinder.class);
 
 	interface LexiqueSaveInUiBinder extends UiBinder<Widget, LexiqueSaveIn> {
 	}
@@ -26,13 +25,13 @@ public class LexiqueSaveIn extends Composite  {
 		initWidget(uiBinder.createAndBindUi(this));
 		textBox.setText("");
 	}
+
 	@UiField
 	TextBox textBox;
-	
+
 	@UiField
 	Button buttonSaveIn;
 
-	
 	@UiHandler("buttonSaveIn")
 	void onClick(ClickEvent e) {
 		String newName = this.textBox.getText();
@@ -40,5 +39,4 @@ public class LexiqueSaveIn extends Composite  {
 		LexiqueFactory.getInstance().saveLexique(newName);
 	}
 
-	
 }

@@ -18,7 +18,6 @@ public class UniteLexicale {
 
 	private Phrase phrase_1;
 
-
 	private StatistiquesUL statistique = new StatistiquesUL();
 
 	public UniteLexicale() {
@@ -32,7 +31,7 @@ public class UniteLexicale {
 	}
 
 	public UniteLexicale(String text1, String text2) {
-	   this(new Phrase(text1), new Phrase(text2));
+		this(new Phrase(text1), new Phrase(text2));
 	}
 
 	public boolean resultProcess(String text) {
@@ -61,8 +60,6 @@ public class UniteLexicale {
 	public void setPhrase_1(Phrase phrase_1_) {
 		phrase_1 = phrase_1_;
 	}
-
-
 
 	@Override
 	public String toString() {
@@ -97,10 +94,8 @@ public class UniteLexicale {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((phrase_0 == null) ? 0 : phrase_0.hashCode());
-		result = prime * result
-				+ ((phrase_1 == null) ? 0 : phrase_1.hashCode());
+		result = prime * result + ((phrase_0 == null) ? 0 : phrase_0.hashCode());
+		result = prime * result + ((phrase_1 == null) ? 0 : phrase_1.hashCode());
 		return result;
 	}
 
@@ -127,13 +122,12 @@ public class UniteLexicale {
 	}
 
 	public void setPhrase(Phrase phrase, int k) {
-		if (k == 0){
+		if (k == 0) {
 			phrase_0 = phrase;
-		}else if (k == 1){
+		} else if (k == 1) {
 			phrase_1 = phrase;
 		}
-		
+
 	}
 
-	
 }

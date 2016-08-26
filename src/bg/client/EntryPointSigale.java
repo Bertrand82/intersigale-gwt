@@ -16,7 +16,7 @@ import com.google.gwt.user.client.ui.Widget;
 public class EntryPointSigale implements EntryPoint {
 
 	private static RootPanel rootPanelRegister;
-	private static Label labelTitle =  new Label("InterSigale");
+	private static Label labelTitle = new Label("InterSigale");
 	/**
 	 * The message displayed to the user when the server cannot be reached or
 	 * returns an error.
@@ -34,8 +34,8 @@ public class EntryPointSigale implements EntryPoint {
 	 */
 	public void onModuleLoad() {
 		/*
-		 * Necessaire pour pouvoir avoir les traces des exceptions  en dev (Mode super dev) dans la console.
-		 * 
+		 * Necessaire pour pouvoir avoir les traces des exceptions en dev (Mode
+		 * super dev) dans la console.
 		 */
 		GWT.setUncaughtExceptionHandler(uncaughtExceptionHandler);
 		RootPanel rootPanelMenu = RootPanel.get("sigaleMenu");
@@ -49,10 +49,10 @@ public class EntryPointSigale implements EntryPoint {
 			final RegisterForm crypto = RegisterForm.getInstance();
 			rootPanelRegister.add(crypto);
 		}
-		
+
 		RootPanel rootPanelTitle = RootPanel.get("sigaleTitle");
 		if (rootPanelTitle != null) {
-			
+
 			rootPanelTitle.add(labelTitle);
 		}
 		RootPanel rootPanelLog = RootPanel.get("sigaleLog");
@@ -60,8 +60,6 @@ public class EntryPointSigale implements EntryPoint {
 			final LogUI logUI = LogUI.getInstance();
 			rootPanelLog.add(logUI);
 		}
-		
-		
 
 	}
 
@@ -69,25 +67,21 @@ public class EntryPointSigale implements EntryPoint {
 		rootPanelRegister.remove(0);
 		rootPanelRegister.add(composite);
 	}
-	
-	public static void setTitle(String message){
+
+	public static void setTitle(String message) {
 		labelTitle.setText(message);
 	}
-	
+
 	/*
 	 * 
 	 */
-	private static  GWT.UncaughtExceptionHandler uncaughtExceptionHandler= new  GWT.UncaughtExceptionHandler() {
-		
+	private static GWT.UncaughtExceptionHandler uncaughtExceptionHandler = new GWT.UncaughtExceptionHandler() {
+
 		@Override
 		public void onUncaughtException(Throwable e) {
-			
-			GWT.log("Exception "+e.getMessage(), e);
+
+			GWT.log("Exception " + e.getMessage(), e);
 		}
-	}; 
-	
-	
-	
-	
-	
+	};
+
 }

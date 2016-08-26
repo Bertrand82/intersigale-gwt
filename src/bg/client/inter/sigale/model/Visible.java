@@ -67,7 +67,5 @@ public class Visible {
 			return false;
 		return true;
 	}
-	
-	
 
 }

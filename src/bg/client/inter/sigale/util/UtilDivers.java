@@ -1,14 +1,12 @@
 package bg.client.inter.sigale.util;
 
-
-
 public class UtilDivers {
 
 	public static String removeAccents(String s) {
 		if (s == null) {
 			return "";
 		}
-		s = s.replace('é', 'e').replace('à', 'a').replace('ù', 'u').replace('è', 'e').replace('ê','e');
+		s = s.replace('ï¿½', 'e').replace('ï¿½', 'a').replace('ï¿½', 'u').replace('ï¿½', 'e').replace('ï¿½', 'e');
 		return s;
 	}
 

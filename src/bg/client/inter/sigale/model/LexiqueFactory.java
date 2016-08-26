@@ -41,12 +41,9 @@ public class LexiqueFactory {
 	private Lexique getLexiqueDefault() {
 		Lexique lexique = new Lexique();
 		lexique.setName("Welcome Lexique");
-		lexique.add(new UniteLexicale(new Phrase("Qui a créé intersigale ?"),
-				new Phrase("Bertrand")));
-		lexique.add(new UniteLexicale(new Phrase("Pourquoi il a fait ça ?"),
-				new Phrase("Pour apprendre")));
-		lexique.add(new UniteLexicale(new Phrase("Pour apprendre quoi ?"),
-				new Phrase("Tout")));
+		lexique.add(new UniteLexicale(new Phrase("Qui a créé intersigale ?"), new Phrase("Bertrand")));
+		lexique.add(new UniteLexicale(new Phrase("Pourquoi il a fait ça ?"), new Phrase("Pour apprendre")));
+		lexique.add(new UniteLexicale(new Phrase("Pour apprendre quoi ?"), new Phrase("Tout")));
 		Phrase p1 = new Phrase("La capitale du Quercy est ?");
 		Phrase p2 = new Phrase("Montpezat de Quercy ");
 		p2.setSelected(0, 9);
@@ -109,8 +106,7 @@ public class LexiqueFactory {
 
 	public String toXml(Lexique lexique2) {
 		Document document = XMLParser.createDocument();
-		document.appendChild(document.createProcessingInstruction("xml",
-				"version=\"1.0\" encoding=\"UTF-8\""));
+		document.appendChild(document.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"UTF-8\""));
 		Element elementLexique = document.createElement(Lexique.TAG_ROOT);
 		elementLexique.setAttribute(Lexique.TAG_name, "" + lexique2.getName());
 		document.appendChild(elementLexique);
@@ -132,7 +128,7 @@ public class LexiqueFactory {
 		elementPhrase.appendChild(document.createTextNode("" + phrase.getText()));
 		for (Visible visible : phrase.getListVisible()) {
 			Element elementVisible = document.createElement(Visible.TAG_ROOT);
-			elementVisible.setAttribute(Visible.TAG_start,"" + visible.getStart());
+			elementVisible.setAttribute(Visible.TAG_start, "" + visible.getStart());
 			elementVisible.setAttribute(Visible.TAG_end, "" + visible.getEnd());
 			elementPhrase.appendChild(elementVisible);
 		}
@@ -153,19 +149,19 @@ public class LexiqueFactory {
 	}
 
 	public void getLexiqueByName(String name) {
-		this.logListener.logText("get Lexique in local storage by Name : "
-				+ name);
+		this.logListener.logText("get Lexique in local storage by Name : " + name);
 
 		String xml = this.persister.getLexiqueXMLFromName(name);
 		GWT.log(xml);
 		Lexique lexiqueParsed = parse(xml);
-		GWT.log("Parse xml done nb ul : "+lexiqueParsed.getListUniteLexicale().size());
+		GWT.log("Parse xml done nb ul : " + lexiqueParsed.getListUniteLexicale().size());
 		this.lexique = lexiqueParsed;
+		logListener.logTitle(name);
+		logListener.logText("Fetch and display Display " + lexique.getName());
 	}
 
 	public void deleteLexiqueByName(String name) {
-		this.logListener.logText("Delete Lexique in local storage by Name : "
-				+ name);
+		this.logListener.logText("Delete Lexique in local storage by Name : " + name);
 		this.persister.delete(name);
 	}
 
@@ -188,18 +184,18 @@ public class LexiqueFactory {
 	}
 
 	private UniteLexicale parseUniteLexicale(Node node) {
-        UniteLexicale ul = new UniteLexicale();
-        NodeList nodeList = node.getChildNodes();
-        int k=0;
-        for (int i = 0; i < nodeList.getLength(); i++) {
-        	Node nodePhrase = nodeList.item(i);
-        	String name = nodePhrase.getNodeName();
-        	if (Phrase.TAG_ROOT.equals(name)) {
+		UniteLexicale ul = new UniteLexicale();
+		NodeList nodeList = node.getChildNodes();
+		int k = 0;
+		for (int i = 0; i < nodeList.getLength(); i++) {
+			Node nodePhrase = nodeList.item(i);
+			String name = nodePhrase.getNodeName();
+			if (Phrase.TAG_ROOT.equals(name)) {
 				Phrase phrase = parsePhrase(nodePhrase);
-				ul.setPhrase(phrase,k);
+				ul.setPhrase(phrase, k);
 				k++;
 			}
-        }
+		}
 		return ul;
 	}
 

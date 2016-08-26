@@ -38,7 +38,7 @@ public class AdminGUI extends Composite {
 			if (wOld != null) {
 				this.remove(wOld);
 			}
-			wOld=w;
+			wOld = w;
 			MyPopup.this.add(w);
 			MyPopup.this.center();
 			MyPopup.this.show();
@@ -48,7 +48,7 @@ public class AdminGUI extends Composite {
 
 	MyPopup myPopup = new MyPopup();
 	LexiqueSaveIn lexiqueSaveIn = new LexiqueSaveIn();
-	
+
 	@UiField
 	Button buttonChooseLexique;
 
@@ -76,8 +76,7 @@ public class AdminGUI extends Composite {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				List<String> list = LexiqueFactory.getInstance()
-						.getLexiquesInLocalStorage();
+				List<String> list = LexiqueFactory.getInstance().getLexiquesInLocalStorage();
 				LexiqueChooser.getInstance().setLexiques(list);
 				myPopup.showWidget(LexiqueChooser.getInstance().getWidget());
 
@@ -100,7 +99,8 @@ public class AdminGUI extends Composite {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				myPopup.showWidget(lexiqueSaveIn);;
+				myPopup.showWidget(lexiqueSaveIn);
+				;
 			}
 		});
 		buttonCreateLexique.addClickHandler(new ClickHandler() {
@@ -108,13 +108,13 @@ public class AdminGUI extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				IPopupListener listener = new IPopupListener() {
-					
+
 					@Override
 					public void actionPerformed(int option, String name) {
-						if (option == PopupDialogOption.YES_OPTION){
+						if (option == PopupDialogOption.YES_OPTION) {
 							LexiqueFactory.getInstance().createLexique(name);
 						}
-						
+
 					}
 				};
 				PopupDialogOption.getInstance().showConfirmDialog("New Name ?", "Cancel", "OK", true, listener);
@@ -132,7 +132,5 @@ public class AdminGUI extends Composite {
 	public void hidePopup() {
 		this.myPopup.hide();
 	}
-
-
 
 }

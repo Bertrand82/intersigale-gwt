@@ -1,6 +1,5 @@
 package bg.client.inter.sigale.model.statistic;
 
-
 import java.io.FileInputStream;
 
 import bg.client.inter.sigale.model.Lexique;
@@ -39,10 +38,6 @@ public class StatistiquesLexiqueFactory {
 		}
 	}
 
-	
-
-	
-
 	private PersisterStat getXmlMarshaller() throws Exception {
 
 		return persister;
@@ -53,18 +48,12 @@ public class StatistiquesLexiqueFactory {
 		return persister;
 	}
 
-	
-	
-
 	public void fetchStatistique() {
-	//	fetchStatistiqueLocalInFile();
+		// fetchStatistiqueLocalInFile();
 	}
-
-	
 
 	public void saveStatisticCurrentLexique() {
 
-		
 	}
 
 }

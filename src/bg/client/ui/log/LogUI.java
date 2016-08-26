@@ -12,7 +12,7 @@ import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
-public class LogUI extends Composite  implements HasText{
+public class LogUI extends Composite implements HasText {
 
 	private static LogUIUiBinder uiBinder = GWT.create(LogUIUiBinder.class);
 
@@ -20,7 +20,7 @@ public class LogUI extends Composite  implements HasText{
 	}
 
 	private final static LogUI instance = new LogUI();
-	
+
 	private LogUI() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
@@ -30,7 +30,7 @@ public class LogUI extends Composite  implements HasText{
 
 	@Override
 	public String getText() {
-		
+
 		return label.getText();
 	}
 
@@ -43,6 +43,4 @@ public class LogUI extends Composite  implements HasText{
 		return instance;
 	}
 
-	
-	
 }

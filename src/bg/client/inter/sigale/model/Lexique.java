@@ -11,7 +11,7 @@ public class Lexique implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	public static final String TAG_name = "name";
-	public static String TAG_ROOT="lexique";
+	public static String TAG_ROOT = "lexique";
 	private String name = "intersigale-default";
 
 	private List<UniteLexicale> listUniteLexicale = new ArrayList<UniteLexicale>();
@@ -24,8 +24,8 @@ public class Lexique implements Serializable {
 
 	public UniteLexicale next(int n) {
 		iCourrante += n;
-		if (listUniteLexicale.size() == 0){
-			return new UniteLexicale("","");
+		if (listUniteLexicale.size() == 0) {
+			return new UniteLexicale("", "");
 		}
 		iCourrante = iCourrante % listUniteLexicale.size();
 		return getUniteLexicaleCourante();
@@ -36,7 +36,7 @@ public class Lexique implements Serializable {
 	}
 
 	public UniteLexicale getUniteLexicaleCourante() {
-		if (listUniteLexicale.size() == 0){
+		if (listUniteLexicale.size() == 0) {
 			return new UniteLexicale("", "");
 		}
 		if (iCourrante >= listUniteLexicale.size()) {
@@ -158,7 +158,5 @@ public class Lexique implements Serializable {
 			return false;
 		return true;
 	}
-
-	
 
 }

@@ -116,8 +116,7 @@ public class Phrase {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((listVisible == null) ? 0 : listVisible.hashCode());
+		result = prime * result + ((listVisible == null) ? 0 : listVisible.hashCode());
 		result = prime * result + ((text == null) ? 0 : text.hashCode());
 		return result;
 	}
@@ -143,8 +142,5 @@ public class Phrase {
 			return false;
 		return true;
 	}
-	
-	
-	
 
 }
