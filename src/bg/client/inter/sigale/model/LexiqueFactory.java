@@ -203,7 +203,36 @@ public class LexiqueFactory {
 		Phrase phrase = new Phrase();
 		String text = nodePhrase.getFirstChild().getNodeValue();
 		phrase.setText(text);
+		NodeList nodeList = nodePhrase.getChildNodes();
+		int k = 0;
+		for (int i = 0; i < nodeList.getLength(); i++) {
+			Node nodeChild = nodeList.item(i);
+			String name = nodeChild.getNodeName();
+			if (Visible.TAG_ROOT.equals(name)) {
+				Visible visible = parseVisible(nodeChild);
+				phrase.getListVisible().add(visible);
+				k++;
+			}
+		}
 		return phrase;
+	}
+
+	private Visible parseVisible(Node nodeVisible) {
+		Visible visible = new Visible();
+		NodeList nodeList = nodeVisible.getChildNodes();
+		for (int i = 0; i < nodeList.getLength(); i++) {
+			Node nodeChild = nodeList.item(i);
+			String name = nodeChild.getNodeName();
+			if (Visible.TAG_start.equals(name)) {
+				String start = nodeChild.getNodeValue();
+				visible.setStart(start);
+			}
+			if (Visible.TAG_end.equals(name)) {
+				String end = nodeChild.getNodeValue();
+				visible.setEnd(end);
+			}
+		}
+		return visible;
 	}
 
 }
