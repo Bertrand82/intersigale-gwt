@@ -20,11 +20,17 @@ public class LexiqueFactory {
 
 	private LexiqueFactory(){
 		
-		String name = sigaleProperties.getNameLexique();
-		if (name == null){
-			logListener.logText("No file in LocalStorage !");
-		}else {
-			this.lexique = fetchLexiqueInLocalStorage(name);
+		try {
+			String name = sigaleProperties.getNameLexique();
+			if (name == null){
+				logListener.logText("No file in LocalStorage !");
+			}else {
+				this.lexique = fetchLexiqueInLocalStorage(name);
+				this.logListener.logTitle(name);
+				this.logListener.logText("Display former context. Lexique :"+lexique.getName());
+			}
+		} catch (Exception e) {
+			Log.log("Exception Constructor LexiqueFactory", e);
 		}
 		
 	}
@@ -32,6 +38,7 @@ public class LexiqueFactory {
 	private final static LexiqueFactory instance = new LexiqueFactory();
 
 	public static LexiqueFactory getInstance() {
+		
 		return instance;
 	}
 
@@ -179,7 +186,7 @@ public class LexiqueFactory {
 		GWT.log("Parse xml done nb ul : " + lexiqueParsed.getListUniteLexicale().size());
 		
 		logListener.logTitle(name);
-		logListener.logText("Fetch and display Display " + lexique.getName());
+		logListener.logText("Fetch and display Display " + lexiqueParsed.getName());
 		return lexiqueParsed;
 	}
 
