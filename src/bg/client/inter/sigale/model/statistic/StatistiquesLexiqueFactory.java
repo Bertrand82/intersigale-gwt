@@ -19,7 +19,6 @@ public class StatistiquesLexiqueFactory {
 	}
 
 	public static synchronized StatistiquesLexique getStatistiquesLexique() {
-		System.out.println("StatistiquesLexique getStatistiquesLexique ");
 		StatistiquesLexique statistiquesLexique = new StatistiquesLexique();
 		Lexique lexique = LexiqueFactory.getInstance().getLexique();
 		for (UniteLexicale ul : lexique.getListUniteLexicale()) {
@@ -54,6 +53,18 @@ public class StatistiquesLexiqueFactory {
 
 	public void saveStatisticCurrentLexique() {
 
+	}
+
+	
+
+	public void fetchStatistique(String name) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void createStatistique() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

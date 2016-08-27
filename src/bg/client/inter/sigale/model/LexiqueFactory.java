@@ -13,11 +13,22 @@ public class LexiqueFactory {
 
 	private PersisterLexique persister = new PersisterLexique();
 	public static final String KEY_LexiqueName = "intersigale.lexique.name";
-
+	private SigaleProperties sigaleProperties = new SigaleProperties();
 	private Lexique lexique;
 
 	private final ILogListener logListener = new Log();
 
+	private LexiqueFactory(){
+		
+		String name = sigaleProperties.getNameLexique();
+		if (name == null){
+			logListener.logText("No file in LocalStorage !");
+		}else {
+			this.lexique = fetchLexiqueInLocalStorage(name);
+		}
+		
+	}
+	
 	private final static LexiqueFactory instance = new LexiqueFactory();
 
 	public static LexiqueFactory getInstance() {
@@ -52,9 +63,12 @@ public class LexiqueFactory {
 		logListener.logTitle(lexique.getName());
 		return lexique;
 	}
-
-	private void fetchStatistique(String dname) {
-		StatistiquesLexiqueFactory.getInstance().fetchStatistique();
+	/**
+	 * Lors de la creation d'un Lexique, ou lors du chargement de statistique, essaye de trouver des stats
+	 * @param dname
+	 */
+	private void updatesStatistique(String name) {
+		StatistiquesLexiqueFactory.getInstance().fetchStatistique(name);
 
 	}
 
@@ -70,6 +84,7 @@ public class LexiqueFactory {
 		this.logListener.logText("Create Lexique " + name);
 		this.logListener.logTitle(name);
 		UtilInterSigale.saveProperties(KEY_LexiqueName, name);
+		StatistiquesLexiqueFactory.getInstance().createStatistique();
 	}
 
 	/**
@@ -150,22 +165,35 @@ public class LexiqueFactory {
 
 	public void getLexiqueByName(String name) {
 		this.logListener.logText("get Lexique in local storage by Name : " + name);
-
+		this.sigaleProperties.setNameLexique(name);
+		this.lexique = fetchLexiqueInLocalStorage(name);
+	}
+		
+	private Lexique fetchLexiqueInLocalStorage(String name) {
+		if (name == null){
+			return null;
+		}
 		String xml = this.persister.getLexiqueXMLFromName(name);
 		GWT.log(xml);
 		Lexique lexiqueParsed = parse(xml);
 		GWT.log("Parse xml done nb ul : " + lexiqueParsed.getListUniteLexicale().size());
-		this.lexique = lexiqueParsed;
+		
 		logListener.logTitle(name);
 		logListener.logText("Fetch and display Display " + lexique.getName());
+		return lexiqueParsed;
 	}
 
 	public void deleteLexiqueByName(String name) {
 		this.logListener.logText("Delete Lexique in local storage by Name : " + name);
 		this.persister.delete(name);
+		logListener.logText("Deleted : "+name);
 	}
 
 	private Lexique parse(String xml) {
+		if (xml == null){
+			logListener.logText("try to parse null xml !");
+			return null;
+		}
 		Document document = XMLParser.parse(xml);
 		Node nodeLexique = document.getElementsByTagName(Lexique.TAG_ROOT).item(0);
 		String name = ((Element) nodeLexique).getAttribute(Lexique.TAG_name);
