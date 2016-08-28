@@ -7,16 +7,20 @@ import org.apache.tools.ant.taskdefs.rmic.KaffeRmic;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.storage.client.Storage;
 
-public class SigaleProperties {
+public class SigalePropertiesGWT implements ISigalePropertes {
 
 	
 	
 	private String nameLexique;
 	private static final String KEY_nameLexique="lexique";
 	
-	public SigaleProperties() {
+	public SigalePropertiesGWT() {
 	}
 
+	/* (non-Javadoc)
+	 * @see bg.client.inter.sigale.model.ISigalePropertes#getNameLexique()
+	 */
+	@Override
 	public String getNameLexique() {
 		if (nameLexique == null){
 			nameLexique = fetchInLocalStore(KEY_nameLexique);
@@ -35,6 +39,10 @@ public class SigaleProperties {
 		return value;
 	}
 
+	/* (non-Javadoc)
+	 * @see bg.client.inter.sigale.model.ISigalePropertes#setNameLexique(java.lang.String)
+	 */
+	@Override
 	public void setNameLexique(String nameLexique) {
 		this.nameLexique = nameLexique;
 		try {

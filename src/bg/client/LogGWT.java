@@ -5,13 +5,13 @@ import com.google.gwt.core.client.GWT;
 import bg.client.inter.sigale.util.ILogListener;
 import bg.client.ui.log.LogUI;
 
-public class Log implements ILogListener {
+public class LogGWT implements ILogListener {
 
-	public static void log(String message) {
+	public void log(String message) {
 		GWT.log(message);
 	}
 
-	public static void log(String message, Throwable t) {
+	public  void log(String message, Throwable t) {
 		GWT.log(message, t);
 	}
 

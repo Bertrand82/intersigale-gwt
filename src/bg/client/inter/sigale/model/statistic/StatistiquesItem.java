@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class StatistiquesItem {
 
+	public static final String TAG_ROOT = "item";
+
 	boolean succes;
 
 	Date date = new Date();

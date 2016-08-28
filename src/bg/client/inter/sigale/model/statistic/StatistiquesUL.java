@@ -8,7 +8,7 @@ public class StatistiquesUL {
 	/**
 	 * Pas encore utilis�
 	 */
-
+	public static final String TAG_ROOT = "ULStat";
 	private String uniteLexicaleId = "0";
 
 	private List<StatistiquesItem> list = new ArrayList<StatistiquesItem>();
