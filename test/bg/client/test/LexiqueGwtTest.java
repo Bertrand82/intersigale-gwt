@@ -6,8 +6,11 @@ import org.junit.Test;
 import bg.client.inter.sigale.model.ISigalePropertes;
 import bg.client.inter.sigale.model.Lexique;
 import bg.client.inter.sigale.model.LexiqueFactory;
+
 import bg.client.inter.sigale.model.statistic.StatistiquesLexique;
 import bg.client.inter.sigale.model.statistic.StatistiquesLexiqueFactory;
+
+
 import bg.client.inter.sigale.util.ILogListener;
 
 import com.google.gwt.core.shared.GWT;
@@ -63,6 +66,7 @@ public class LexiqueGwtTest extends GWTTestCase {
 	
 	
 	@Test
+
 	public void test_0() {
 		
 		GWT.log("TEst de Junit");
@@ -70,8 +74,8 @@ public class LexiqueGwtTest extends GWTTestCase {
 	}
 		
 	@Test
+
    public void test_1() {
-		
 		LexiqueFactory lexiqueFactory = new LexiqueFactory(sigaleProperties,logListener);
 		Lexique lexique_1 = lexiqueFactory.getLexique();
 		String xml_1 = lexiqueFactory.toXml(lexique_1);
@@ -81,6 +85,7 @@ public class LexiqueGwtTest extends GWTTestCase {
 		
 	}
 	
+
 	@Test
 	public void test_2() {
 		StatistiquesLexique stat  = StatistiquesLexiqueFactory.getInstance().createNewStatistique();
@@ -91,6 +96,7 @@ public class LexiqueGwtTest extends GWTTestCase {
 	}
 
 	
+
 
 	@Override
 	public String getModuleName() {
