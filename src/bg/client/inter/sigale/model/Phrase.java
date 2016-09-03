@@ -87,6 +87,15 @@ public class Phrase {
 		}
 		return s;
 	}
+	
+	public int getEndVisible() {
+		int i = 0;
+		if (listVisible.isEmpty()) {
+		} else {
+			i = this.listVisible.get(0).getEnd();
+		}
+		return i;
+	}
 
 	private String getTextVisible(String s, Visible visible) {
 		if (s == null) {

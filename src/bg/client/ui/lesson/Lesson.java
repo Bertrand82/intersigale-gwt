@@ -9,6 +9,10 @@ import bg.client.inter.sigale.model.UniteLexicale;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Window;
@@ -65,6 +69,23 @@ public class Lesson extends Composite {
 				nextPhrase();
 			}
 		});
+		textBoxReponse.addKeyUpHandler(new KeyUpHandler() {
+			
+			@Override
+			public void onKeyUp(KeyUpEvent event) {
+						int cursorPosition = textBoxReponse.getCursorPos();
+				 	     String text = textBoxReponse.getText();
+					     if (text.length() > cursorPosition){
+					    	 String text1  = text.substring(0,cursorPosition);
+					    	 String text2  = text.substring(cursorPosition+1);
+					    	 String  replace = text1+text2;
+					    	 textBoxReponse.setText(replace);
+					    	 textBoxReponse.setCursorPos(cursorPosition);
+					     }
+					     
+			}
+		});
+		
 		displayUniteLexicaleCourante();
 
 	}
@@ -86,6 +107,10 @@ public class Lesson extends Composite {
 		displayResult(null, " ");
 		setButtonsEtat(true);
 		this.statistiquePanelGUI.updateStat(null);
+		this.textBoxReponse.setText(reponseStr);
+		this.textBoxReponse.setCursorPos(this.positionCuror);
+		this.textBoxReponse.setFocus(true);
+		
 	}
 
 	private void setButtonsEtat(boolean b) {
@@ -132,13 +157,16 @@ public class Lesson extends Composite {
 			displayResult(ok, stat);
 		}
 	}
-
+	 private int positionCuror =0;
+	 private String reponseStr ="";
+	    
 	void displayUniteLexicaleCourante() {
 		UniteLexicale ul = getLexique().getUniteLexicaleCourante();
 		if (ul != null) {
 			labelQuestion.setText(ul.getPhrase_0().getText());
-			textBoxReponse.setText(ul.getPhrase_1().getTextVisible());
-			// textBoxReponse.setCaretPosition(ul.getPhrase_1().getwStartVisible(0));
+			reponseStr=ul.getPhrase_1().getTextVisible();
+			textBoxReponse.setText(reponseStr);
+			positionCuror = ul.getPhrase_1().getEndVisible();
 		}
 	}
 }
