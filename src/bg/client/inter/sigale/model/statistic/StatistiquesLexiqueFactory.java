@@ -80,7 +80,9 @@ public class StatistiquesLexiqueFactory {
 		document.appendChild(elementLexique);
 		for (StatistiquesUL statUL : stat.getListStatistiqueUL()) {
 			Element elementUL = document.createElement(StatistiquesUL.TAG_ROOT);
-			elementUL.appendChild(document.createTextNode("" + statUL.getUniteLexicaleId()));
+			Element elementId = document.createElement(StatistiquesUL.TAG_ID);
+			elementUL.appendChild(elementId);
+			elementId.appendChild(document.createTextNode("" + statUL.getUniteLexicaleId()));
 			for(StatistiquesItem item : statUL.getList()){
 				Element elementItem = document.createElement(StatistiquesItem.TAG_ROOT);
 				elementItem.setAttribute("succes", ""+item.succes);
@@ -104,17 +106,22 @@ public class StatistiquesLexiqueFactory {
 		for (int k = 0; k< nodeList.getLength(); k++) {
 			Node nodeUL = nodeList.item(k);
 			String nodeULName = nodeUL.getNodeName();
+			
 			if (StatistiquesUL.TAG_ROOT.equals(nodeULName)) {
 				StatistiquesUL ul = new StatistiquesUL();
 				stat.getListStatistiqueUL().add(ul);
 				NodeList nodeULList = nodeUL.getChildNodes();
 				for (int j = 0; j < nodeULList.getLength(); j++) {
-					Node nodeULItem_ = nodeULList.item(j);
-					String nodeItemName = nodeULItem_.getNodeName();
+					Node nodeULChild = nodeULList.item(j);
+					String nodeItemName = nodeULChild.getNodeName();
+					if (StatistiquesUL.TAG_ID.equals(nodeItemName)) {
+						String id = nodeULChild.getFirstChild().getNodeValue();
+						ul.setUniteLexicaleId(id);
+					}
 					if (StatistiquesItem.TAG_ROOT.equals(nodeItemName)) {
 						StatistiquesItem item = new StatistiquesItem();
 						ul.getList().add(item);
-						NodeList nodeItemList = nodeULItem_.getChildNodes();
+						NodeList nodeItemList = nodeULChild.getChildNodes();
 						
 						for (int i = 0; i < nodeItemList.getLength(); i++) {
 							Node node = nodeULList.item(i);

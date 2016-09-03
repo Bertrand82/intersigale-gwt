@@ -34,4 +34,29 @@ public class StatistiquesLexique {
 		return new StatistiquesUL();
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((listStatistiqueUL == null) ? 0 : listStatistiqueUL.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		StatistiquesLexique other = (StatistiquesLexique) obj;
+		if (listStatistiqueUL == null) {
+			if (other.listStatistiqueUL != null)
+				return false;
+		} else if (!listStatistiqueUL.equals(other.listStatistiqueUL))
+			return false;
+		return true;
+	}
+
 }

@@ -9,6 +9,7 @@ public class StatistiquesUL {
 	 * Pas encore utilis�
 	 */
 	public static final String TAG_ROOT = "ULStat";
+	public static final String TAG_ID = "ID";
 	private String uniteLexicaleId = "0";
 
 	private List<StatistiquesItem> list = new ArrayList<StatistiquesItem>();
@@ -77,6 +78,37 @@ public class StatistiquesUL {
 			}
 		}
 		return list2;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((list == null) ? 0 : list.hashCode());
+		result = prime * result + ((uniteLexicaleId == null) ? 0 : uniteLexicaleId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		StatistiquesUL other = (StatistiquesUL) obj;
+		if (list == null) {
+			if (other.list != null)
+				return false;
+		} else if (!list.equals(other.list))
+			return false;
+		if (uniteLexicaleId == null) {
+			if (other.uniteLexicaleId != null)
+				return false;
+		} else if (!uniteLexicaleId.equals(other.uniteLexicaleId))
+			return false;
+		return true;
 	}
 
 }

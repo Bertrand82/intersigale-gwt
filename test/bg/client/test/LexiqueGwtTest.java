@@ -69,7 +69,7 @@ public class LexiqueGwtTest extends GWTTestCase {
 
 	public void test_0() {
 		
-		GWT.log("TEst de Junit");
+		GWT.log("Test de Junit");
 		GWTTestCase.assertTrue(true);
 	}
 		
@@ -89,10 +89,18 @@ public class LexiqueGwtTest extends GWTTestCase {
 	@Test
 	public void test_2() {
 		StatistiquesLexique stat  = StatistiquesLexiqueFactory.getInstance().createNewStatistique();
+		System.out.println("stat "+stat);
 		String xml = StatistiquesLexiqueFactory.getInstance().toXml(stat);
-		System.out.println("Statis xml : ");
+		GWTTestCase.assertNotNull(xml);
+		GWTTestCase.assertTrue(xml.length()>0);
+		System.out.println("Statistique xml_1 : "+xml);
+		
 		StatistiquesLexique stat_2  = StatistiquesLexiqueFactory.getInstance().parse(xml);
+		String xml_2 = StatistiquesLexiqueFactory.getInstance().toXml(stat_2);
+		System.out.println("Statistique xml_2 : "+xml_2);
 		GWTTestCase.assertNotNull(stat_2);
+		GWTTestCase.assertEquals(xml, xml_2);
+	    GWTTestCase.assertEquals(stat, stat_2);
 	}
 
 	
