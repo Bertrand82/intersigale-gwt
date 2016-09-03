@@ -33,13 +33,13 @@ public class StatistiquesLexiqueFactory {
 		return instance;
 	}
 
-	public static synchronized StatistiquesLexique cretateNewStatistique() {
-		StatistiquesLexique statistiquesLexique = new StatistiquesLexique();
+	public  synchronized StatistiquesLexique createNewStatistique() {
+		this.statistique = new StatistiquesLexique();
 		Lexique lexique = LexiqueFactory.getInstance().getLexique();
 		for (UniteLexicale ul : lexique.getListUniteLexicale()) {
-			statistiquesLexique.getListStatistiqueUL().add(ul.getStatistique());
+			statistique.getListStatistiqueUL().add(ul.getStatistique());
 		}
-		return statistiquesLexique;
+		return statistique;
 	}
 
 	public static void setStatistiqueToLexique(StatistiquesLexique statistiqueLexique,Lexique lexique) {
@@ -72,7 +72,7 @@ public class StatistiquesLexiqueFactory {
 
 	
 
-	private String toXml(StatistiquesLexique stat) {
+	public String toXml(StatistiquesLexique stat) {
 		
 		Document document = XMLParser.createDocument();
 		document.appendChild(document.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"UTF-8\""));
@@ -92,7 +92,7 @@ public class StatistiquesLexiqueFactory {
 		return document.toString();
 	}
 	
-	private StatistiquesLexique parse(String xml) {
+	public StatistiquesLexique parse(String xml) {
 		if (xml == null){
 			logListener.log("try to parse null xml !");
 			return null;
@@ -108,16 +108,17 @@ public class StatistiquesLexiqueFactory {
 				StatistiquesUL ul = new StatistiquesUL();
 				stat.getListStatistiqueUL().add(ul);
 				NodeList nodeULList = nodeUL.getChildNodes();
-				for (int j = 0; j < nodeList.getLength(); j++) {
-					Node nodeULItem = nodeULList.item(j);
-					String nodeItemName = nodeULItem.getNodeName();
+				for (int j = 0; j < nodeULList.getLength(); j++) {
+					Node nodeULItem_ = nodeULList.item(j);
+					String nodeItemName = nodeULItem_.getNodeName();
 					if (StatistiquesItem.TAG_ROOT.equals(nodeItemName)) {
 						StatistiquesItem item = new StatistiquesItem();
 						ul.getList().add(item);
-						NodeList nodeItemList = nodeULItem.getChildNodes();
-						String nodeName = nodeULItem.getNodeName();
+						NodeList nodeItemList = nodeULItem_.getChildNodes();
+						
 						for (int i = 0; i < nodeItemList.getLength(); i++) {
 							Node node = nodeULList.item(i);
+							String nodeName = node.getNodeName();							
 							if ("date".equals(nodeName)) {
 								Date date = UtilXml.parseAsDate(node);
 								item.setDate(date);
@@ -140,8 +141,6 @@ public class StatistiquesLexiqueFactory {
 		
 	}
 
-	public void createStatistique() {
-		
-	}
+
 
 }

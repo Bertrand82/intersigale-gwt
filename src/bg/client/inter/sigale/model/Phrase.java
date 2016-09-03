@@ -138,8 +138,8 @@ public class Phrase {
 		if (listVisible == null) {
 			if (other.listVisible != null)
 				return false;
-		} else if (!listVisible.equals(other.listVisible))
-			return false;
+		} /*else if (!listVisible.equals(other.listVisible))
+			return false;*/
 		if (text == null) {
 			if (other.text != null)
 				return false;

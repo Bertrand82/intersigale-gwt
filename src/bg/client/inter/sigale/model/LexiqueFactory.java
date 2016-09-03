@@ -97,7 +97,7 @@ public class LexiqueFactory {
 		this.logListener.logText("Create Lexique " + name);
 		this.logListener.logTitle(name);
 		UtilInterSigale.saveProperties(KEY_LexiqueName, name);
-		StatistiquesLexiqueFactory.getInstance().createStatistique();
+		StatistiquesLexiqueFactory.getInstance().createNewStatistique();
 	}
 
 	/**
