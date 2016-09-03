@@ -196,7 +196,7 @@ public class LexiqueFactory {
 		logListener.logText("Deleted : "+name);
 	}
 
-	private Lexique parse(String xml) {
+	public Lexique parse(String xml) {
 		if (xml == null){
 			logListener.logText("try to parse null xml !");
 			return null;

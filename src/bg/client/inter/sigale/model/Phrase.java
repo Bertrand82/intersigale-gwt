@@ -125,7 +125,9 @@ public class Phrase {
 		result = prime * result + ((text == null) ? 0 : text.hashCode());
 		return result;
 	}
-
+	/**
+	 * Ne prend pas en compte la visibilité
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -135,11 +137,7 @@ public class Phrase {
 		if (getClass() != obj.getClass())
 			return false;
 		Phrase other = (Phrase) obj;
-		if (listVisible == null) {
-			if (other.listVisible != null)
-				return false;
-		} else if (!listVisible.equals(other.listVisible))
-			return false;
+		
 		if (text == null) {
 			if (other.text != null)
 				return false;
