@@ -1,23 +1,30 @@
 package bg.client.inter.sigale.model.statistic;
 
-import java.io.FileInputStream;
 
+
+import java.util.Date;
+
+import bg.client.LogGWT;
+import bg.client.inter.sigale.model.Lexique;
+import bg.client.inter.sigale.model.LexiqueFactory;
+import bg.client.inter.sigale.model.UniteLexicale;
+import bg.client.inter.sigale.util.ILogListener;
+import bg.client.inter.sigale.util.UtilXml;
+
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.xml.client.Document;
 import com.google.gwt.xml.client.Element;
 import com.google.gwt.xml.client.Node;
 import com.google.gwt.xml.client.NodeList;
 import com.google.gwt.xml.client.XMLParser;
 
-import bg.client.inter.sigale.model.Lexique;
-import bg.client.inter.sigale.model.LexiqueFactory;
-import bg.client.inter.sigale.model.Phrase;
-import bg.client.inter.sigale.model.UniteLexicale;
-import bg.client.inter.sigale.model.Visible;
-
 public class StatistiquesLexiqueFactory {
 
 	private static StatistiquesLexiqueFactory instance;
 	private PersisterStat persister = new PersisterStat();
+	
+	private StatistiquesLexique statistique;
+	ILogListener logListener = new LogGWT();
 
 	public synchronized static StatistiquesLexiqueFactory getInstance() {
 		if (instance == null) {
@@ -26,7 +33,7 @@ public class StatistiquesLexiqueFactory {
 		return instance;
 	}
 
-	public  synchronized StatistiquesLexique getStatistiquesLexique() {
+	public static synchronized StatistiquesLexique cretateNewStatistique() {
 		StatistiquesLexique statistiquesLexique = new StatistiquesLexique();
 		Lexique lexique = LexiqueFactory.getInstance().getLexique();
 		for (UniteLexicale ul : lexique.getListUniteLexicale()) {
@@ -35,9 +42,9 @@ public class StatistiquesLexiqueFactory {
 		return statistiquesLexique;
 	}
 
-	public static void setStatistiqueLexique(StatistiquesLexique statistiqueLexique) {
+	public static void setStatistiqueToLexique(StatistiquesLexique statistiqueLexique,Lexique lexique) {
 		System.out.println("setStatistiqueLexique ");
-		Lexique lexique = LexiqueFactory.getInstance().getLexique();
+		
 		for (UniteLexicale ul : lexique.getListUniteLexicale()) {
 			String id = ul.getId();
 			StatistiquesUL statistique = statistiqueLexique.getStatistiqueULById(id);
@@ -46,85 +53,95 @@ public class StatistiquesLexiqueFactory {
 	}
 
 	
+	
 	public void fetchStatistique() {
 		// fetchStatistiqueLocalInFile();
 	}
 
-	public void saveStatisticCurrentLexique() {
-
+	public void saveStatistic(String name) {
+		logListener.log("saveStatistic");
+		try {
+			String xml = toXml(statistique);
+			GWT.log("saveStatistic " + xml);
+			this.persister.saveStatistique(xml, name);
+			GWT.log("Statistique " + name + " saved");
+		} catch (Throwable e) {
+			GWT.log("saveStatistic", e);
+		}
 	}
 
 	
 
-	public void fetchStatistique(String name) {
-		// TODO Auto-generated method stub
+	private String toXml(StatistiquesLexique stat) {
 		
-	}
-
-	public void createStatistique() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public String toXML(StatistiquesLexique stat) {
 		Document document = XMLParser.createDocument();
 		document.appendChild(document.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"UTF-8\""));
 		Element elementLexique = document.createElement(StatistiquesLexique.TAG_ROOT);
 		document.appendChild(elementLexique);
 		for (StatistiquesUL statUL : stat.getListStatistiqueUL()) {
 			Element elementUL = document.createElement(StatistiquesUL.TAG_ROOT);
-			elementLexique.appendChild(elementUL);
-			elementUL.setAttribute(StatistiquesUL.TAG_uniteLexicaleId, "" + statUL.getUniteLexicaleId());
-			for (StatistiquesItem statItem : statUL.getList()) {
+			elementUL.appendChild(document.createTextNode("" + statUL.getUniteLexicaleId()));
+			for(StatistiquesItem item : statUL.getList()){
 				Element elementItem = document.createElement(StatistiquesItem.TAG_ROOT);
+				elementItem.setAttribute("succes", ""+item.succes);
+				elementItem.setAttribute("date", ""+item.date);
 				elementUL.appendChild(elementItem);
-				elementItem.setAttribute(StatistiquesItem.TAG_succes, "" + statItem.isSucces());
-				elementItem.setAttribute(StatistiquesItem.TAG_date, "" + statItem.getDate().getTime());
 			}
-			
-			
+			elementLexique.appendChild(elementUL);
 		}
 		return document.toString();
-		
 	}
-
-	public StatistiquesLexique parse(String xml) {
+	
+	private StatistiquesLexique parse(String xml) {
 		if (xml == null){
+			logListener.log("try to parse null xml !");
 			return null;
 		}
 		Document document = XMLParser.parse(xml);
-		Node nodeStatLexique = document.getElementsByTagName(StatistiquesLexique.TAG_ROOT).item(0);
-		StatistiquesLexique lexique = new StatistiquesLexique();
-		NodeList nodeList = nodeStatLexique.getChildNodes();
-		for (int i = 0; i < nodeList.getLength(); i++) {
-			Node nodeUniteLexicale = nodeList.item(i);
-			String nodeULName = nodeUniteLexicale.getNodeName();
+		Node nodeStatistique = document.getElementsByTagName(StatistiquesLexique.TAG_ROOT).item(0);
+		StatistiquesLexique stat = new StatistiquesLexique();
+		NodeList nodeList = nodeStatistique.getChildNodes();
+		for (int k = 0; k< nodeList.getLength(); k++) {
+			Node nodeUL = nodeList.item(k);
+			String nodeULName = nodeUL.getNodeName();
 			if (StatistiquesUL.TAG_ROOT.equals(nodeULName)) {
-				StatistiquesUL ul = parseStaistiquesUL(nodeUniteLexicale);
+				StatistiquesUL ul = new StatistiquesUL();
+				stat.getListStatistiqueUL().add(ul);
+				NodeList nodeULList = nodeUL.getChildNodes();
+				for (int j = 0; j < nodeList.getLength(); j++) {
+					Node nodeULItem = nodeULList.item(j);
+					String nodeItemName = nodeULItem.getNodeName();
+					if (StatistiquesItem.TAG_ROOT.equals(nodeItemName)) {
+						StatistiquesItem item = new StatistiquesItem();
+						ul.getList().add(item);
+						NodeList nodeItemList = nodeULItem.getChildNodes();
+						String nodeName = nodeULItem.getNodeName();
+						for (int i = 0; i < nodeItemList.getLength(); i++) {
+							Node node = nodeULList.item(i);
+							if ("date".equals(nodeName)) {
+								Date date = UtilXml.parseAsDate(node);
+								item.setDate(date);
+							}
+							if ("succes".equals(nodeName)) {
+								boolean b = UtilXml.parseAsBoolean(node,true);
+								item.setSucces(b);
+							}
+						}
+						
+					}
+				}
 			}
 		}
-		return lexique;
+		return stat;
+	}
+	
+	
+	public void fetchStatistique(String name) {
+		
 	}
 
-	private StatistiquesUL parseStaistiquesUL(Node nodeUniteLexicale) {
-		StatistiquesUL statUL = new StatistiquesUL();
-		NodeList nodeList = nodeUniteLexicale.getChildNodes();
-		for (int i = 0; i < nodeList.getLength(); i++) {
-			Node nodeItem = nodeList.item(i);
-			String nodeULName = nodeItem.getNodeName();
-			if (StatistiquesItem.TAG_ROOT.equals(nodeULName)) {
-				StatistiquesItem item = parseStaistiquesItem(nodeItem);
-				statUL.getList().add(item);
-			}
-		}
-		return statUL;
-	}
-
-	private StatistiquesItem parseStaistiquesItem(Node nodeItem) {
-		StatistiquesItem item = new StatistiquesItem();
-		String succesStr = ((Element) nodeItem).getAttribute(StatistiquesItem.TAG_succes);
-		String dateStr = ((Element) nodeItem).getAttribute(StatistiquesItem.TAG_date);
-		return item;
+	public void createStatistique() {
+		
 	}
 
 }

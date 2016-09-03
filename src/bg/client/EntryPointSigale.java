@@ -1,5 +1,7 @@
 package bg.client;
 
+import bg.client.inter.sigale.model.LexiqueFactory;
+import bg.client.inter.sigale.model.SigalePropertiesGWT;
 import bg.client.ui.log.LogUI;
 import bg.client.ui.menu.Menu;
 import bg.client.ui.register.RegisterForm;
@@ -38,6 +40,7 @@ public class EntryPointSigale implements EntryPoint {
 		 * super dev) dans la console.
 		 */
 		GWT.setUncaughtExceptionHandler(uncaughtExceptionHandler);
+		new LexiqueFactory(new SigalePropertiesGWT(),new LogGWT());
 		RootPanel rootPanelMenu = RootPanel.get("sigaleMenu");
 		if (rootPanelMenu != null) {
 			final Menu menu = Menu.getInstance();

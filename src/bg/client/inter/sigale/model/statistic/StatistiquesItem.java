@@ -4,9 +4,7 @@ import java.util.Date;
 
 public class StatistiquesItem {
 
-	public static final String TAG_ROOT = "Item";
-	public static final String TAG_succes = "ok";
-	public static final String TAG_date = "date";
+	public static final String TAG_ROOT = "item";
 
 	boolean succes;
 

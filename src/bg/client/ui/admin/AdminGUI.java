@@ -109,7 +109,7 @@ public class AdminGUI extends Composite {
 			public void onClick(ClickEvent event) {
 				IPopupListener listener = new IPopupListener() {
 
-					@Override
+					
 					public void actionPerformed(int option, String name) {
 						if (option == PopupDialogOption.YES_OPTION) {
 							LexiqueFactory.getInstance().createLexique(name);

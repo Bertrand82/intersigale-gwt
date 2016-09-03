@@ -2,7 +2,7 @@ package bg.client.inter.sigale.model;
 
 import java.util.List;
 
-import bg.client.Log;
+import bg.client.LogGWT;
 import bg.client.inter.sigale.model.statistic.StatistiquesLexiqueFactory;
 import bg.client.inter.sigale.util.ILogListener;
 
@@ -12,14 +12,21 @@ import com.google.gwt.xml.client.*;
 public class LexiqueFactory {
 
 	private PersisterLexique persister = new PersisterLexique();
+	
 	public static final String KEY_LexiqueName = "intersigale.lexique.name";
-	private SigaleProperties sigaleProperties = new SigaleProperties();
+	
+	private ISigalePropertes sigaleProperties ;
+	
 	private Lexique lexique;
 
-	private final ILogListener logListener = new Log();
+	private  ILogListener logListener = new LogGWT();
 
-	private LexiqueFactory(){
-		
+	private  static LexiqueFactory instance ;
+	
+	public LexiqueFactory(ISigalePropertes sigaleProperties2, ILogListener logListener2){
+		this.sigaleProperties=sigaleProperties2;
+		this.logListener = logListener2;
+		instance = this;
 		try {
 			String name = sigaleProperties.getNameLexique();
 			if (name == null){
@@ -30,15 +37,14 @@ public class LexiqueFactory {
 				this.logListener.logText("Display former context. Lexique :"+lexique.getName());
 			}
 		} catch (Exception e) {
-			Log.log("Exception Constructor LexiqueFactory", e);
+			this.logListener.log("Exception Constructor LexiqueFactory", e);
 		}
 		
 	}
 	
-	private final static LexiqueFactory instance = new LexiqueFactory();
+	
 
 	public static LexiqueFactory getInstance() {
-		
 		return instance;
 	}
 
@@ -50,13 +56,13 @@ public class LexiqueFactory {
 	}
 
 	private void initLexique() {
-		Log.log("initLexique");
+		logListener.log("initLexique");
 		this.lexique = null;
 		lexique = getLexiqueDefault();
 
 	}
 
-	private Lexique getLexiqueDefault() {
+	public Lexique getLexiqueDefault() {
 		Lexique lexique = new Lexique();
 		lexique.setName("Welcome Lexique");
 		lexique.add(new UniteLexicale(new Phrase("Qui a créé intersigale ?"), new Phrase("Bertrand")));
@@ -99,7 +105,7 @@ public class LexiqueFactory {
 	 * @throws Exception
 	 */
 	public void saveLexique() {
-		Log.log("saveLexique");
+		logListener.log("saveLexique");
 		try {
 			String name = "" + this.getLexique().getName();
 			String xml = toXml(lexique);
@@ -118,14 +124,11 @@ public class LexiqueFactory {
 	 * @param item
 	 */
 	public void saveItem(UniteLexicale item) {
-		try {
 			this.saveLexique();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
 	}
-
+	/*
+	 * 
+	 */
 	public String toXml(Lexique lexique2) {
 		Document document = XMLParser.createDocument();
 		document.appendChild(document.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"UTF-8\""));

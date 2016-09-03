@@ -5,7 +5,8 @@ import java.util.List;
 
 public class StatistiquesLexique {
 
-	public static final String TAG_ROOT = "statLex";
+	public static final String TAG_ROOT ="LexiqueStat";
+	
 	private List<StatistiquesUL> listStatistiqueUL = new ArrayList<StatistiquesUL>();
 
 	public List<StatistiquesUL> getListStatistiqueUL() {
