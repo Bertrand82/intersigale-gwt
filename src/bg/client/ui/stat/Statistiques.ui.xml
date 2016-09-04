@@ -8,6 +8,6 @@
 	</ui:style>
 	<g:HTMLPanel>
 		
-		<g:Label styleName="{style.important}" ui:field="label" ui:text="bgLogging"/>
+		<g:Label styleName="{style.important}" ui:field="label" ui:text="No Implemented yet"/>
 	</g:HTMLPanel>
 </ui:UiBinder> 

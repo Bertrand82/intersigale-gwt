@@ -2,6 +2,7 @@ package bg.client;
 
 import bg.client.inter.sigale.model.LexiqueFactory;
 import bg.client.inter.sigale.model.SigalePropertiesGWT;
+import bg.client.ui.lesson.Lesson;
 import bg.client.ui.log.LogUI;
 import bg.client.ui.menu.Menu;
 import bg.client.ui.register.RegisterForm;
@@ -49,8 +50,8 @@ public class EntryPointSigale implements EntryPoint {
 
 		rootPanelRegister = RootPanel.get("sigalePanel");
 		if (rootPanelRegister != null) {
-			final RegisterForm crypto = RegisterForm.getInstance();
-			rootPanelRegister.add(crypto);
+			final Lesson widget = Lesson.getInstance();
+			rootPanelRegister.add(widget);
 		}
 
 		RootPanel rootPanelTitle = RootPanel.get("sigaleTitle");

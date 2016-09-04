@@ -92,7 +92,7 @@ public class Lesson extends Composite {
 
 	private static Lesson instance = new Lesson();
 
-	public static Widget getInstance() {
+	public static Lesson getInstance() {
 		return instance;
 	}
 

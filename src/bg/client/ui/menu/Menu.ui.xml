@@ -2,7 +2,6 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
-	/* Add CSS here. See the GWT docs on UI Binder for more details */
 	.important {
 		font-weight: bold;
 	}
@@ -10,7 +9,7 @@
 	<g:HTMLPanel>
 		<table>
 		<tr>
-		<td><g:Button styleName="{style.important}" ui:field="buttonRegister" text="Register" /></td>
+	<!--  	<td><g:Button styleName="{style.important}" ui:field="buttonRegister" text="Register" /></td> -->
 		<td><g:Button styleName="{style.important}" ui:field="buttonLesson" text="Lesson"/></td>
 		<td><g:Button styleName="{style.important}" ui:field="buttonEdit" text="Edit"/></td>
 		<td><g:Button styleName="{style.important}" ui:field="buttonStat" text="Stat"/></td>
