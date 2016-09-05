@@ -6,6 +6,7 @@ import bg.client.inter.sigale.model.Lexique;
 import bg.client.inter.sigale.model.LexiqueFactory;
 import bg.client.inter.sigale.model.UniteLexicale;
 
+import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -19,6 +20,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -51,8 +53,8 @@ public class Lesson extends Composite {
 	@UiField
 	Label labelStat;
 
-	private StatistiquePanelGUI statistiquePanelGUI = StatistiquePanelGUI.getInstance();;
 
+	
 	public Lesson() {
 		initWidget(uiBinder.createAndBindUi(this));
 		buttonOK.addClickHandler(new ClickHandler() {
@@ -106,7 +108,7 @@ public class Lesson extends Composite {
 		labelCorrection.setText(STR_VIDE);
 		displayResult(null, " ");
 		setButtonsEtat(true);
-		this.statistiquePanelGUI.updateStat(null);
+		
 		this.textBoxReponse.setText(reponseStr);
 		this.textBoxReponse.setCursorPos(this.positionCuror);
 		this.textBoxReponse.setFocus(true);
@@ -140,7 +142,7 @@ public class Lesson extends Composite {
 			UniteLexicale ulCourrante = getLexique().getUniteLexicaleCourante();
 			boolean ok = ulCourrante.resultProcess(this.textBoxReponse.getText());
 			String stat = " ? ";
-			this.statistiquePanelGUI.updateStat(ulCourrante);
+			StatistiquePanel.getInstance().updateStat(ulCourrante,ok);
 			System.out.println("ValidResult " + ok);
 			// this.textFieldResponse.setText(text);
 			setButtonsEtat(false);

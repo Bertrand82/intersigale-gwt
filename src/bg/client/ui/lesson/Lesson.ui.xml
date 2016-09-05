@@ -2,22 +2,48 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
-	.important {
+		.important {
 		font-weight: bold;
-	}
+		}
 	</ui:style>
 	<g:HTMLPanel>
 		<h2>Lesson</h2>
 		<table>
-		<tr><td colspan="2"> <g:Label styleName="{style.important}" ui:field="labelQuestion" text=" "/>  </td></tr>
-		<tr><td colspan="2"> <g:TextBox styleName="{style.important}" ui:field="textBoxReponse" text=" " width="500"/>  </td></tr>
-		<tr><td colspan="2"> <g:Label styleName="{style.important}" ui:field="labelCorrection" text=" " width="500"/>  </td></tr>
-		<tr><td colspan="2"> <g:Label styleName="{style.important}" ui:field="labelStat" text=" " width="500"/>  </td></tr>
-		<tr>
-			<td colspan="1"> <g:Button styleName="{style.important}" ui:field="buttonOK" text="OK"/>  </td>
-			<td colspan="1"> <g:Button styleName="{style.important}" ui:field="buttonNext" text="Next"/>  </td>
-		</tr>
-		
+			<tr>
+				<td colspan="2">
+					<g:Label styleName="{style.important}" ui:field="labelQuestion"
+						text=" " />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<g:TextBox styleName="{style.important}" ui:field="textBoxReponse"
+						text=" " width="500" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<g:Label styleName="{style.important}" ui:field="labelCorrection"
+						text=" " width="500" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<g:Label styleName="{style.important}" ui:field="labelStat"
+						text=" " width="500" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1">
+					<g:Button styleName="{style.important}" ui:field="buttonOK"
+						text="OK" />
+				</td>
+				<td colspan="1">
+					<g:Button styleName="{style.important}" ui:field="buttonNext"
+						text="Next" />
+				</td>
+			</tr>
+			
 		</table>
 	</g:HTMLPanel>
 </ui:UiBinder> 
