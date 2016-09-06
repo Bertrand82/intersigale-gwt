@@ -14,17 +14,17 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
-public class StatistiquePanel {
+public class StatistiqueCanvas {
 
-	private int heightCanvas = 120;
-	private int widthCanvas = 300;
+	private int height = 120;
+	private int width = 300;
 	private Canvas canvas = Canvas.createIfSupported();
 	private Context2d context;
 	private Label label;
-	private int h_2 = heightCanvas / 2;
-	private int w_2 = widthCanvas / 2;
+	private int h_2 = height / 2;
+	private int w_2 = width / 2;
 	private int marge_w_g = 5;
-	private int w = widthCanvas - 2 * marge_w_g;
+	private int w = width - 2 * marge_w_g;
 	private int h = 20;
 	private CssColor colorFond = CssColor.make(250, 250, 250);
 	private CssColor colorText = CssColor.make(0, 0, 0);
@@ -34,22 +34,22 @@ public class StatistiquePanel {
 	private long duree = DUREE_MONTH;
 	private String titre = "titreBg";
 
-	public StatistiquePanel() {
+	public StatistiqueCanvas() {
 
 		if (canvas == null) {
 			label = new Label("Canvas Not Supported");
 		} else {
 			
-			canvas.setWidth(widthCanvas + "px");
-			canvas.setCoordinateSpaceWidth(widthCanvas);
+			canvas.setWidth(width + "px");
+			canvas.setCoordinateSpaceWidth(width);
 
-			canvas.setHeight(heightCanvas + "px");
-			canvas.setCoordinateSpaceHeight(heightCanvas);
+			canvas.setHeight(height + "px");
+			canvas.setCoordinateSpaceHeight(height);
 
 			context = canvas.getContext2d();
 
 			context.setFillStyle(colorFond);
-			context.fillRect(0, 0, widthCanvas, heightCanvas);
+			context.fillRect(0, 0, width, height);
 			context.setFillStyle(colorText);
 			context.fillText("intersigale", 100, 20);
 
@@ -62,12 +62,12 @@ public class StatistiquePanel {
 			context.closePath();
 
 		}
-		initIntervalle(CALENDAR_DAY, "Day");
+		initIntervalle(CALENDAR_DAY);
 	}
 
-	private static StatistiquePanel instance = new StatistiquePanel();
+	private static StatistiqueCanvas instance = new StatistiqueCanvas();
 
-	public static StatistiquePanel getInstance2() {
+	public static StatistiqueCanvas getInstance2() {
 		return instance;
 	}
 
@@ -89,7 +89,7 @@ public class StatistiquePanel {
 	}
 
 	private void repaint() {
-		context.clearRect(0, 0, widthCanvas, heightCanvas);
+		context.clearRect(0, 0, width, height);
 		if (this.uniteLexicale == null) {
 			paintNoUL();
 		} else {
@@ -102,34 +102,46 @@ public class StatistiquePanel {
 		context.fillText("No Statistiques", w_2, 20);
 		context.beginPath();
 		context.moveTo(2, h_2);
-		context.lineTo(widthCanvas-2, h_2);
-		context.lineTo(w_2, heightCanvas-2);
+		context.lineTo(width-2, h_2);
+		context.lineTo(w_2, height-2);
 		context.lineTo(2, h_2);
 		//context.fill();
 		context.stroke();
 		context.closePath();
 	}
 
-	private static final int CALENDAR_DAY = 0;
-	private static final int CALENDAR_WEEK = 1;
-	private static final int CALENDAR_MONTH = 2;
+	public static final int CALENDAR_HOUR = 0;
+	public static final int CALENDAR_DAY = 1;
+	public static final int CALENDAR_WEEK =2;
+	public static final int CALENDAR_MONTH = 3;
+	
 
 	private static final long DUREE_HOUR = 60 * 60 * 1000;
 	private static final long DUREE_DAY = 24 * DUREE_HOUR;
 	private static final long DUREE_WEEK = 7 * DUREE_DAY;
 	private static final long DUREE_MONTH = 30 * DUREE_DAY;
-
-	private void initIntervalle(int field, String titre) {
+	
+	
+	public void initIntervalle(int field) {
 		this.date_1 = new Date();
-		if (field == CALENDAR_DAY) {
+		if (field == CALENDAR_HOUR) {
+			duree = DUREE_HOUR;
+			this.titre="Hour";
+		}else if (field == CALENDAR_DAY) {
 			duree = DUREE_DAY;
+			this.titre="Day";
 		} else if (field == CALENDAR_WEEK) {
 			duree = DUREE_WEEK;
+			this.titre="Week";
 		} else if (field == CALENDAR_MONTH) {
 			duree = DUREE_MONTH;
+			this.titre="Month";
+		}else{
+			this.titre = "XXX";
 		}
 		this.date_0=new Date(this.date_1.getTime()-duree);
-		this.titre = titre;
+		
+		
 		repaint();
 	}
 
@@ -140,12 +152,12 @@ public class StatistiquePanel {
 
 		context.beginPath();
 		context.moveTo(marge_w_g, h_2);
-		context.lineTo(widthCanvas - marge_w_g, h_2);
+		context.lineTo(width - marge_w_g, h_2);
 		List<StatistiquesItem> list = statistique.getListAfterDate(this.date_0);
 		int nb_succes = 0;
 		int nb_failures = 0;
 		for (StatistiquesItem statistiquesItem : list) {
-			long deltaTime = statistiquesItem.getDate().getTime() - StatistiquePanel.this.date_0.getTime();
+			long deltaTime = statistiquesItem.getDate().getTime() - StatistiqueCanvas.this.date_0.getTime();
 			int timeW = (int) ((deltaTime * w) / duree);
 			int hStat;
 			if (statistiquesItem.isSucces()) {
@@ -169,11 +181,19 @@ public class StatistiquePanel {
 
 	}
 
-	public Widget getCanvas() {
+	public Widget getPanelCanvas() {
 		if (canvas == null) {
 			return label;
 		}
 		return canvas;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
 	}
 
 }

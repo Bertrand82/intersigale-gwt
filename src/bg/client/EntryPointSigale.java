@@ -3,7 +3,7 @@ package bg.client;
 import bg.client.inter.sigale.model.LexiqueFactory;
 import bg.client.inter.sigale.model.SigalePropertiesGWT;
 import bg.client.ui.lesson.Lesson;
-import bg.client.ui.lesson.StatistiquePanel;
+import bg.client.ui.lesson.StatistiqueCanvas;
 import bg.client.ui.log.LogUI;
 import bg.client.ui.menu.Menu;
 import bg.client.ui.register.RegisterForm;
