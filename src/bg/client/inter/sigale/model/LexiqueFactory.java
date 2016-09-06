@@ -7,7 +7,11 @@ import bg.client.inter.sigale.model.statistic.StatistiquesLexiqueFactory;
 import bg.client.inter.sigale.util.ILogListener;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.xml.client.*;
+import com.google.gwt.xml.client.Document;
+import com.google.gwt.xml.client.Element;
+import com.google.gwt.xml.client.Node;
+import com.google.gwt.xml.client.NodeList;
+import com.google.gwt.xml.client.XMLParser;
 
 public class LexiqueFactory {
 
@@ -76,14 +80,7 @@ public class LexiqueFactory {
 		logListener.logTitle(lexique.getName());
 		return lexique;
 	}
-	/**
-	 * Lors de la creation d'un Lexique, ou lors du chargement de statistique, essaye de trouver des stats
-	 * @param dname
-	 */
-	private void updatesStatistique(String name) {
-		StatistiquesLexiqueFactory.getInstance().fetchStatistique(name);
-
-	}
+	
 
 	/**
 	 * 
@@ -190,8 +187,13 @@ public class LexiqueFactory {
 		
 		logListener.logTitle(name);
 		logListener.logText("Fetch and display Display " + lexiqueParsed.getName());
+		StatistiquesLexiqueFactory.getInstance().fetchStatitistiqueInLocaleStorage(lexiqueParsed);
 		return lexiqueParsed;
 	}
+
+	
+
+
 
 	public void deleteLexiqueByName(String name) {
 		this.logListener.logText("Delete Lexique in local storage by Name : " + name);

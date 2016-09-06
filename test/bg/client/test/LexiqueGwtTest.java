@@ -1,31 +1,18 @@
 package bg.client.test;
 
 
-import java.util.List;
-
 import org.junit.Test;
 
 import bg.client.inter.sigale.model.ISigalePropertes;
 import bg.client.inter.sigale.model.Lexique;
 import bg.client.inter.sigale.model.LexiqueFactory;
-import bg.client.inter.sigale.model.statistic.StatistiquesItem;
 import bg.client.inter.sigale.model.statistic.StatistiquesLexique;
 import bg.client.inter.sigale.model.statistic.StatistiquesLexiqueFactory;
-
-
 import bg.client.inter.sigale.model.statistic.StatistiquesUL;
 import bg.client.inter.sigale.util.ILogListener;
 
-
-
-
-
 import com.google.gwt.core.shared.GWT;
-import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
-import com.google.gwt.json.client.JSONParser;
-import com.google.gwt.json.client.JSONString;
-import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.junit.client.GWTTestCase;
 
 
@@ -125,10 +112,10 @@ public class LexiqueGwtTest extends GWTTestCase {
 		JSONObject json = StatistiquesLexiqueFactory.toJSon(ul);
 		String jsonStr = json.toString();
 		System.out.println("ul json : "+jsonStr);
-		StatistiquesUL ul2 = StatistiquesLexiqueFactory.parseJSon(jsonStr);
+		StatistiquesUL ul2 = StatistiquesLexiqueFactory.parseJSon_(jsonStr);
 		
 		JSONObject json2 = StatistiquesLexiqueFactory.toJSon(ul2);
-		String jsonStr2 = json.toString();
+		String jsonStr2 = json2.toString();
 		System.out.println("jsonStr2 "+jsonStr2);
 		GWTTestCase.assertEquals(jsonStr, jsonStr2);
 	}

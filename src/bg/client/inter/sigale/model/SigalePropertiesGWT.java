@@ -1,9 +1,5 @@
 package bg.client.inter.sigale.model;
 
-import java.util.Properties;
-
-import org.apache.tools.ant.taskdefs.rmic.KaffeRmic;
-
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.storage.client.Storage;
 

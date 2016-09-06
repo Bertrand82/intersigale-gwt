@@ -1,6 +1,5 @@
 package bg.client.inter.sigale.model.statistic;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class StatistiquesLexiqueFactory {
 
 	private static StatistiquesLexiqueFactory instance;
 	private PersisterStat persister = new PersisterStat();
-
+	@Deprecated // Devrait être referencé qu'une seule fois dans Lexique
 	private StatistiquesLexique statistique;
 	ILogListener logListener = new LogGWT();
 
@@ -124,9 +123,7 @@ public class StatistiquesLexiqueFactory {
 		return stat;
 	}
 
-	public void fetchStatistique(String name) {
 
-	}
 
 	public void saveStatisticUL(StatistiquesUL statistiquesUL) {
 		String lexiqueName = LexiqueFactory.getInstance().getLexique().getName();
@@ -158,7 +155,8 @@ public class StatistiquesLexiqueFactory {
 	public static JSONObject toJSon(StatistiquesUL ul) {
 
 		JSONObject json = new JSONObject();
-		json.put(StatistiquesUL.TAG_ID, new JSONString(ul.getUniteLexicaleId()));
+		// Je ne met l'id , il est deja dans la key
+		//json.put(StatistiquesUL.TAG_ID, new JSONString(ul.getUniteLexicaleId()));
 		JSONArray jsonArray = new JSONArray();
 		json.put(StatistiquesUL.TAG_ITEMS, jsonArray);
 		int i = 0;
@@ -172,12 +170,17 @@ public class StatistiquesLexiqueFactory {
 		return json;
 	}
 
-	public static StatistiquesUL parseJSon(String str) {
+	public static StatistiquesUL parseJSon_(String str) {
 		StatistiquesUL ul2 = new StatistiquesUL();
 		JSONValue jsonValue_ = JSONParser.parseStrict(str);
 		JSONObject jsonObject = jsonValue_.isObject();
 		JSONValue jsonValueId = jsonObject.get(StatistiquesUL.TAG_ID);
-		JSONString jsonString = jsonValueId.isString();
+		if (jsonValueId!= null){
+			JSONString jsonString = jsonValueId.isString();
+			String id = jsonString.stringValue();
+			ul2.setUniteLexicaleId(id);  
+		}
+		
 		JSONValue jsonValueItems = jsonObject.get(StatistiquesUL.TAG_ITEMS);
 		JSONArray jsonArrayItems = jsonValueItems.isArray();
 		for (int i = 0; i < jsonArrayItems.size(); i++) {
@@ -193,6 +196,25 @@ public class StatistiquesLexiqueFactory {
 			list.add(item);
 		}
 		return ul2;
+	}
+
+	public  void fetchStatitistiqueInLocaleStorage(Lexique lexique) {
+		this.statistique = new StatistiquesLexique();
+		lexique.setStatistiquesLexique(this.statistique);
+	
+		for(UniteLexicale ul : lexique.getListUniteLexicale()){
+			String json = persister.getJson(lexique.getName(), ul.getId());
+			StatistiquesUL statistiquesUL;
+			if (json== null){
+				statistiquesUL = new StatistiquesUL();
+			} else {
+				statistiquesUL = parseJSon_(json);
+			}
+			statistiquesUL.setUniteLexicaleId(ul.getId());
+			ul.setStatistique(statistiquesUL);
+			statistique.getListStatistiqueUL().add(statistiquesUL);
+		}
+		
 	}
 
 }

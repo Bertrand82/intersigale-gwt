@@ -1,8 +1,5 @@
 package bg.client.inter.sigale.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import bg.client.inter.sigale.model.statistic.StatistiquesUL;
 import bg.client.inter.sigale.util.UtilDivers;
 

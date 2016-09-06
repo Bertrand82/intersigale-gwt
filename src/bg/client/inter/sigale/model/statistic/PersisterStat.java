@@ -1,6 +1,5 @@
 package bg.client.inter.sigale.model.statistic;
 
-import com.google.gwt.dev.json.JsonObject;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.storage.client.Storage;
 
@@ -17,14 +16,21 @@ public class PersisterStat {
 
 	public void saveStatistique(String lexiqueName, StatistiquesUL statistiquesUL) {
 		Storage storage = Storage.getLocalStorageIfSupported();
-		String key = getStatULKeyStoreFromName(lexiqueName,statistiquesUL);
+		String key = getStatULKeyStoreFromName(lexiqueName,statistiquesUL.getUniteLexicaleId());
 		JSONObject json = StatistiquesLexiqueFactory.toJSon(statistiquesUL);
 		String jsonStr = json.toString();
 		storage.setItem(key, jsonStr);
 	}
+	
+	public String getJson(String lexiqueName, String id) {
+		Storage storage = Storage.getLocalStorageIfSupported();
+		String key = getStatULKeyStoreFromName(lexiqueName,id);
+		String s  =storage.getItem(key);
+		return s;
+	}
 
-	private String getStatULKeyStoreFromName(String lexiqueName, StatistiquesUL statistiquesUL) {
-		String key = KEY_UL+":"+lexiqueName+statistiquesUL.getUniteLexicaleId();
+	private String getStatULKeyStoreFromName(String lexiqueName, String uniteLexicaleId) {
+		String key = KEY_UL+":"+lexiqueName+":"+uniteLexicaleId;
 		return key;
 	}
 

@@ -1,9 +1,9 @@
 package bg.client;
 
-import com.google.gwt.core.client.GWT;
-
 import bg.client.inter.sigale.util.ILogListener;
 import bg.client.ui.log.LogUI;
+
+import com.google.gwt.core.client.GWT;
 
 public class LogGWT implements ILogListener {
 

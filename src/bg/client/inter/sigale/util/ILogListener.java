@@ -1,6 +1,5 @@
 package bg.client.inter.sigale.util;
 
-import com.google.gwt.core.client.GWT;
 
 public interface ILogListener {
 
