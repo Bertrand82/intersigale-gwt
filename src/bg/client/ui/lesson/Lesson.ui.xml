@@ -43,7 +43,12 @@
 						text="Next" />
 				</td>
 			</tr>
-			
+			<tr>
+			    <td>
+			         <g:SimplePanel width="200px" height="200px" ui:field="panelStat"/> 
+		
+			    </td>
+			</tr>
 		</table>
 	</g:HTMLPanel>
 </ui:UiBinder> 

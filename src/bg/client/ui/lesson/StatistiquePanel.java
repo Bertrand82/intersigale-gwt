@@ -10,6 +10,7 @@ import bg.client.inter.sigale.model.statistic.StatistiquesUL;
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.canvas.dom.client.Context2d;
 import com.google.gwt.canvas.dom.client.CssColor;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -29,6 +30,7 @@ public class StatistiquePanel {
 	private CssColor colorText = CssColor.make(0, 0, 0);
 	private CssColor colorBlack = CssColor.make(0, 0, 0);
 	private Date date_0 = new Date();
+	private Date date_1 = new Date();
 	private long duree = DUREE_MONTH;
 	private String titre = "titreBg";
 
@@ -37,6 +39,7 @@ public class StatistiquePanel {
 		if (canvas == null) {
 			label = new Label("Canvas Not Supported");
 		} else {
+			
 			canvas.setWidth(widthCanvas + "px");
 			canvas.setCoordinateSpaceWidth(widthCanvas);
 
@@ -64,7 +67,7 @@ public class StatistiquePanel {
 
 	private static StatistiquePanel instance = new StatistiquePanel();
 
-	public static StatistiquePanel getInstance() {
+	public static StatistiquePanel getInstance2() {
 		return instance;
 	}
 
@@ -117,7 +120,7 @@ public class StatistiquePanel {
 	private static final long DUREE_MONTH = 30 * DUREE_DAY;
 
 	private void initIntervalle(int field, String titre) {
-		this.date_0 = new Date();
+		this.date_1 = new Date();
 		if (field == CALENDAR_DAY) {
 			duree = DUREE_DAY;
 		} else if (field == CALENDAR_WEEK) {
@@ -125,6 +128,7 @@ public class StatistiquePanel {
 		} else if (field == CALENDAR_MONTH) {
 			duree = DUREE_MONTH;
 		}
+		this.date_0=new Date(this.date_1.getTime()-duree);
 		this.titre = titre;
 		repaint();
 	}
@@ -145,7 +149,7 @@ public class StatistiquePanel {
 			int timeW = (int) ((deltaTime * w) / duree);
 			int hStat;
 			if (statistiquesItem.isSucces()) {
-				hStat = 0;
+				hStat = -h;
 				nb_succes++;
 			} else {
 				hStat = h;

@@ -21,6 +21,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -53,7 +54,9 @@ public class Lesson extends Composite {
 	@UiField
 	Label labelStat;
 
-
+	@UiField
+	SimplePanel panelStat;
+	 
 	
 	public Lesson() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -89,7 +92,7 @@ public class Lesson extends Composite {
 		});
 		
 		displayUniteLexicaleCourante();
-
+		panelStat.add(StatistiquePanel.getInstance2().getCanvas());
 	}
 
 	private static Lesson instance = new Lesson();
@@ -142,7 +145,7 @@ public class Lesson extends Composite {
 			UniteLexicale ulCourrante = getLexique().getUniteLexicaleCourante();
 			boolean ok = ulCourrante.resultProcess(this.textBoxReponse.getText());
 			String stat = " ? ";
-			StatistiquePanel.getInstance().updateStat(ulCourrante,ok);
+			StatistiquePanel.getInstance2().updateStat(ulCourrante,ok);
 			System.out.println("ValidResult " + ok);
 			// this.textFieldResponse.setText(text);
 			setButtonsEtat(false);

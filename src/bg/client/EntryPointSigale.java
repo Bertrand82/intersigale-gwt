@@ -60,11 +60,7 @@ public class EntryPointSigale implements EntryPoint {
 
 			rootPanelTitle.add(labelTitle);
 		}
-		RootPanel rootPanelCanvas = RootPanel.get("sigaleCanvas");
-		if (rootPanelCanvas != null) {
-			final Widget widget = StatistiquePanel.getInstance().getCanvas();
-			rootPanelCanvas.add(widget);
-		}
+		
 		
 		RootPanel rootPanelLog = RootPanel.get("sigaleLog");
 		if (rootPanelLog != null) {
