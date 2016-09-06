@@ -56,7 +56,7 @@ public class LexiqueChooser {
 		};
 		dataGrid.addColumn(lexiqueName, "Lexique");
 		/*
-		 *  ********** Colonne de buttons Display
+		 * ********** Colonne de buttons Display
 		 * ********************************************************
 		 */
 
@@ -78,7 +78,7 @@ public class LexiqueChooser {
 		});
 		dataGrid.addColumn(buttonDisplayColumn, "Display");
 		/*
-		 *  ************ Colonne de buttons delete
+		 * ************ Colonne de buttons delete
 		 * *****************************************************************
 		 */
 		ButtonCell buttonCellDelete = new ButtonCell();

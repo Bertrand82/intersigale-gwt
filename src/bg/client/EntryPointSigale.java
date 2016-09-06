@@ -40,7 +40,7 @@ public class EntryPointSigale implements EntryPoint {
 		 * super dev) dans la console.
 		 */
 		GWT.setUncaughtExceptionHandler(uncaughtExceptionHandler);
-		new LexiqueFactory(new SigalePropertiesGWT(),new LogGWT());
+		new LexiqueFactory(new SigalePropertiesGWT(), new LogGWT());
 		RootPanel rootPanelMenu = RootPanel.get("sigaleMenu");
 		if (rootPanelMenu != null) {
 			final Menu menu = Menu.getInstance();
@@ -58,8 +58,7 @@ public class EntryPointSigale implements EntryPoint {
 
 			rootPanelTitle.add(labelTitle);
 		}
-		
-		
+
 		RootPanel rootPanelLog = RootPanel.get("sigaleLog");
 		if (rootPanelLog != null) {
 			final LogUI logUI = LogUI.getInstance();

@@ -49,8 +49,7 @@ public class Lesson extends Composite {
 
 	@UiField
 	SimplePanel panelStat;
-	 
-	
+
 	public Lesson() {
 		initWidget(uiBinder.createAndBindUi(this));
 		buttonOK.addClickHandler(new ClickHandler() {
@@ -68,22 +67,22 @@ public class Lesson extends Composite {
 			}
 		});
 		textBoxReponse.addKeyUpHandler(new KeyUpHandler() {
-			
+
 			@Override
 			public void onKeyUp(KeyUpEvent event) {
-						int cursorPosition = textBoxReponse.getCursorPos();
-				 	     String text = textBoxReponse.getText();
-					     if (text.length() > cursorPosition){
-					    	 String text1  = text.substring(0,cursorPosition);
-					    	 String text2  = text.substring(cursorPosition+1);
-					    	 String  replace = text1+text2;
-					    	 textBoxReponse.setText(replace);
-					    	 textBoxReponse.setCursorPos(cursorPosition);
-					     }
-					     
+				int cursorPosition = textBoxReponse.getCursorPos();
+				String text = textBoxReponse.getText();
+				if (text.length() > cursorPosition) {
+					String text1 = text.substring(0, cursorPosition);
+					String text2 = text.substring(cursorPosition + 1);
+					String replace = text1 + text2;
+					textBoxReponse.setText(replace);
+					textBoxReponse.setCursorPos(cursorPosition);
+				}
+
 			}
 		});
-		
+
 		displayUniteLexicaleCourante();
 		panelStat.add(new StatistiquesPanel());
 	}
@@ -104,11 +103,11 @@ public class Lesson extends Composite {
 		labelCorrection.setText(STR_VIDE);
 		displayResult(null, " ");
 		setButtonsEtat(true);
-		
+
 		this.textBoxReponse.setText(reponseStr);
 		this.textBoxReponse.setCursorPos(this.positionCuror);
 		this.textBoxReponse.setFocus(true);
-		
+
 	}
 
 	private void setButtonsEtat(boolean b) {
@@ -138,7 +137,7 @@ public class Lesson extends Composite {
 			UniteLexicale ulCourrante = getLexique().getUniteLexicaleCourante();
 			boolean ok = ulCourrante.resultProcess(this.textBoxReponse.getText());
 			String stat = " ? ";
-			StatistiqueCanvas.getInstance2().updateStat(ulCourrante,ok);
+			StatistiqueCanvas.getInstance2().updateStat(ulCourrante, ok);
 			System.out.println("ValidResult " + ok);
 			// this.textFieldResponse.setText(text);
 			setButtonsEtat(false);
@@ -155,14 +154,15 @@ public class Lesson extends Composite {
 			displayResult(ok, stat);
 		}
 	}
-	 private int positionCuror =0;
-	 private String reponseStr ="";
-	    
+
+	private int positionCuror = 0;
+	private String reponseStr = "";
+
 	void displayUniteLexicaleCourante() {
 		UniteLexicale ul = getLexique().getUniteLexicaleCourante();
 		if (ul != null) {
 			labelQuestion.setText(ul.getPhrase_0().getText());
-			reponseStr=ul.getPhrase_1().getTextVisible();
+			reponseStr = ul.getPhrase_1().getTextVisible();
 			textBoxReponse.setText(reponseStr);
 			positionCuror = ul.getPhrase_1().getEndVisible();
 		}

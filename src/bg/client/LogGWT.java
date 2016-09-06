@@ -11,7 +11,7 @@ public class LogGWT implements ILogListener {
 		GWT.log(message);
 	}
 
-	public  void log(String message, Throwable t) {
+	public void log(String message, Throwable t) {
 		GWT.log(message, t);
 	}
 

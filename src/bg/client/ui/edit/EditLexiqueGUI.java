@@ -114,7 +114,7 @@ public class EditLexiqueGUI extends Composite {
 			int start = pr.getwStartVisible(0);
 			int end = pr.getEndVisible(0);
 			int range = Math.abs(end - start);
-			
+
 			textBoxReponse.setSelectionRange(start, range);
 		}
 	}
@@ -130,11 +130,11 @@ public class EditLexiqueGUI extends Composite {
 		String textReponse = textBoxReponse.getText();
 		String selectedText = textBoxReponse.getSelectedText();
 		int selectedLength = textBoxReponse.getSelectionLength();
-	
-		//int selectionStart = textBoxReponse.getCursorPos();
+
+		// int selectionStart = textBoxReponse.getCursorPos();
 		int selectionStart = textReponse.indexOf(selectedText);
-		GWT.log("Start "+selectionStart+" Length :"+selectedLength+"  text : "+selectedText+"  ");
-		item.getPhrase_1().setSelected(selectionStart, selectionStart+selectedLength);
+		GWT.log("Start " + selectionStart + " Length :" + selectedLength + "  text : " + selectedText + "  ");
+		item.getPhrase_1().setSelected(selectionStart, selectionStart + selectedLength);
 		LexiqueFactory.getInstance().saveItem(this.item);
 
 	}

@@ -28,7 +28,8 @@ public class StatistiquesLexiqueFactory {
 
 	private static StatistiquesLexiqueFactory instance;
 	private PersisterStat persister = new PersisterStat();
-	@Deprecated // Devrait être referencé qu'une seule fois dans Lexique
+	@Deprecated
+	// Devrait être referencé qu'une seule fois dans Lexique
 	private StatistiquesLexique statistique;
 	ILogListener logListener = new LogGWT();
 
@@ -123,8 +124,6 @@ public class StatistiquesLexiqueFactory {
 		return stat;
 	}
 
-
-
 	public void saveStatisticUL(StatistiquesUL statistiquesUL) {
 		String lexiqueName = LexiqueFactory.getInstance().getLexique().getName();
 		this.persister.saveStatistique(lexiqueName, statistiquesUL);
@@ -156,7 +155,8 @@ public class StatistiquesLexiqueFactory {
 
 		JSONObject json = new JSONObject();
 		// Je ne met l'id , il est deja dans la key
-		//json.put(StatistiquesUL.TAG_ID, new JSONString(ul.getUniteLexicaleId()));
+		// json.put(StatistiquesUL.TAG_ID, new
+		// JSONString(ul.getUniteLexicaleId()));
 		JSONArray jsonArray = new JSONArray();
 		json.put(StatistiquesUL.TAG_ITEMS, jsonArray);
 		int i = 0;
@@ -175,12 +175,12 @@ public class StatistiquesLexiqueFactory {
 		JSONValue jsonValue_ = JSONParser.parseStrict(str);
 		JSONObject jsonObject = jsonValue_.isObject();
 		JSONValue jsonValueId = jsonObject.get(StatistiquesUL.TAG_ID);
-		if (jsonValueId!= null){
+		if (jsonValueId != null) {
 			JSONString jsonString = jsonValueId.isString();
 			String id = jsonString.stringValue();
-			ul2.setUniteLexicaleId(id);  
+			ul2.setUniteLexicaleId(id);
 		}
-		
+
 		JSONValue jsonValueItems = jsonObject.get(StatistiquesUL.TAG_ITEMS);
 		JSONArray jsonArrayItems = jsonValueItems.isArray();
 		for (int i = 0; i < jsonArrayItems.size(); i++) {
@@ -198,14 +198,14 @@ public class StatistiquesLexiqueFactory {
 		return ul2;
 	}
 
-	public  void fetchStatitistiqueInLocaleStorage(Lexique lexique) {
+	public void fetchStatitistiqueInLocaleStorage(Lexique lexique) {
 		this.statistique = new StatistiquesLexique();
 		lexique.setStatistiquesLexique(this.statistique);
-	
-		for(UniteLexicale ul : lexique.getListUniteLexicale()){
+
+		for (UniteLexicale ul : lexique.getListUniteLexicale()) {
 			String json = persister.getJson(lexique.getName(), ul.getId());
 			StatistiquesUL statistiquesUL;
-			if (json== null){
+			if (json == null) {
 				statistiquesUL = new StatistiquesUL();
 			} else {
 				statistiquesUL = parseJSon_(json);
@@ -214,7 +214,7 @@ public class StatistiquesLexiqueFactory {
 			ul.setStatistique(statistiquesUL);
 			statistique.getListStatistiqueUL().add(statistiquesUL);
 		}
-		
+
 	}
 
 }

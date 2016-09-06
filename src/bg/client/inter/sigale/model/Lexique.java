@@ -12,11 +12,11 @@ public class Lexique implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static final String TAG_name = "name";
 	public static String TAG_ROOT = "lexique";
-	
+
 	private String name = "intersigale-default";
-	
+
 	private StatistiquesLexique statistiquesLexique;
-	
+
 	private List<UniteLexicale> listUniteLexicale = new ArrayList<UniteLexicale>();
 
 	int iCourrante = 0;
@@ -82,8 +82,6 @@ public class Lexique implements Serializable {
 		}
 		return i;
 	}
-
-	
 
 	/**
 	 * 

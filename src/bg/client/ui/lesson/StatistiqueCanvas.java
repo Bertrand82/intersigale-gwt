@@ -38,7 +38,7 @@ public class StatistiqueCanvas {
 		if (canvas == null) {
 			label = new Label("Canvas Not Supported");
 		} else {
-			
+
 			canvas.setWidth(width + "px");
 			canvas.setCoordinateSpaceWidth(width);
 
@@ -101,46 +101,43 @@ public class StatistiqueCanvas {
 		context.fillText("No Statistiques", w_2, 20);
 		context.beginPath();
 		context.moveTo(2, h_2);
-		context.lineTo(width-2, h_2);
-		context.lineTo(w_2, height-2);
+		context.lineTo(width - 2, h_2);
+		context.lineTo(w_2, height - 2);
 		context.lineTo(2, h_2);
-		//context.fill();
+		// context.fill();
 		context.stroke();
 		context.closePath();
 	}
 
 	public static final int CALENDAR_HOUR = 0;
 	public static final int CALENDAR_DAY = 1;
-	public static final int CALENDAR_WEEK =2;
+	public static final int CALENDAR_WEEK = 2;
 	public static final int CALENDAR_MONTH = 3;
-	
 
 	private static final long DUREE_HOUR = 60 * 60 * 1000;
 	private static final long DUREE_DAY = 24 * DUREE_HOUR;
 	private static final long DUREE_WEEK = 7 * DUREE_DAY;
 	private static final long DUREE_MONTH = 30 * DUREE_DAY;
-	
-	
+
 	public void initIntervalle(int field) {
 		this.date_1 = new Date();
 		if (field == CALENDAR_HOUR) {
 			duree = DUREE_HOUR;
-			this.titre="Hour";
-		}else if (field == CALENDAR_DAY) {
+			this.titre = "Hour";
+		} else if (field == CALENDAR_DAY) {
 			duree = DUREE_DAY;
-			this.titre="Day";
+			this.titre = "Day";
 		} else if (field == CALENDAR_WEEK) {
 			duree = DUREE_WEEK;
-			this.titre="Week";
+			this.titre = "Week";
 		} else if (field == CALENDAR_MONTH) {
 			duree = DUREE_MONTH;
-			this.titre="Month";
-		}else{
+			this.titre = "Month";
+		} else {
 			this.titre = "XXX";
 		}
-		this.date_0=new Date(this.date_1.getTime()-duree);
-		
-		
+		this.date_0 = new Date(this.date_1.getTime() - duree);
+
 		repaint();
 	}
 
@@ -171,10 +168,10 @@ public class StatistiqueCanvas {
 			context.lineTo(x, hStat + h_2);
 		}
 		context.stroke();
-		//context.closePath();
-		
+		// context.closePath();
+
 		context.setFillStyle(colorText);
-		
+
 		context.fillText("Succes : " + nb_succes + " / " + list.size(), 20, h_2 - 10);
 		context.fillText("Failures : " + nb_failures + " / " + list.size(), 20, h_2 + 20);
 

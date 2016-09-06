@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class StatistiquesPanel extends Composite  {
+public class StatistiquesPanel extends Composite {
 
 	private static StatistiquesPanelUiBinder uiBinder = GWT.create(StatistiquesPanelUiBinder.class);
 
@@ -19,55 +19,52 @@ public class StatistiquesPanel extends Composite  {
 
 	@UiField
 	SimplePanel panelCanvas;
-	
+
 	@UiField
 	Button buttonHour;
 	@UiField
 	Button buttonDay;
 	@UiField
 	Button buttonWeek;
-	
+
 	@UiField
 	Button buttonMonth;
-	
+
 	public StatistiquesPanel() {
 		initWidget(uiBinder.createAndBindUi(this));
 		final StatistiqueCanvas statistiqueCanvas = StatistiqueCanvas.getInstance2();
 		panelCanvas.add(statistiqueCanvas.getPanelCanvas());
-		panelCanvas.setWidth(statistiqueCanvas.getWidth()+"px");
-		panelCanvas.setHeight(statistiqueCanvas.getHeight()+"px");
-		
+		panelCanvas.setWidth(statistiqueCanvas.getWidth() + "px");
+		panelCanvas.setHeight(statistiqueCanvas.getHeight() + "px");
+
 		buttonHour.addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
 				statistiqueCanvas.initIntervalle(StatistiqueCanvas.CALENDAR_HOUR);
 			}
 		});
 		buttonDay.addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
 				statistiqueCanvas.initIntervalle(StatistiqueCanvas.CALENDAR_DAY);
 			}
 		});
 		buttonWeek.addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
 				statistiqueCanvas.initIntervalle(StatistiqueCanvas.CALENDAR_WEEK);
 			}
 		});
 		buttonMonth.addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
 				statistiqueCanvas.initIntervalle(StatistiqueCanvas.CALENDAR_MONTH);
 			}
 		});
 	}
-
-	
-
 
 }

@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
-public class Statistiques extends Composite  {
+public class Statistiques extends Composite {
 
 	private static StatistiquesUiBinder uiBinder = GWT.create(StatistiquesUiBinder.class);
 
@@ -24,17 +24,15 @@ public class Statistiques extends Composite  {
 	@UiField
 	Label label;
 
-	
-
 	@UiHandler("label")
 	void onClick(ClickEvent e) {
 		Window.alert("Hello!");
 	}
 
-    private static  Statistiques instance;
+	private static Statistiques instance;
 
 	public static Statistiques getInstance() {
-		if (instance == null){
+		if (instance == null) {
 			instance = new Statistiques();
 		}
 		return instance;

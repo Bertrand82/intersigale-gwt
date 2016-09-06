@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 public class StatistiquesUL {
-	
+
 	public static final String TAG_ROOT = "ULStat";
 	public static final String TAG_ID = "ID";
 	public static final String TAG_ITEMS = "items";

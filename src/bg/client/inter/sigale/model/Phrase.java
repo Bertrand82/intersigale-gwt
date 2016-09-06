@@ -56,10 +56,10 @@ public class Phrase {
 	}
 
 	public void setSelected(int selectionStart, int selectionEnd) {
-		if (selectionStart< 0){
+		if (selectionStart < 0) {
 			return;
 		}
-		if (selectionEnd <0){
+		if (selectionEnd < 0) {
 			return;
 		}
 		boolean showText = (selectionStart != selectionEnd);
@@ -87,7 +87,7 @@ public class Phrase {
 		}
 		return s;
 	}
-	
+
 	public int getEndVisible() {
 		int i = 0;
 		if (listVisible.isEmpty()) {
@@ -147,8 +147,9 @@ public class Phrase {
 		if (listVisible == null) {
 			if (other.listVisible != null)
 				return false;
-		} /*else if (!listVisible.equals(other.listVisible))
-			return false;*/
+		} /*
+		 * else if (!listVisible.equals(other.listVisible)) return false;
+		 */
 		if (text == null) {
 			if (other.text != null)
 				return false;

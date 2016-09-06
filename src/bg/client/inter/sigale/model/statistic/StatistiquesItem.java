@@ -22,8 +22,8 @@ public class StatistiquesItem {
 	}
 
 	public StatistiquesItem(boolean succes2, long time) {
-		succes=succes2;
-		this.date= new Date(time);
+		succes = succes2;
+		this.date = new Date(time);
 	}
 
 	public boolean isSucces() {

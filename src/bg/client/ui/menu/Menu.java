@@ -30,7 +30,7 @@ public class Menu extends Composite {
 	interface MenuUiBinder extends UiBinder<Widget, Menu> {
 	}
 
-	//@UiField
+	// @UiField
 	Button buttonRegister = new Button();
 	@UiField
 	Button buttonLesson;
@@ -82,16 +82,16 @@ public class Menu extends Composite {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				setBorders(buttonAdmin);				
+				setBorders(buttonAdmin);
 				EntryPointSigale.showView(AdminGUI.getInstance());
 			}
 		});
-		
+
 		buttonStat.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				setBorders(buttonStat);				
+				setBorders(buttonStat);
 				EntryPointSigale.showView(Statistiques.getInstance());
 			}
 		});
@@ -99,23 +99,24 @@ public class Menu extends Composite {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				setBorders(buttonDebug);				
+				setBorders(buttonDebug);
 				EntryPointSigale.showView(Statistiques.getInstance());
 			}
 		});
 	}
 
-	private void setBorders(Button buttonSelected){
+	private void setBorders(Button buttonSelected) {
 		buttonAdmin.getElement().getStyle().setProperty("borderWidth", "1px");
 		buttonLesson.getElement().getStyle().setProperty("borderWidth", "1px");
 		buttonDebug.getElement().getStyle().setProperty("borderWidth", "1px");
 		buttonEdit.getElement().getStyle().setProperty("borderWidth", "1px");
 		buttonRegister.getElement().getStyle().setProperty("borderWidth", "1px");
 		buttonStat.getElement().getStyle().setProperty("borderWidth", "1px");
-		
+
 		buttonSelected.getElement().getStyle().setProperty("borderWidth", "3px");
-		
+
 	}
+
 	private static Menu instance = new Menu();
 
 	public static Menu getInstance() {
@@ -123,5 +124,4 @@ public class Menu extends Composite {
 		return instance;
 	}
 
-	
 }

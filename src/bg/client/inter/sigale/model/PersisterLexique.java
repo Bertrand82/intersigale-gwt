@@ -22,8 +22,8 @@ public class PersisterLexique {
 			if (storage != null) {
 				for (int i = 0; i < storage.getLength(); i++) {
 					String key = storage.key(i);
-					if (key == null){
-					}else if (key.startsWith(TAG_Lexique)) {
+					if (key == null) {
+					} else if (key.startsWith(TAG_Lexique)) {
 						list.add(getLexiqueNameFromKey(key));
 					}
 				}

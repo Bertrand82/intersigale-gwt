@@ -16,37 +16,35 @@ import com.google.gwt.xml.client.XMLParser;
 public class LexiqueFactory {
 
 	private PersisterLexique persister = new PersisterLexique();
-	
+
 	public static final String KEY_LexiqueName = "intersigale.lexique.name";
-	
-	private ISigalePropertes sigaleProperties ;
-	
+
+	private ISigalePropertes sigaleProperties;
+
 	private Lexique lexique;
 
-	private  ILogListener logListener = new LogGWT();
+	private ILogListener logListener = new LogGWT();
 
-	private  static LexiqueFactory instance ;
-	
-	public LexiqueFactory(ISigalePropertes sigaleProperties2, ILogListener logListener2){
-		this.sigaleProperties=sigaleProperties2;
+	private static LexiqueFactory instance;
+
+	public LexiqueFactory(ISigalePropertes sigaleProperties2, ILogListener logListener2) {
+		this.sigaleProperties = sigaleProperties2;
 		this.logListener = logListener2;
 		instance = this;
 		try {
 			String name = sigaleProperties.getNameLexique();
-			if (name == null){
+			if (name == null) {
 				logListener.logText("No file in LocalStorage !");
-			}else {
+			} else {
 				this.lexique = fetchLexiqueInLocalStorage(name);
 				this.logListener.logTitle(name);
-				this.logListener.logText("Display former context. Lexique :"+lexique.getName());
+				this.logListener.logText("Display former context. Lexique :" + lexique.getName());
 			}
 		} catch (Exception e) {
 			this.logListener.log("Exception Constructor LexiqueFactory", e);
 		}
-		
+
 	}
-	
-	
 
 	public static LexiqueFactory getInstance() {
 		return instance;
@@ -54,17 +52,12 @@ public class LexiqueFactory {
 
 	public Lexique getLexique() {
 		if (lexique == null) {
-			initLexique();
+			lexique = getLexiqueDefault();
 		}
 		return lexique;
 	}
 
-	private void initLexique() {
-		logListener.log("initLexique");
-		this.lexique = null;
-		lexique = getLexiqueDefault();
 
-	}
 
 	public Lexique getLexiqueDefault() {
 		Lexique lexique = new Lexique();
@@ -78,9 +71,9 @@ public class LexiqueFactory {
 		lexique.add(new UniteLexicale(p1, p2));
 		logListener.logText("Load welcome Listener");
 		logListener.logTitle(lexique.getName());
+		StatistiquesLexiqueFactory.getInstance().fetchStatitistiqueInLocaleStorage(lexique);
 		return lexique;
 	}
-	
 
 	/**
 	 * 
@@ -121,8 +114,9 @@ public class LexiqueFactory {
 	 * @param item
 	 */
 	public void saveItem(UniteLexicale item) {
-			this.saveLexique();
+		this.saveLexique();
 	}
+
 	/*
 	 * 
 	 */
@@ -175,34 +169,30 @@ public class LexiqueFactory {
 		this.sigaleProperties.setNameLexique(name);
 		this.lexique = fetchLexiqueInLocalStorage(name);
 	}
-		
+
 	private Lexique fetchLexiqueInLocalStorage(String name) {
-		if (name == null){
+		if (name == null) {
 			return null;
 		}
 		String xml = this.persister.getLexiqueXMLFromName(name);
 		GWT.log(xml);
 		Lexique lexiqueParsed = parse(xml);
 		GWT.log("Parse xml done nb ul : " + lexiqueParsed.getListUniteLexicale().size());
-		
+
 		logListener.logTitle(name);
 		logListener.logText("Fetch and display Display " + lexiqueParsed.getName());
 		StatistiquesLexiqueFactory.getInstance().fetchStatitistiqueInLocaleStorage(lexiqueParsed);
 		return lexiqueParsed;
 	}
 
-	
-
-
-
 	public void deleteLexiqueByName(String name) {
 		this.logListener.logText("Delete Lexique in local storage by Name : " + name);
 		this.persister.delete(name);
-		logListener.logText("Deleted : "+name);
+		logListener.logText("Deleted : " + name);
 	}
 
 	public Lexique parse(String xml) {
-		if (xml == null){
+		if (xml == null) {
 			logListener.logText("try to parse null xml !");
 			return null;
 		}
