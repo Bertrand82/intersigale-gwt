@@ -5,11 +5,10 @@ import java.util.Date;
 import java.util.List;
 
 public class StatistiquesUL {
-	/**
-	 * Pas encore utilis�
-	 */
+	
 	public static final String TAG_ROOT = "ULStat";
 	public static final String TAG_ID = "ID";
+	public static final String TAG_ITEMS = "items";
 	private String uniteLexicaleId = "0";
 
 	private List<StatistiquesItem> list = new ArrayList<StatistiquesItem>();
@@ -44,6 +43,7 @@ public class StatistiquesUL {
 	public void add(boolean result) {
 		StatistiquesItem item = new StatistiquesItem(result);
 		list.add(item);
+		StatistiquesLexiqueFactory.getInstance().saveStatisticUL(this);
 	}
 
 	public boolean isLastResult(boolean b) {

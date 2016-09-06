@@ -5,6 +5,8 @@ import java.util.Date;
 public class StatistiquesItem {
 
 	public static final String TAG_ROOT = "item";
+	public static final String TAG_Date = "date";
+	public static final String TAG_succes = "succes";
 
 	boolean succes;
 
@@ -17,6 +19,11 @@ public class StatistiquesItem {
 
 	public StatistiquesItem(boolean result_) {
 		succes = result_;
+	}
+
+	public StatistiquesItem(boolean succes2, long time) {
+		succes=succes2;
+		this.date= new Date(time);
 	}
 
 	public boolean isSucces() {
