@@ -71,6 +71,7 @@ public class Visible {
 	public void setStart(String start2) {
 		try {
 			int i = Integer.parseInt(start2);
+			setStart(i);
 		} catch (Exception e) {
 
 		}
@@ -79,6 +80,7 @@ public class Visible {
 	public void setEnd(String end2) {
 		try {
 			int i = Integer.parseInt(end2);
+			setEnd(i);
 		} catch (Exception e) {
 
 		}

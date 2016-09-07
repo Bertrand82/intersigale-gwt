@@ -89,7 +89,7 @@ public class Lexique implements Serializable {
 	 */
 	public void setStatistiquesLexique(StatistiquesLexique statistiquesLexique) {
 		this.statistiquesLexique = statistiquesLexique;
-		updateStatistiques();
+		
 	}
 
 	public StatistiquesLexique getStatistiquesLexique() {
@@ -107,11 +107,7 @@ public class Lexique implements Serializable {
 		}
 	}
 
-	private void updateStatistiques() {
-		for (StatistiquesUL stat : statistiquesLexique.getListStatistiqueUL()) {
-
-		}
-	}
+	
 
 	public String getName() {
 		return name;

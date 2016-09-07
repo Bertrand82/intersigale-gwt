@@ -234,14 +234,12 @@ public class LexiqueFactory {
 		String text = nodePhrase.getFirstChild().getNodeValue();
 		phrase.setText(text);
 		NodeList nodeList = nodePhrase.getChildNodes();
-		int k = 0;
 		for (int i = 0; i < nodeList.getLength(); i++) {
 			Node nodeChild = nodeList.item(i);
 			String name = nodeChild.getNodeName();
 			if (Visible.TAG_ROOT.equals(name)) {
 				Visible visible = parseVisible(nodeChild);
-				phrase.getListVisible().add(visible);
-				k++;
+				phrase.getListVisible().add(visible);				
 			}
 		}
 		return phrase;

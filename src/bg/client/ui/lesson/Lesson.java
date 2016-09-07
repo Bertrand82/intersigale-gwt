@@ -134,7 +134,6 @@ public class Lesson extends Composite {
 	private void validResult() {
 		UniteLexicale ul = getLexique().getUniteLexicaleCourante();
 		if (ul != null) {
-			String text = ul.getPhrase_1().getText();
 			UniteLexicale ulCourrante = getLexique().getUniteLexicaleCourante();
 			boolean ok = ulCourrante.resultProcess(this.textBoxReponse.getText());
 			String stat = " ? ";

@@ -33,13 +33,7 @@ public class LexiqueChooser {
 		initGrid();
 	}
 
-	private static List<String> getListTest() {
-		List<String> listTest = new ArrayList<String>();
-		listTest.add("aaaaaaaaa");
-		listTest.add("bbbbbbbb");
-		return listTest;
-	}
-
+	
 	/**
 	 * Un datagrid est tellement long a decrire, que le uiBinder n'apprte pas
 	 * grand chose. Autant s'en passer: Le code gagne ainsi en lisibilité.

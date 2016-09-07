@@ -18,27 +18,15 @@ public class StatistiquesUL {
 
 	public String getResume() {
 		int nbSucces = 0;
-		int nbEchec = 0;
 		int nbTotal = this.list.size();
 		for (StatistiquesItem stI : this.list) {
 			if (stI.isSucces()) {
 				nbSucces++;
-			} else {
-				nbEchec++;
-			}
+			} 
 		}
 		return " Succes : " + nbSucces + " / " + nbTotal;
 	}
 
-	private int geNbSucces() {
-		int i = 0;
-		for (StatistiquesItem item : list) {
-			if (item.isSucces()) {
-				i++;
-			}
-		}
-		return i;
-	}
 
 	public void add(boolean result) {
 		StatistiquesItem item = new StatistiquesItem(result);
@@ -71,7 +59,7 @@ public class StatistiquesUL {
 	}
 
 	public List<StatistiquesItem> getListAfterDate(Date date_0) {
-		List<StatistiquesItem> list2 = new ArrayList();
+		List<StatistiquesItem> list2 = new ArrayList<StatistiquesItem>();
 		for (StatistiquesItem statistiquesItem : this.list) {
 			if (statistiquesItem.getDate().after(date_0)) {
 				list2.add(statistiquesItem);
