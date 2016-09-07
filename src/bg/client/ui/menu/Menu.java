@@ -4,7 +4,10 @@
 package bg.client.ui.menu;
 
 import bg.client.EntryPointSigale;
+import bg.client.LogGWT;
+import bg.client.inter.sigale.util.ILogListener;
 import bg.client.ui.admin.AdminGUI;
+import bg.client.ui.debug.Debug;
 import bg.client.ui.edit.EditLexiqueGUI;
 import bg.client.ui.lesson.Lesson;
 import bg.client.ui.register.RegisterForm;
@@ -26,7 +29,7 @@ import com.google.gwt.user.client.ui.Widget;
 public class Menu extends Composite {
 
 	private static MenuUiBinder uiBinder = GWT.create(MenuUiBinder.class);
-
+	private ILogListener logListener = new LogGWT();
 	interface MenuUiBinder extends UiBinder<Widget, Menu> {
 	}
 
@@ -60,6 +63,7 @@ public class Menu extends Composite {
 			public void onClick(ClickEvent event) {
 				setBorders(buttonRegister);
 				EntryPointSigale.showView(RegisterForm.getInstance());
+				logListener.logText("Register");
 			}
 		});
 		buttonLesson.addClickHandler(new ClickHandler() {
@@ -68,6 +72,7 @@ public class Menu extends Composite {
 			public void onClick(ClickEvent event) {
 				setBorders(buttonLesson);
 				EntryPointSigale.showView(Lesson.getInstance());
+				logListener.logText("Lesson");
 			}
 		});
 		buttonEdit.addClickHandler(new ClickHandler() {
@@ -76,6 +81,7 @@ public class Menu extends Composite {
 			public void onClick(ClickEvent event) {
 				setBorders(buttonEdit);
 				EntryPointSigale.showView(EditLexiqueGUI.getInstance());
+				logListener.logText("Edit");
 			}
 		});
 		buttonAdmin.addClickHandler(new ClickHandler() {
@@ -84,6 +90,7 @@ public class Menu extends Composite {
 			public void onClick(ClickEvent event) {
 				setBorders(buttonAdmin);
 				EntryPointSigale.showView(AdminGUI.getInstance());
+				logListener.logText("Admin");
 			}
 		});
 
@@ -93,6 +100,7 @@ public class Menu extends Composite {
 			public void onClick(ClickEvent event) {
 				setBorders(buttonStat);
 				EntryPointSigale.showView(Statistiques.getInstance());
+				logListener.logText("Stat");
 			}
 		});
 		buttonDebug.addClickHandler(new ClickHandler() {
@@ -100,7 +108,8 @@ public class Menu extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				setBorders(buttonDebug);
-				EntryPointSigale.showView(Statistiques.getInstance());
+				EntryPointSigale.showView(Debug.getInstance());
+				logListener.logText("Debug");
 			}
 		});
 	}

@@ -59,6 +59,7 @@ public class Lesson extends Composite {
 				validResult();
 			}
 		});
+		buttonNext.setEnabled(false);
 		buttonNext.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -145,9 +146,6 @@ public class Lesson extends Composite {
 				stat = " ok ";
 			} else {
 				stat = " ko ";
-				System.out.println("p0 :" + getLexique().getUniteLexicaleCourante().getPhrase_0().getText());
-				System.out.println("p1 :" + getLexique().getUniteLexicaleCourante().getPhrase_1().getText());
-				System.out.println("p2 :" + textBoxReponse.getText());
 				labelCorrection.setText(getLexique().getUniteLexicaleCourante().getPhrase_1().getText());
 			}
 
