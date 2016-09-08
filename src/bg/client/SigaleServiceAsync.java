@@ -11,12 +11,16 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  */
 public interface SigaleServiceAsync {
 	
-	void greetServer(String input, AsyncCallback<String> callback) throws IllegalArgumentException;
-
 	
-	void storeLexiqueMetadata(LexiqueMetaData lexique, AsyncCallback<Boolean> callback);
+	void storeLexiqueMetadata(LexiqueMetaData lexique, AsyncCallback<Long> callback);
 
 
 	void getListLexiquesByOwner(String email, AsyncCallback<List<LexiqueMetaData>> callback);
+
+
+	void deleteLexiqueMetadata(String lexiqueId, String email, AsyncCallback<Boolean> callback);
+
+
+	void getLexiqueMetadataById(String lexiqueId, String email, AsyncCallback<LexiqueMetaData> callback);
 
 }

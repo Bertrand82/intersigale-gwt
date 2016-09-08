@@ -1,7 +1,7 @@
 package bg.server.inter.sigale.data;
 
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,13 +21,14 @@ public class LexiqueEntityFactory {
 	private LexiqueEntityFactory() {
 	}
 
-	public boolean makePersistent(LexiqueEntity bean) throws Exception {
+	public long makePersistent(LexiqueEntity bean) throws Exception {
 		try {
 			PersistenceManager pm = persistenceManagerFactory.getPersistenceManager();
-			pm.makePersistent(bean);
+			bean = pm.makePersistent(bean);
+			long id = bean.getId();
 			pm.close();
 			logger.info("makePersistent LexiqueEntity done:" + bean);
-			return true;
+			return id;
 		} catch (Exception e) {
 			logger.log(Level.WARNING, "makePersistent LexiqueEntity Exception:" + bean, e);
 			throw e;
@@ -83,7 +84,7 @@ public class LexiqueEntityFactory {
 		return instance;
 	}
 
-	public boolean makePersistent(LexiqueMetaData lexique) throws Exception {
+	public long makePersistent(LexiqueMetaData lexique) throws Exception {
 		LexiqueEntity lexiqueEntity = toLexiqueEntity(lexique);
 		return makePersistent(lexiqueEntity);
 	}
@@ -98,4 +99,61 @@ public class LexiqueEntityFactory {
 		lexiqueEntity.setXml(lexique.getXml());
 		return lexiqueEntity;
 	}
+	
+	
+	public void removeLexique(String idStr, String emailUser) throws Exception {
+		logger.log(Level.WARNING, "removeLexique id " + idStr+" mail "+ emailUser);
+		PersistenceManager pm = persistenceManagerFactory.getPersistenceManager();
+		try {
+			long id = Long.parseLong(idStr);
+			LexiqueEntity c = pm.getObjectById(LexiqueEntity.class, id);
+
+			/*if (c.getEmailOwner().equals(emailUser)) {
+				c = null;
+				logger.log(Level.WARNING, "removeLexique id " + idStr+"email no matching");
+			}*/
+
+			if (c == null) {
+				throw new Exception("No Lexique  id :" + id + "  " + emailUser);
+			}
+			pm.deletePersistent(c);
+			logger.log(Level.WARNING, "removeLexique id " + idStr+" done ");
+		} finally {
+			pm.close();
+		}
+
+	}
+	public LexiqueMetaData getLexique(String idStr) {
+		logger.log(Level.WARNING, "getLexique id " + idStr);
+		
+		PersistenceManager pm = persistenceManagerFactory.getPersistenceManager();
+		try {
+			long id = Long.parseLong(idStr);
+			LexiqueEntity c = pm.getObjectById(LexiqueEntity.class, id);
+			if (c == null){
+				return null;
+			}else {
+				LexiqueMetaData lmd = toLexiqueMetadata(c);
+				return lmd;
+			}
+			
+		} catch (Exception e) {
+			return null;
+		} finally {
+			pm.close();
+		}
+	}
+	
+	private LexiqueMetaData toLexiqueMetadata(LexiqueEntity le) {
+		LexiqueMetaData lmd = new LexiqueMetaData();
+		lmd.setName(le.getName());
+		lmd.setDateModified(le.getDateModified());
+		lmd.setDateRegistered(le.getDateRegistered());
+		lmd.setEmailOwner(le.getEmailOwner());
+		lmd.setId(le.getId());
+		lmd.setXml(le.getXml());
+		return lmd;
+	}
+
+	
 }

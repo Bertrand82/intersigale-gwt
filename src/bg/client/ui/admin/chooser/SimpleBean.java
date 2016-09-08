@@ -1,14 +1,14 @@
 package bg.client.ui.admin.chooser;
 
-public class LexiqueBean {
+public class SimpleBean {
 
 	String name = "toto";
 
-	public LexiqueBean() {
+	public SimpleBean() {
 
 	}
 
-	public LexiqueBean(String name) {
+	public SimpleBean(String name) {
 		super();
 		this.name = name;
 	}

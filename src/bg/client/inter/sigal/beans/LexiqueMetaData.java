@@ -3,11 +3,16 @@ package bg.client.inter.sigal.beans;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.jdo.annotations.Persistent;
 
-public class LexiqueMetaData implements Serializable{
 
-	
+
+
+public class LexiqueMetaData implements Serializable,IBean{
+
+
+	private static final long serialVersionUID = 1L;
+
+
 	private Long id;
 	
 	

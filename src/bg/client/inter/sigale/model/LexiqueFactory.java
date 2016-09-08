@@ -4,11 +4,15 @@ import java.util.Date;
 import java.util.List;
 
 import bg.client.LogGWT;
+import bg.client.SigaleService;
+import bg.client.SigaleServiceAsync;
 import bg.client.inter.sigal.beans.LexiqueMetaData;
 import bg.client.inter.sigale.model.statistic.StatistiquesLexiqueFactory;
 import bg.client.inter.sigale.util.ILogListener;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.xml.client.Document;
 import com.google.gwt.xml.client.Element;
 import com.google.gwt.xml.client.Node;
@@ -18,6 +22,8 @@ import com.google.gwt.xml.client.XMLParser;
 public class LexiqueFactory {
 
 	private PersisterLexique persister = new PersisterLexique();
+
+	private final SigaleServiceAsync sigaleService = GWT.create(SigaleService.class);
 
 	public static final String KEY_LexiqueName = "intersigale.lexique.name";
 
@@ -58,8 +64,6 @@ public class LexiqueFactory {
 		}
 		return lexique;
 	}
-
-
 
 	public Lexique getLexiqueDefault() {
 		Lexique lexique = new Lexique();
@@ -166,7 +170,7 @@ public class LexiqueFactory {
 
 	}
 
-	public void getLexiqueByName(String name) {
+	public void getLexiqueByNameInLocalStore(String name) {
 		this.logListener.logText("get Lexique in local storage by Name : " + name);
 		this.sigaleProperties.setNameLexique(name);
 		this.lexique = fetchLexiqueInLocalStorage(name);
@@ -241,7 +245,7 @@ public class LexiqueFactory {
 			String name = nodeChild.getNodeName();
 			if (Visible.TAG_ROOT.equals(name)) {
 				Visible visible = parseVisible(nodeChild);
-				phrase.getListVisible().add(visible);				
+				phrase.getListVisible().add(visible);
 			}
 		}
 		return phrase;
@@ -273,6 +277,47 @@ public class LexiqueFactory {
 		lmd.setName(lexique2.getName());
 		lmd.setXml(toXml(lexique2));
 		return lmd;
+	}
+
+	public void getLexiqueByIdInRemoteStore(final String lexiqueId, String name) {
+		AsyncCallback<LexiqueMetaData> callback = new AsyncCallback<LexiqueMetaData>() {
+
+			@Override
+			public void onFailure(Throwable e) {
+				logListener.log("getLexiqueByIdInRemoteStore : " + lexiqueId + " Exception : " + e);
+			}
+
+			@Override
+			public void onSuccess(LexiqueMetaData result) {
+				logListener.log("getLexiqueByIdInRemoteStore : " + lexiqueId + " LexiqueMetaData : " + result);
+				displayLexiqueMetaData(result);
+			}
+		};
+		sigaleService.getLexiqueMetadataById(lexiqueId, "bg@bg", callback);
+	}
+
+	public void deleteInRemoteStore(final String id, String name) {
+		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
+
+			@Override
+			public void onFailure(Throwable e) {
+				logListener.log("Delete : " + id + " Exception : " + e);
+			}
+
+			@Override
+			public void onSuccess(Boolean result) {
+				logListener.log("Delete : " + id + " result : " + result);
+			}
+		};
+		sigaleService.deleteLexiqueMetadata(id, "bg@bg", callback);
+	}
+
+	private void displayLexiqueMetaData(LexiqueMetaData lmd) {
+		Lexique lexique2 = parse(lmd.getXml());
+		lexique2.setId(lmd.getId());
+		lexique2.setName(lmd.getName());
+		this.lexique=lexique2;
+	
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import bg.client.SigaleService;
 import bg.client.inter.sigal.beans.LexiqueMetaData;
+import bg.client.inter.sigale.model.LexiqueFactory;
 import bg.server.inter.sigale.data.LexiqueEntity;
 import bg.server.inter.sigale.data.LexiqueEntityFactory;
 import bg.shared.FieldVerifier;
@@ -52,15 +53,27 @@ public class SigaleServiceImpl extends RemoteServiceServlet implements SigaleSer
 	}
 
 	@Override
-	public boolean storeLexiqueMetadata(LexiqueMetaData lexique) throws Exception {
-		boolean b = LexiqueEntityFactory.getInstance().makePersistent(lexique);
-		return b;
+	public long storeLexiqueMetadata(LexiqueMetaData lexique) throws Exception {
+		long id = LexiqueEntityFactory.getInstance().makePersistent(lexique);
+		return id;
 	}
 
 	@Override
 	public List<LexiqueMetaData> getListLexiquesByOwner(String email) throws Exception {
 		
 		return LexiqueEntityFactory.getInstance().getListLexiqueLight();
+	}
+
+	@Override
+	public boolean deleteLexiqueMetadata(String lexiqueId, String emailUser) throws Exception {
+		LexiqueEntityFactory.getInstance().removeLexique(lexiqueId, emailUser);
+		return true;
+	}
+
+	@Override
+	public LexiqueMetaData getLexiqueMetadataById(String lexiqueId, String email) throws Exception {
+		LexiqueMetaData lmd = LexiqueEntityFactory.getInstance().getLexique(lexiqueId);
+		return lmd;
 	}
 
 	

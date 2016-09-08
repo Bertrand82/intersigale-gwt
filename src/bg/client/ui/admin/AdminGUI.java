@@ -9,9 +9,15 @@ import bg.client.inter.sigal.beans.LexiqueMetaData;
 import bg.client.inter.sigale.model.Lexique;
 import bg.client.inter.sigale.model.LexiqueFactory;
 import bg.client.inter.sigale.util.ILogListener;
-import bg.client.ui.admin.chooser.LexiqueChooser;
+import bg.client.ui.admin.chooser.ListSimpleBeanChooser;
+import bg.client.ui.admin.chooserLexique.IAction;
+import bg.client.ui.admin.chooserLexique.BeanChooser;
 import bg.client.ui.util.popup.IPopupListener;
 import bg.client.ui.util.popup.PopupDialogOption;
+
+
+
+
 
 
 
@@ -35,8 +41,23 @@ import com.google.gwt.user.client.ui.Widget;
 public class AdminGUI extends Composite {
 
 	private static AdminGUIUiBinder uiBinder = GWT.create(AdminGUIUiBinder.class);
-
+	
 	private ILogListener log = new LogGWT();
+	
+	private IAction actionChooserRemote = new IAction() {
+		
+		
+		public void display(String id, String name) {
+			LexiqueFactory.getInstance().getLexiqueByIdInRemoteStore(id,name);
+			log.log("Display "+id);
+		}
+		
+		
+		public void delete(String id, String name) {
+			log.log("Delete "+id+"   "+name);
+			LexiqueFactory.getInstance().deleteInRemoteStore(id,name);
+		}
+	};
 	/**
 	 * Create a remote service proxy to talk to the server-side Greeting
 	 * service.
@@ -71,7 +92,10 @@ public class AdminGUI extends Composite {
 	LexiqueSaveIn lexiqueSaveIn = new LexiqueSaveIn();
 
 	@UiField
-	Button buttonChooseLexique;
+	Button buttonChooseLexiqueInLocal;
+	
+	@UiField
+	Button buttonChooseLexiqueInRemote;
 
 	@UiField
 	Button buttonSaveLexiqueInRemote;
@@ -93,26 +117,57 @@ public class AdminGUI extends Composite {
 
 	private AdminGUI() {
 		initWidget(uiBinder.createAndBindUi(this));
-		buttonChooseLexique.addClickHandler(new ClickHandler() {
+		buttonChooseLexiqueInLocal.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
 				List<String> list = LexiqueFactory.getInstance().getLexiquesInLocalStorage();
-				LexiqueChooser.getInstance().setLexiques(list);
-				myPopup.showWidget(LexiqueChooser.getInstance().getWidget());
+				ListSimpleBeanChooser.getInstance().setLexiques(list);
+				myPopup.showWidget(ListSimpleBeanChooser.getInstance().getWidget());
 
 			}
 
 		});
+		
+		buttonChooseLexiqueInRemote.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				String email ="bg@bg";
+				
+				AsyncCallback  <List<LexiqueMetaData>> callback = new AsyncCallback<List<LexiqueMetaData> >() {
+
+					@Override
+					public void onFailure(Throwable e) {
+						log.log("Get List exception "+e);
+					}
+
+					@Override
+					public void onSuccess(List<LexiqueMetaData>  result) {
+						log.log("Get List size :"+result.size());
+						BeanChooser chooser = BeanChooser.getInstance() ;
+						chooser.setLexiqueMetadata(result);
+						chooser.setiAction(actionChooserRemote);
+						
+						myPopup.showWidget(BeanChooser.getInstance().getWidget());
+					}
+				};
+				log.log("Send request to server ");
+				sigaleService.getListLexiquesByOwner(email, callback);
+			}
+
+		});
+		
+		
 		buttonSaveLexiqueInRemote.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
 				try {
-					Lexique lexique = LexiqueFactory.getInstance().getLexique();
+					final Lexique lexique = LexiqueFactory.getInstance().getLexique();
 					String usermail="bg@bg";
 					String xml = LexiqueFactory.getInstance().toXml(lexique);
-					AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
+					AsyncCallback<Long> callback = new AsyncCallback<Long>() {
 
 						@Override
 						public void onFailure(Throwable t) {
@@ -120,8 +175,9 @@ public class AdminGUI extends Composite {
 						}
 
 						@Override
-						public void onSuccess(Boolean result) {
+						public void onSuccess(Long result) {
 							log.log("Save Lexique :"+result);
+							lexique.setId(result);
 						}
 						
 					};
@@ -135,6 +191,9 @@ public class AdminGUI extends Composite {
 				}
 			}
 		});
+		
+		
+		
 		buttonSaveLexiqueInLocal.addClickHandler(new ClickHandler() {
 
 			@Override

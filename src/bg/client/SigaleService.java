@@ -14,9 +14,12 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("greet")
 public interface SigaleService extends RemoteService {
 	
-	String greetServer(String name) throws IllegalArgumentException;
+		
+	long storeLexiqueMetadata(LexiqueMetaData lexique) throws Exception;
 	
-	boolean storeLexiqueMetadata(LexiqueMetaData lexique) throws Exception;
+	boolean deleteLexiqueMetadata(String lexiqueId, String email) throws Exception;
+	
+	LexiqueMetaData getLexiqueMetadataById(String lexiqueId, String email) throws Exception;
 	
 	List<LexiqueMetaData> getListLexiquesByOwner(String email) throws Exception;
 }

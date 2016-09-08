@@ -14,7 +14,7 @@ public class Lexique implements Serializable {
 	public static String TAG_ROOT = "lexique";
 
 	private String name = "intersigale-default";
-
+	private long id=0;
 	private StatistiquesLexique statistiquesLexique;
 
 	private List<UniteLexicale> listUniteLexicale = new ArrayList<UniteLexicale>();
@@ -154,6 +154,16 @@ public class Lexique implements Serializable {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+
+	
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 }

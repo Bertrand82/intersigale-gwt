@@ -16,20 +16,20 @@ import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
-public class LexiqueChooser {
+public class ListSimpleBeanChooser {
 
-	private static LexiqueChooser instance;
+	private static ListSimpleBeanChooser instance;
 
-	public static LexiqueChooser getInstance() {
+	public static ListSimpleBeanChooser getInstance() {
 		if (instance == null) {
-			instance = new LexiqueChooser();
+			instance = new ListSimpleBeanChooser();
 		}
 		return instance;
 	}
 
-	DataGrid<LexiqueBean> dataGrid;
+	DataGrid<SimpleBean> dataGrid;
 
-	private LexiqueChooser() {
+	private ListSimpleBeanChooser() {
 		initGrid();
 	}
 
@@ -39,12 +39,12 @@ public class LexiqueChooser {
 	 * grand chose. Autant s'en passer: Le code gagne ainsi en lisibilité.
 	 */
 	public void initGrid() {
-		dataGrid = new DataGrid<LexiqueBean>();
+		dataGrid = new DataGrid<SimpleBean>();
 		dataGrid.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
 
-		TextColumn<LexiqueBean> lexiqueName = new TextColumn<LexiqueBean>() {
+		TextColumn<SimpleBean> lexiqueName = new TextColumn<SimpleBean>() {
 			@Override
-			public String getValue(LexiqueBean object) {
+			public String getValue(SimpleBean object) {
 				return object.getName();
 			}
 		};
@@ -55,19 +55,18 @@ public class LexiqueChooser {
 		 */
 
 		ButtonCell buttonDisplay = new ButtonCell();
-		Column<LexiqueBean, String> buttonDisplayColumn = new Column<LexiqueBean, String>(buttonDisplay) {
+		Column<SimpleBean, String> buttonDisplayColumn = new Column<SimpleBean, String>(buttonDisplay) {
 			@Override
-			public String getValue(LexiqueBean object) {
+			public String getValue(SimpleBean object) {
 				// The value to display in the button.
 				return "Display";
 			}
 		};
 		/* Le listener sur le button */
-		buttonDisplayColumn.setFieldUpdater(new FieldUpdater<LexiqueBean, String>() {
-			public void update(int index, LexiqueBean lexiqueBean, String value) {
-				LexiqueFactory.getInstance().getLexiqueByName(lexiqueBean.getName());
+		buttonDisplayColumn.setFieldUpdater(new FieldUpdater<SimpleBean, String>() {
+			public void update(int index, SimpleBean lexiqueBean, String value) {
+				LexiqueFactory.getInstance().getLexiqueByNameInLocalStore(lexiqueBean.getName());
 				AdminGUI.getInstance().hidePopup();
-
 			}
 		});
 		dataGrid.addColumn(buttonDisplayColumn, "Display");
@@ -76,15 +75,15 @@ public class LexiqueChooser {
 		 * *****************************************************************
 		 */
 		ButtonCell buttonCellDelete = new ButtonCell();
-		Column<LexiqueBean, String> buttonColumn = new Column<LexiqueBean, String>(buttonCellDelete) {
+		Column<SimpleBean, String> buttonColumn = new Column<SimpleBean, String>(buttonCellDelete) {
 			@Override
-			public String getValue(LexiqueBean object) {
+			public String getValue(SimpleBean object) {
 				// The value to display in the button.
 				return "Delete";
 			}
 		};
-		buttonColumn.setFieldUpdater(new FieldUpdater<LexiqueBean, String>() {
-			public void update(int index, LexiqueBean lexiqueBean, String value) {
+		buttonColumn.setFieldUpdater(new FieldUpdater<SimpleBean, String>() {
+			public void update(int index, SimpleBean lexiqueBean, String value) {
 				LexiqueFactory.getInstance().deleteLexiqueByName(lexiqueBean.getName());
 				AdminGUI.getInstance().hidePopup();
 
@@ -108,7 +107,7 @@ public class LexiqueChooser {
 
 	}
 
-	public void setLexiquesBean(List<LexiqueBean> list) {
+	public void setLexiquesBean(List<SimpleBean> list) {
 		dataGrid.setRowCount(list.size(), true);
 		dataGrid.setRowData(0, list);
 		dataGrid.redraw();
@@ -121,9 +120,9 @@ public class LexiqueChooser {
 	}
 
 	public void setLexiques(List<String> list) {
-		List<LexiqueBean> listBean = new ArrayList<LexiqueBean>();
+		List<SimpleBean> listBean = new ArrayList<SimpleBean>();
 		for (String name : list) {
-			LexiqueBean lb = new LexiqueBean(name);
+			SimpleBean lb = new SimpleBean(name);
 			listBean.add(lb);
 		}
 		setLexiquesBean(listBean);
