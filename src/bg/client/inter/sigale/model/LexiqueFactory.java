@@ -1,8 +1,10 @@
 package bg.client.inter.sigale.model;
 
+import java.util.Date;
 import java.util.List;
 
 import bg.client.LogGWT;
+import bg.client.inter.sigal.beans.LexiqueMetaData;
 import bg.client.inter.sigale.model.statistic.StatistiquesLexiqueFactory;
 import bg.client.inter.sigale.util.ILogListener;
 
@@ -261,6 +263,16 @@ public class LexiqueFactory {
 			}
 		}
 		return visible;
+	}
+
+	public LexiqueMetaData getLexiqueMetaData(Lexique lexique2) {
+		LexiqueMetaData lmd = new LexiqueMetaData();
+		lmd.setEmailOwner("bg@bg");
+		lmd.setDateModified(new Date());
+		lmd.setDateRegistered(new Date());
+		lmd.setName(lexique2.getName());
+		lmd.setXml(toXml(lexique2));
+		return lmd;
 	}
 
 }

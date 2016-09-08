@@ -37,4 +37,9 @@ public class LexiqueSaveIn extends Composite {
 		LexiqueFactory.getInstance().saveLexique(newName);
 	}
 
+	public TextBox getTextBox() {
+		return textBox;
+	}
+	
+
 }

@@ -1,6 +1,11 @@
 package bg.server;
 
+import java.util.List;
+
 import bg.client.SigaleService;
+import bg.client.inter.sigal.beans.LexiqueMetaData;
+import bg.server.inter.sigale.data.LexiqueEntity;
+import bg.server.inter.sigale.data.LexiqueEntityFactory;
 import bg.shared.FieldVerifier;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -45,4 +50,21 @@ public class SigaleServiceImpl extends RemoteServiceServlet implements SigaleSer
 		}
 		return html.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
 	}
+
+	@Override
+	public boolean storeLexiqueMetadata(LexiqueMetaData lexique) throws Exception {
+		boolean b = LexiqueEntityFactory.getInstance().makePersistent(lexique);
+		return b;
+	}
+
+	@Override
+	public List<LexiqueMetaData> getListLexiquesByOwner(String email) throws Exception {
+		
+		return LexiqueEntityFactory.getInstance().getListLexiqueLight();
+	}
+
+	
+
+
+	
 }

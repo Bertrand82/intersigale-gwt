@@ -9,10 +9,10 @@
 	<g:HTMLPanel>
 		<h2>Edit</h2>
 		<table>
-		<tr> <td><g:Button styleName="{style.important}" ui:field="buttonChooseLexique" ui:text="Choose Lexique"/></td></tr>
-		<tr> <td><g:Button styleName="{style.important}" ui:field="buttonSaveLexique" ui:text="Save Lexique"/></td></tr>
-		<tr> <td><g:Button styleName="{style.important}" ui:field="buttonSaveLexiqueIn" ui:text="Save Lexique in ..."/></td></tr>
-		<tr> <td><g:Button styleName="{style.important}" ui:field="buttonCreateLexique" ui:text="Create Lexique"/></td></tr>
+		<tr> <td><g:Button styleName="{style.important}" ui:field="buttonChooseLexique" ui:text="Choose Lexique on local store"/></td></tr>
+		<tr> <td><g:Button styleName="{style.important}" ui:field="buttonSaveLexiqueInLocal" ui:text="Save Lexique in local store..."/></td></tr>
+		<tr> <td><g:Button styleName="{style.important}" ui:field="buttonSaveLexiqueInRemote" ui:text="Save Lexique in remote public store"/></td></tr>
+		<tr> <td><g:Button styleName="{style.important}" ui:field="buttonCreateLexique" ui:text="Create new Lexique"/></td></tr>
 		</table>
 	</g:HTMLPanel>
 </ui:UiBinder> 

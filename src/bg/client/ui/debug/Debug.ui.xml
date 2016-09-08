@@ -28,6 +28,11 @@
 					<g:Button styleName="{style.important}" ui:field="buttonRefresh" />
 				</td>
 			</tr>
+			<tr>
+				<td>
+					<g:Button styleName="{style.important}" ui:field="buttonGetListLexiques" ui:text="getList from server"/>
+				</td>
+			</tr>
 		</table>
 	</g:HTMLPanel>
 </ui:UiBinder> 

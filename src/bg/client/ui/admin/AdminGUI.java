@@ -2,10 +2,23 @@ package bg.client.ui.admin;
 
 import java.util.List;
 
+import bg.client.LogGWT;
+import bg.client.SigaleService;
+import bg.client.SigaleServiceAsync;
+import bg.client.inter.sigal.beans.LexiqueMetaData;
+import bg.client.inter.sigale.model.Lexique;
 import bg.client.inter.sigale.model.LexiqueFactory;
+import bg.client.inter.sigale.util.ILogListener;
 import bg.client.ui.admin.chooser.LexiqueChooser;
 import bg.client.ui.util.popup.IPopupListener;
 import bg.client.ui.util.popup.PopupDialogOption;
+
+
+
+
+
+
+
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -13,6 +26,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.PopupPanel;
@@ -21,6 +35,13 @@ import com.google.gwt.user.client.ui.Widget;
 public class AdminGUI extends Composite {
 
 	private static AdminGUIUiBinder uiBinder = GWT.create(AdminGUIUiBinder.class);
+
+	private ILogListener log = new LogGWT();
+	/**
+	 * Create a remote service proxy to talk to the server-side Greeting
+	 * service.
+	 */
+	private final SigaleServiceAsync sigaleService = GWT.create(SigaleService.class);
 
 	interface AdminGUIUiBinder extends UiBinder<Widget, AdminGUI> {
 	}
@@ -53,10 +74,10 @@ public class AdminGUI extends Composite {
 	Button buttonChooseLexique;
 
 	@UiField
-	Button buttonSaveLexique;
+	Button buttonSaveLexiqueInRemote;
 
 	@UiField
-	Button buttonSaveLexiqueIn;
+	Button buttonSaveLexiqueInLocal;
 
 	@UiField
 	Button buttonCreateLexique;
@@ -83,24 +104,44 @@ public class AdminGUI extends Composite {
 			}
 
 		});
-		buttonSaveLexique.addClickHandler(new ClickHandler() {
+		buttonSaveLexiqueInRemote.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
 				try {
-					LexiqueFactory.getInstance().saveLexique();
+					Lexique lexique = LexiqueFactory.getInstance().getLexique();
+					String usermail="bg@bg";
+					String xml = LexiqueFactory.getInstance().toXml(lexique);
+					AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
+
+						@Override
+						public void onFailure(Throwable t) {
+							log.log("Fail to save Lexique", t);
+						}
+
+						@Override
+						public void onSuccess(Boolean result) {
+							log.log("Save Lexique :"+result);
+						}
+						
+					};
+					LexiqueMetaData lmd = LexiqueFactory.getInstance().getLexiqueMetaData(lexique);
+					
+					sigaleService.storeLexiqueMetadata(lmd, callback);
 				} catch (Exception e) {
+					log.log("Fail to save Lexique", e);
 					Window.alert("Save Lexique Exception " + e.getMessage());
-					e.printStackTrace();
+					
 				}
 			}
 		});
-		buttonSaveLexiqueIn.addClickHandler(new ClickHandler() {
+		buttonSaveLexiqueInLocal.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
+				Lexique lexique = LexiqueFactory.getInstance().getLexique();
+				lexiqueSaveIn.getTextBox().setText(lexique.getName().trim());
 				myPopup.showWidget(lexiqueSaveIn);
-				;
 			}
 		});
 		buttonCreateLexique.addClickHandler(new ClickHandler() {
