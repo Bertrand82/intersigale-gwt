@@ -33,6 +33,9 @@ public class StatistiqueCanvas {
 	private long duree = DUREE_MONTH;
 	private String titre = "titreBg";
 
+	private UniteLexicale uniteLexicale;
+	private StatistiquesUL statistique;
+
 	public StatistiqueCanvas() {
 
 		if (canvas == null) {
@@ -64,18 +67,11 @@ public class StatistiqueCanvas {
 		initIntervalle(CALENDAR_DAY);
 	}
 
-	private static StatistiqueCanvas instance = new StatistiqueCanvas();
 
-	public static StatistiqueCanvas getInstance2() {
-		return instance;
-	}
 
 	public void updateStat(UniteLexicale ul, boolean ok) {
 		updateStat(ul);
 	}
-
-	UniteLexicale uniteLexicale;
-	StatistiquesUL statistique;
 
 	private void updateStat(UniteLexicale ulCourrante) {
 		this.uniteLexicale = ulCourrante;
@@ -177,7 +173,7 @@ public class StatistiqueCanvas {
 
 	}
 
-	public Widget getPanelCanvas() {
+	public Widget getPanelCanvas_() {
 		if (canvas == null) {
 			return label;
 		}
@@ -190,6 +186,12 @@ public class StatistiqueCanvas {
 
 	public int getHeight() {
 		return height;
+	}
+
+
+
+	public void removeStat() {
+		updateStat(null);
 	}
 
 }

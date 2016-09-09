@@ -85,7 +85,7 @@ public class Lesson extends Composite {
 		});
 
 		displayUniteLexicaleCourante();
-		panelStat.add(new StatistiquesPanel());
+		panelStat.add(StatistiquesPanel.getInstance());
 	}
 
 	private static Lesson instance = new Lesson();
@@ -108,7 +108,7 @@ public class Lesson extends Composite {
 		this.textBoxReponse.setText(reponseStr);
 		this.textBoxReponse.setCursorPos(this.positionCuror);
 		this.textBoxReponse.setFocus(true);
-
+		StatistiquesPanel.getInstance().removeStat();
 	}
 
 	private void setButtonsEtat(boolean b) {
@@ -137,7 +137,7 @@ public class Lesson extends Composite {
 			UniteLexicale ulCourrante = getLexique().getUniteLexicaleCourante();
 			boolean ok = ulCourrante.resultProcess(this.textBoxReponse.getText());
 			String stat = " ? ";
-			StatistiqueCanvas.getInstance2().updateStat(ulCourrante, ok);
+			StatistiquesPanel.getInstance().updateStat(ulCourrante, ok);
 			System.out.println("ValidResult " + ok);
 			// this.textFieldResponse.setText(text);
 			setButtonsEtat(false);

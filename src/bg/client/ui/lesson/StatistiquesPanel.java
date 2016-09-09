@@ -1,5 +1,7 @@
 package bg.client.ui.lesson;
 
+import bg.client.inter.sigale.model.UniteLexicale;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -17,6 +19,14 @@ public class StatistiquesPanel extends Composite {
 	interface StatistiquesPanelUiBinder extends UiBinder<Widget, StatistiquesPanel> {
 	}
 
+	private static StatistiquesPanel instance = new StatistiquesPanel();
+
+	public static StatistiquesPanel getInstance() {
+		return instance;
+	}
+
+	final StatistiqueCanvas statistiqueCanvas = new StatistiqueCanvas();
+
 	@UiField
 	SimplePanel panelCanvas;
 
@@ -30,10 +40,10 @@ public class StatistiquesPanel extends Composite {
 	@UiField
 	Button buttonMonth;
 
-	public StatistiquesPanel() {
+	private StatistiquesPanel() {
 		initWidget(uiBinder.createAndBindUi(this));
-		final StatistiqueCanvas statistiqueCanvas = StatistiqueCanvas.getInstance2();
-		panelCanvas.add(statistiqueCanvas.getPanelCanvas());
+
+		panelCanvas.add(statistiqueCanvas.getPanelCanvas_());
 		panelCanvas.setWidth(statistiqueCanvas.getWidth() + "px");
 		panelCanvas.setHeight(statistiqueCanvas.getHeight() + "px");
 
@@ -65,6 +75,27 @@ public class StatistiquesPanel extends Composite {
 				statistiqueCanvas.initIntervalle(StatistiqueCanvas.CALENDAR_MONTH);
 			}
 		});
+		setButtonVisible(false);
 	}
+
+	public void updateStat(UniteLexicale ulCourrante, boolean ok) {
+		statistiqueCanvas.updateStat(ulCourrante, ok);
+		boolean visible = (ulCourrante != null);
+		setButtonVisible(visible);
+	}
+
+	private void setButtonVisible(boolean visible) {
+		
+		this.buttonDay.setVisible(visible);
+		this.buttonHour.setVisible(visible);
+		this.buttonMonth.setVisible(visible);
+		this.buttonWeek.setVisible(visible);
+	}
+
+	public void removeStat() {
+		statistiqueCanvas.removeStat();
+		setButtonVisible(false);
+	}
+
 
 }
