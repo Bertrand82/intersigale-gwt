@@ -3,6 +3,7 @@ package bg.client.ui.lesson;
 import bg.client.inter.sigale.model.Lexique;
 import bg.client.inter.sigale.model.LexiqueFactory;
 import bg.client.inter.sigale.model.UniteLexicale;
+import bg.client.ui.lesson.lessonStat.StatistiquesPanel;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -22,9 +23,9 @@ public class Lesson extends Composite {
 	private static String STR_VIDE = " ";
 	private static LessonUiBinder uiBinder = GWT.create(LessonUiBinder.class);
 
-	String colorNeutre = ConstantesSwing.color_start;
-	String colorOK = ConstantesSwing.color_ok;
-	String colorKO = ConstantesSwing.color_err;;
+	String colorNeutre = ConstantesUI.color_start;
+	String colorOK = ConstantesUI.color_ok;
+	String colorKO = ConstantesUI.color_err;;
 
 	interface LessonUiBinder extends UiBinder<Widget, Lesson> {
 	}
@@ -126,8 +127,8 @@ public class Lesson extends Composite {
 		} else {
 			color = colorKO;
 		}
-		ConstantesSwing.setColorBackground(textBoxReponse, color);
-		ConstantesSwing.setColorBackground(labelStat, color);
+		ConstantesUI.setColorBackground(textBoxReponse, color);
+		ConstantesUI.setColorBackground(labelStat, color);
 		labelStat.setText(stat);
 	}
 

@@ -1,5 +1,6 @@
-package bg.client.ui.lesson;
+package bg.client.ui.stat.statCanvas;
 
+import bg.client.inter.sigale.model.Lexique;
 import bg.client.inter.sigale.model.UniteLexicale;
 
 import com.google.gwt.core.client.GWT;
@@ -12,16 +13,16 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class StatistiquesPanel extends Composite {
+public class StatistiquesGlobalPanel extends Composite {
 
 	private static StatistiquesPanelUiBinder uiBinder = GWT.create(StatistiquesPanelUiBinder.class);
 
-	interface StatistiquesPanelUiBinder extends UiBinder<Widget, StatistiquesPanel> {
+	interface StatistiquesPanelUiBinder extends UiBinder<Widget, StatistiquesGlobalPanel> {
 	}
 
-	private static StatistiquesPanel instance = new StatistiquesPanel();
+	private static StatistiquesGlobalPanel instance = new StatistiquesGlobalPanel();
 
-	public static StatistiquesPanel getInstance() {
+	public static StatistiquesGlobalPanel getInstance() {
 		return instance;
 	}
 
@@ -40,7 +41,7 @@ public class StatistiquesPanel extends Composite {
 	@UiField
 	Button buttonMonth;
 
-	private StatistiquesPanel() {
+	private StatistiquesGlobalPanel() {
 		initWidget(uiBinder.createAndBindUi(this));
 
 		panelCanvas.add(statistiqueCanvas.getPanelCanvas_());
@@ -75,12 +76,12 @@ public class StatistiquesPanel extends Composite {
 				statistiqueCanvas.initIntervalle(StatistiqueCanvas.CALENDAR_MONTH);
 			}
 		});
-		setButtonVisible(false);
+		//setButtonVisible(false);
 	}
 
-	public void updateStat(UniteLexicale ulCourrante, boolean ok) {
-		statistiqueCanvas.updateStat(ulCourrante, ok);
-		boolean visible = (ulCourrante != null);
+	public void refresh(Lexique lexique) {
+		statistiqueCanvas.refresh(lexique);
+		boolean visible = (lexique != null);
 		setButtonVisible(visible);
 	}
 

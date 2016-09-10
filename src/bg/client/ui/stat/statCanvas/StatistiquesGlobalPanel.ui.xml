@@ -1,0 +1,49 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		.important {
+		font-weight: bold;
+		}
+	</ui:style>
+	<g:HTMLPanel>
+		<table>
+
+			<tr>
+				<td>
+					<g:SimplePanel width="200px" height="200px" ui:field="panelCanvas" />
+
+				</td>
+
+			</tr>
+			<tr>
+				<td>
+					<table>
+						<tr>
+							<td>
+								<g:Button styleName="{style.important}" ui:field="buttonHour"
+									ui:text="Hour" />
+							</td>
+							<td>
+								<g:Button styleName="{style.important}" ui:field="buttonDay"
+									ui:text="Day" />
+							</td>
+							<td>
+								<g:Button styleName="{style.important}" ui:field="buttonWeek"
+									ui:text="Week" />
+							</td>
+							<td>
+								<g:Button styleName="{style.important}" ui:field="buttonMonth"
+									ui:text="Month" />
+							</td>
+						</tr>
+					</table>
+
+
+				</td>
+
+
+			</tr>
+		</table>
+	</g:HTMLPanel>
+</ui:UiBinder> 

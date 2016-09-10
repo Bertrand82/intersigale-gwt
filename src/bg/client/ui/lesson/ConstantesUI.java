@@ -2,7 +2,7 @@ package bg.client.ui.lesson;
 
 import com.google.gwt.user.client.ui.Widget;
 
-public class ConstantesSwing {
+public class ConstantesUI {
 
 	public static String color_start = "white";
 	public static String color_ok = "green";

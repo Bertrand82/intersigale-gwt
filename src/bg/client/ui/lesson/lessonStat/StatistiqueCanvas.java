@@ -1,4 +1,4 @@
-package bg.client.ui.lesson;
+package bg.client.ui.lesson.lessonStat;
 
 import java.util.Date;
 import java.util.List;

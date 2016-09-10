@@ -7,7 +7,32 @@
 	}
 	</ui:style>
 	<g:HTMLPanel>
-		
-		<g:Label styleName="{style.important}" ui:field="label" ui:text="No Implemented yet"/>
+		<table>
+			<tr>
+				<td>
+					<g:Label styleName="{style.important}" ui:field="labelTitle"
+						ui:text="Statistics" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<g:Label styleName="{style.important}" ui:field="labeNombreDeQuestions"
+						ui:text="Number of questions" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<g:SimplePanel width="200px" height="200px" ui:field="panelCanvas" />
+
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<g:Button styleName="{style.important}" ui:field="buttonRefresh" ui:text="Refresh"/>
+
+				</td>
+			</tr>
+		</table>
+
 	</g:HTMLPanel>
 </ui:UiBinder> 
