@@ -24,10 +24,13 @@ public class StatistiqueSyntheseCanvas {
 	private int w_2 = width / 2;
 	private int marge_w_g = 5;
 	private int w = width - 2 * marge_w_g;
-	private int h = 20;
+	private int h2 = 20;
 	private CssColor colorFond = CssColor.make(250, 250, 250);
 	private CssColor colorText = CssColor.make(0, 0, 0);
 	private CssColor colorBlack = CssColor.make(0, 0, 0);
+	private CssColor colorRed = CssColor.make(255, 0, 0);
+	private CssColor colorGreen = CssColor.make(0, 255, 0);
+	private CssColor colorBlue = CssColor.make(0, 0, 255);
 	private Date date_0 = new Date();
 	private Date date_1 = new Date();
 	private long dureeTotale = StatistiquesSynthese.DUREE_MONTH;
@@ -93,11 +96,11 @@ public class StatistiqueSyntheseCanvas {
 		context.setFillStyle(colorText);
 		context.fillText("No Statistiques", w_2, 20);
 		context.beginPath();
-		int h = h_2/2;
-		context.moveTo(2, h);
-		context.lineTo(width - 2, h);
+		int h1 = h_2/2;
+		context.moveTo(2, h1);
+		context.lineTo(width - 2, h1);
 		context.lineTo(w_2, height - 2);
-		context.lineTo(2, h);
+		context.lineTo(2, h1);
 		// context.fill();
 		context.stroke();
 		context.closePath();
@@ -138,40 +141,55 @@ public class StatistiqueSyntheseCanvas {
 	private void paintStatistique() {
 
 		context.setFillStyle(colorBlack);
+		context.setStrokeStyle(colorBlack);
 		context.fillText(titre, 20, 20);
 
 		context.beginPath();
-		context.moveTo(marge_w_g, h_2);
-		context.lineTo(width - marge_w_g, h_2);
+		context.moveTo(marge_w_g, height);
+		context.lineTo(width - marge_w_g, height);
+		context.moveTo(marge_w_g, height);
+		context.lineTo(marge_w_g, 0);
+		context.stroke();
 	 	//List<StatistiquesItem> list = statistique.getListAfterDate(this.date_0);
 		StatistiquesSynthese  statisticSynthese = statistique.getStatistiquesSynthese(this.dureeTotale,this.dureeUnitaire);
 		PointsCourbe[] pointsCourbeArray  = statisticSynthese.pointsCurve;
 		int nbMax = statisticSynthese.getNbMax();
-    	long deltaTime = statisticSynthese.dureeTotale;
+    	long deltaTime = statisticSynthese.dureeUnitaire;
 		int nb_succes = statisticSynthese.getNbTotalSucces();
 		int nb_failures = statisticSynthese.getNbTotalFailures();
 		int nb_tentatives = statisticSynthese.getNbTotalTentatives();
-		for (int i= 0; i<pointsCourbeArray.length;i++) {
-			PointsCourbe pc = pointsCourbeArray[i];
-			
-			int timeW_start = (int) ((i*deltaTime * w) / dureeTotale);
-			int timeW_end = (int) (((i+1)*deltaTime * w) / dureeTotale);
-			int hStat = (pc.nbTentatives * h)/nbMax;
-			 
-			int x_start = marge_w_g + timeW_start;
-			int x_end = marge_w_g + timeW_end;
-			context.moveTo(x_start, hStat);
-			context.lineTo(x_end, hStat );
-		}
-		context.stroke();
+		drawSegment(pointsCourbeArray, colorRed,deltaTime,0,nbMax);
+		drawSegment(pointsCourbeArray, colorGreen,deltaTime,1,nbMax);
+		drawSegment(pointsCourbeArray, colorBlue,deltaTime,2,nbMax);
 		// context.closePath();
 
 		context.setFillStyle(colorText);
 		
 		context.fillText("Succes : " +(int) ((nb_succes *100)/nb_tentatives)+ " %" , 20, h_2 - 10);
 		context.fillText("Failures : " +(int) (( nb_failures *100)/nb_tentatives) + " % ", 20, h_2 + 20);
-		context.fillText("nb Max : " +nbMax , 20, h_2 + 30);
+		context.fillText("nb Max : " +nbMax+" nbUnites : "+statisticSynthese.nbUnites , 20, h_2 + 30);
 
+	}
+	
+	
+	private void drawSegment(PointsCourbe[] pointsCourbeArray, CssColor color, long deltaTime,int iCourbe, int nbMax ) {
+		context.setStrokeStyle(color);
+		context.setFillStyle(color);
+		context.beginPath();
+		for (int i= 0; i<pointsCourbeArray.length;i++) {
+			PointsCourbe pc = pointsCourbeArray[i];
+			
+			int timeW_start = (int) ((i*deltaTime * w) / dureeTotale);
+			int timeW_end = (int) (((i+1)*deltaTime * w) / dureeTotale);
+			int hStat_nbTentatives = height - (pc.getValue(iCourbe) * height)/nbMax;
+			 
+			int x_start = marge_w_g + timeW_start;
+			int x_end = marge_w_g + timeW_end;
+			
+			context.moveTo(x_start, hStat_nbTentatives);
+			context.lineTo(x_end, hStat_nbTentatives );
+		}
+		context.stroke();
 	}
 
 	public Widget getPanelCanvas_() {
