@@ -54,6 +54,7 @@ public class Statistiques extends Composite {
 		Lexique lexique = LexiqueFactory.getInstance().getLexique();
 		this.labelTitle.setText("Statistics of :"+lexique.getName());
 		this.labeNombreDeQuestions.setText("Number of questions : "+lexique.getListUniteLexicale().size());
+		StatistiquesGlobalPanel.getInstance().refresh(lexique);
 	}
 
 	@UiHandler("buttonRefresh")

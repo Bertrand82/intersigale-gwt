@@ -1,12 +1,11 @@
 package bg.client.ui.stat.statCanvas;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import bg.client.inter.sigale.model.Lexique;
-import bg.client.inter.sigale.model.statistic.StatistiquesItem;
 import bg.client.inter.sigale.model.statistic.StatistiquesLexique;
+import bg.client.inter.sigale.model.statistic.curve.PointsCourbe;
+import bg.client.inter.sigale.model.statistic.curve.StatistiquesSynthese;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.canvas.dom.client.Context2d;
@@ -14,7 +13,7 @@ import com.google.gwt.canvas.dom.client.CssColor;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
-public class StatistiqueCanvas {
+public class StatistiqueSyntheseCanvas {
 
 	private int height = 120;
 	private int width = 300;
@@ -31,13 +30,14 @@ public class StatistiqueCanvas {
 	private CssColor colorBlack = CssColor.make(0, 0, 0);
 	private Date date_0 = new Date();
 	private Date date_1 = new Date();
-	private long duree = DUREE_MONTH;
+	private long dureeTotale = StatistiquesSynthese.DUREE_MONTH;
+	private long dureeUnitaire = StatistiquesSynthese.DUREE_DAY;
 	private String titre = "titreBg";
 
 	private Lexique lexique;
 	private StatistiquesLexique statistique;
 
-	public StatistiqueCanvas() {
+	public StatistiqueSyntheseCanvas() {
 
 		if (canvas == null) {
 			label = new Label("Canvas Not Supported");
@@ -83,13 +83,13 @@ public class StatistiqueCanvas {
 	private void repaint() {
 		context.clearRect(0, 0, width, height);
 		if (this.lexique == null) {
-			paintNoUL();
+			paintNoLexique();
 		} else {
 			paintStatistique();
 		}
 	}
 
-	private void paintNoUL() {
+	private void paintNoLexique() {
 		context.setFillStyle(colorText);
 		context.fillText("No Statistiques", w_2, 20);
 		context.beginPath();
@@ -108,29 +108,29 @@ public class StatistiqueCanvas {
 	public static final int CALENDAR_WEEK = 2;
 	public static final int CALENDAR_MONTH = 3;
 
-	private static final long DUREE_HOUR = 60 * 60 * 1000;
-	private static final long DUREE_DAY = 24 * DUREE_HOUR;
-	private static final long DUREE_WEEK = 7 * DUREE_DAY;
-	private static final long DUREE_MONTH = 30 * DUREE_DAY;
 
 	public void initIntervalle(int field) {
 		this.date_1 = new Date();
 		if (field == CALENDAR_HOUR) {
-			duree = DUREE_HOUR;
+			dureeTotale = StatistiquesSynthese.DUREE_HOUR;
+			dureeUnitaire = 10 * StatistiquesSynthese.DUREE_MINUTE;
 			this.titre = "Hour";
 		} else if (field == CALENDAR_DAY) {
-			duree = DUREE_DAY;
+			dureeTotale = StatistiquesSynthese.DUREE_DAY;
+			dureeUnitaire = StatistiquesSynthese.DUREE_HOUR;
 			this.titre = "Day";
 		} else if (field == CALENDAR_WEEK) {
-			duree = DUREE_WEEK;
+			dureeTotale = StatistiquesSynthese.DUREE_WEEK;
+			dureeUnitaire = StatistiquesSynthese.DUREE_DAY;
 			this.titre = "Week";
 		} else if (field == CALENDAR_MONTH) {
-			duree = DUREE_MONTH;
+			dureeTotale = StatistiquesSynthese.DUREE_MONTH;
+			dureeUnitaire = StatistiquesSynthese.DUREE_WEEK;
 			this.titre = "Month";
 		} else {
 			this.titre = "XXX";
 		}
-		this.date_0 = new Date(this.date_1.getTime() - duree);
+		this.date_0 = new Date(this.date_1.getTime() - dureeTotale);
 
 		repaint();
 	}
@@ -143,32 +143,34 @@ public class StatistiqueCanvas {
 		context.beginPath();
 		context.moveTo(marge_w_g, h_2);
 		context.lineTo(width - marge_w_g, h_2);
-		//List<StatistiquesItem> list = statistique.getListAfterDate(this.date_0);
-		List<StatistiquesItem> list  = new ArrayList<StatistiquesItem>();
-		int nb_succes = 0;
-		int nb_failures = 0;
-		for (StatistiquesItem statistiquesItem : list) {
-			long deltaTime = statistiquesItem.getDate().getTime() - StatistiqueCanvas.this.date_0.getTime();
-			int timeW = (int) ((deltaTime * w) / duree);
-			int hStat;
-			if (statistiquesItem.isSucces()) {
-				hStat = -h;
-				nb_succes++;
-			} else {
-				hStat = h;
-				nb_failures++;
-			}
-			int x = marge_w_g + timeW;
-			context.moveTo(x, h_2);
-			context.lineTo(x, hStat + h_2);
+	 	//List<StatistiquesItem> list = statistique.getListAfterDate(this.date_0);
+		StatistiquesSynthese  statisticSynthese = statistique.getStatistiquesSynthese(this.dureeTotale,this.dureeUnitaire);
+		PointsCourbe[] pointsCourbeArray  = statisticSynthese.pointsCurve;
+		int nbMax = statisticSynthese.getNbMax();
+    	long deltaTime = statisticSynthese.dureeTotale;
+		int nb_succes = statisticSynthese.getNbTotalSucces();
+		int nb_failures = statisticSynthese.getNbTotalFailures();
+		int nb_tentatives = statisticSynthese.getNbTotalTentatives();
+		for (int i= 0; i<pointsCourbeArray.length;i++) {
+			PointsCourbe pc = pointsCourbeArray[i];
+			
+			int timeW_start = (int) ((i*deltaTime * w) / dureeTotale);
+			int timeW_end = (int) (((i+1)*deltaTime * w) / dureeTotale);
+			int hStat = (pc.nbTentatives * h)/nbMax;
+			 
+			int x_start = marge_w_g + timeW_start;
+			int x_end = marge_w_g + timeW_end;
+			context.moveTo(x_start, hStat);
+			context.lineTo(x_end, hStat );
 		}
 		context.stroke();
 		// context.closePath();
 
 		context.setFillStyle(colorText);
-
-		context.fillText("Succes : " + nb_succes + " / " + list.size(), 20, h_2 - 10);
-		context.fillText("Failures : " + nb_failures + " / " + list.size(), 20, h_2 + 20);
+		
+		context.fillText("Succes : " +(int) ((nb_succes *100)/nb_tentatives)+ " %" , 20, h_2 - 10);
+		context.fillText("Failures : " +(int) (( nb_failures *100)/nb_tentatives) + " % ", 20, h_2 + 20);
+		context.fillText("nb Max : " +nbMax , 20, h_2 + 30);
 
 	}
 
@@ -186,7 +188,6 @@ public class StatistiqueCanvas {
 	public int getHeight() {
 		return height;
 	}
-
 
 
 	public void removeStat() {

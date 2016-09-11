@@ -3,6 +3,9 @@ package bg.client.inter.sigale.model.statistic;
 import java.util.ArrayList;
 import java.util.List;
 
+import bg.client.inter.sigale.model.statistic.curve.PointsCourbe;
+import bg.client.inter.sigale.model.statistic.curve.StatistiquesSynthese;
+
 public class StatistiquesLexique {
 
 	public static final String TAG_ROOT = "LexiqueStat";
@@ -57,6 +60,13 @@ public class StatistiquesLexique {
 		} else if (!listStatistiqueUL.equals(other.listStatistiqueUL))
 			return false;
 		return true;
+	}
+
+	public StatistiquesSynthese getStatistiquesSynthese(long dureeTotale, long dureeUnitaire) {
+		int  nb = (int) (dureeTotale/dureeUnitaire);
+		StatistiquesSynthese statSyntb =  new StatistiquesSynthese((int) nb, dureeUnitaire);
+		statSyntb.initTest();
+		return statSyntb;
 	}
 
 }

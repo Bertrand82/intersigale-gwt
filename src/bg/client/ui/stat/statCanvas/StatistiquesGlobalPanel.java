@@ -26,7 +26,7 @@ public class StatistiquesGlobalPanel extends Composite {
 		return instance;
 	}
 
-	final StatistiqueCanvas statistiqueCanvas = new StatistiqueCanvas();
+	final StatistiqueSyntheseCanvas statistiqueCanvas = new StatistiqueSyntheseCanvas();
 
 	@UiField
 	SimplePanel panelCanvas;
@@ -52,28 +52,28 @@ public class StatistiquesGlobalPanel extends Composite {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				statistiqueCanvas.initIntervalle(StatistiqueCanvas.CALENDAR_HOUR);
+				statistiqueCanvas.initIntervalle(StatistiqueSyntheseCanvas.CALENDAR_HOUR);
 			}
 		});
 		buttonDay.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				statistiqueCanvas.initIntervalle(StatistiqueCanvas.CALENDAR_DAY);
+				statistiqueCanvas.initIntervalle(StatistiqueSyntheseCanvas.CALENDAR_DAY);
 			}
 		});
 		buttonWeek.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				statistiqueCanvas.initIntervalle(StatistiqueCanvas.CALENDAR_WEEK);
+				statistiqueCanvas.initIntervalle(StatistiqueSyntheseCanvas.CALENDAR_WEEK);
 			}
 		});
 		buttonMonth.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				statistiqueCanvas.initIntervalle(StatistiqueCanvas.CALENDAR_MONTH);
+				statistiqueCanvas.initIntervalle(StatistiqueSyntheseCanvas.CALENDAR_MONTH);
 			}
 		});
 		//setButtonVisible(false);
