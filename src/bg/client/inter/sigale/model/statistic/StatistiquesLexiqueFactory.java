@@ -203,7 +203,7 @@ public class StatistiquesLexiqueFactory {
 		lexique.setStatistiquesLexique(this.statistique);
 
 		for (UniteLexicale ul : lexique.getListUniteLexicale()) {
-			String json = persister.getJson(lexique.getName(), ul.getId());
+			String json = persister.getJsonUL(lexique.getName(), ul.getId());
 			StatistiquesUL statistiquesUL;
 			if (json == null) {
 				statistiquesUL = new StatistiquesUL();

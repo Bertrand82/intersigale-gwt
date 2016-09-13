@@ -1,8 +1,12 @@
 package bg.client.inter.sigale.model.statistic;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import bg.client.inter.sigale.model.Lexique;
+import bg.client.inter.sigale.model.LexiqueFactory;
+import bg.client.inter.sigale.model.UniteLexicale;
 import bg.client.inter.sigale.model.statistic.curve.PointsCourbe;
 import bg.client.inter.sigale.model.statistic.curve.StatistiquesSynthese;
 
@@ -63,9 +67,28 @@ public class StatistiquesLexique {
 	}
 
 	public StatistiquesSynthese getStatistiquesSynthese(long dureeTotale, long dureeUnitaire) {
-		int  nb = (int) (dureeTotale/dureeUnitaire);
-		StatistiquesSynthese statSyntb =  new StatistiquesSynthese((int) nb, dureeUnitaire);
-		statSyntb.initTest();
+		Date date_1 = new Date();
+		Date date_0 = new Date(date_1.getTime()-dureeTotale);
+		
+		int  nbUnits = (int) (dureeTotale/dureeUnitaire);
+		StatistiquesSynthese statSyntb =  new StatistiquesSynthese((int) nbUnits, dureeUnitaire);
+		Lexique lexique = LexiqueFactory.getInstance().getLexique();
+		String lexiqueName= lexique.getName();
+		for(UniteLexicale ul   : lexique.getListUniteLexicale()){
+			StatistiquesUL statistiqueUL = ul.getStatistique();
+			for (StatistiquesItem statItem : statistiqueUL.getList()){
+				Date d = statItem.getDate();
+				if (d.before(date_0)){
+					// Trop tot
+				}else if (d.after(date_1)){
+					//trop tard
+				} else {
+					statSyntb.process(statItem);
+				}
+			}
+		}
+		
+		//statSyntb.initTest();
 		return statSyntb;
 	}
 

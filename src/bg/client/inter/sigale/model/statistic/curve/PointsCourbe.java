@@ -2,6 +2,8 @@ package bg.client.inter.sigale.model.statistic.curve;
 
 import java.util.Date;
 
+import bg.client.inter.sigale.model.statistic.StatistiquesItem;
+
 import com.sun.org.apache.bcel.internal.generic.RETURN;
 
 public class PointsCourbe {
@@ -38,6 +40,15 @@ public class PointsCourbe {
 			return nbSucces;
 		default:
 			return 0;
+		}
+	}
+
+	public void process(StatistiquesItem statItem) {
+		nbTentatives++;
+		if(statItem.isSucces()){
+			nbSucces++;
+		}else {
+			nbEchecs++;
 		}
 	}
 

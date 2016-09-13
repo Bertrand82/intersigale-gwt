@@ -23,8 +23,7 @@ public class StatistiqueSyntheseCanvas {
 	private int h_2 = height / 2;
 	private int w_2 = width / 2;
 	private int marge_w_g = 5;
-	private int w = width - 2 * marge_w_g;
-	private int h2 = 20;
+	private int marge_h_b = 50;
 	private CssColor colorFond = CssColor.make(250, 250, 250);
 	private CssColor colorText = CssColor.make(0, 0, 0);
 	private CssColor colorBlack = CssColor.make(0, 0, 0);
@@ -46,11 +45,11 @@ public class StatistiqueSyntheseCanvas {
 			label = new Label("Canvas Not Supported");
 		} else {
 
-			canvas.setWidth(width + "px");
-			canvas.setCoordinateSpaceWidth(width);
+			canvas.setWidth((width+marge_w_g) + "px");
+			canvas.setCoordinateSpaceWidth(width+marge_w_g);
 
-			canvas.setHeight(height + "px");
-			canvas.setCoordinateSpaceHeight(height);
+			canvas.setHeight((height+marge_h_b) + "px");
+			canvas.setCoordinateSpaceHeight(height+marge_h_b);
 
 			context = canvas.getContext2d();
 
@@ -59,13 +58,7 @@ public class StatistiqueSyntheseCanvas {
 			context.setFillStyle(colorText);
 			context.fillText("intersigale", 100, 20);
 
-			context.beginPath();
-			context.moveTo(25, 0);
-			context.lineTo(0, 20);
-			context.lineTo(25, 40);
-			context.lineTo(25, 0);
-			context.fill();
-			context.closePath();
+			
 
 		}
 		initIntervalle(CALENDAR_DAY);
@@ -84,7 +77,7 @@ public class StatistiqueSyntheseCanvas {
 	}
 
 	private void repaint() {
-		context.clearRect(0, 0, width, height);
+		context.clearRect(0, 0, width+marge_w_g, height+marge_h_b);
 		if (this.lexique == null) {
 			paintNoLexique();
 		} else {
@@ -134,10 +127,9 @@ public class StatistiqueSyntheseCanvas {
 			this.titre = "XXX";
 		}
 		this.date_0 = new Date(this.date_1.getTime() - dureeTotale);
-
 		repaint();
 	}
-
+    
 	private void paintStatistique() {
 
 		context.setFillStyle(colorBlack);
@@ -155,40 +147,36 @@ public class StatistiqueSyntheseCanvas {
 		PointsCourbe[] pointsCourbeArray  = statisticSynthese.pointsCurve;
 		int nbMax = statisticSynthese.getNbMax();
     	long deltaTime = statisticSynthese.dureeUnitaire;
-		int nb_succes = statisticSynthese.getNbTotalSucces();
-		int nb_failures = statisticSynthese.getNbTotalFailures();
-		int nb_tentatives = statisticSynthese.getNbTotalTentatives();
-		drawSegment(pointsCourbeArray, colorRed,deltaTime,0,nbMax);
-		drawSegment(pointsCourbeArray, colorGreen,deltaTime,1,nbMax);
-		drawSegment(pointsCourbeArray, colorBlue,deltaTime,2,nbMax);
-		// context.closePath();
-
-		context.setFillStyle(colorText);
+		int nbTotalFailures = statisticSynthese.getNbTotalFailures();
+		int nbTotalTentatives = statisticSynthese.getNbTotalTentatives();
+		drawSegment(pointsCourbeArray, colorBlue,deltaTime,PointsCourbe.VALUE_nbTenteatives,nbMax,"Total");
+		drawSegment(pointsCourbeArray, colorRed,deltaTime,PointsCourbe.VALUE_nbEchecs,nbMax,"Failure");
 		
-		context.fillText("Succes : " +(int) ((nb_succes *100)/nb_tentatives)+ " %" , 20, h_2 - 10);
-		context.fillText("Failures : " +(int) (( nb_failures *100)/nb_tentatives) + " % ", 20, h_2 + 20);
-		context.fillText("nb Max : " +nbMax+" nbUnites : "+statisticSynthese.nbUnites , 20, h_2 + 30);
+		context.setFillStyle(colorText);
+		wLegende =marge_w_g;
+		context.fillText("nb Max : " +nbMax+" nbUnites : "+statisticSynthese.nbUnites , 20, height + 30);
+		context.fillText("Failures : " +(int) (( nbTotalFailures *100)/nbTotalTentatives) + " % ", 20, height + 20);
 
 	}
 	
-	
-	private void drawSegment(PointsCourbe[] pointsCourbeArray, CssColor color, long deltaTime,int iCourbe, int nbMax ) {
+	int wLegende =0;
+	private void drawSegment(PointsCourbe[] pointsCourbeArray, CssColor color, long deltaTime,int iCourbe, int nbMax , String legende) {
 		context.setStrokeStyle(color);
 		context.setFillStyle(color);
 		context.beginPath();
+		context.moveTo(marge_w_g, height);
+		int deltawidth = (int) ((deltaTime * width) / dureeTotale);
 		for (int i= 0; i<pointsCourbeArray.length;i++) {
-			PointsCourbe pc = pointsCourbeArray[i];
-			
-			int timeW_start = (int) ((i*deltaTime * w) / dureeTotale);
-			int timeW_end = (int) (((i+1)*deltaTime * w) / dureeTotale);
+			PointsCourbe pc = pointsCourbeArray[i];			
+			int timeW_start = (int) ((i*deltaTime * width) / dureeTotale);
 			int hStat_nbTentatives = height - (pc.getValue(iCourbe) * height)/nbMax;
-			 
-			int x_start = marge_w_g + timeW_start;
-			int x_end = marge_w_g + timeW_end;
-			
-			context.moveTo(x_start, hStat_nbTentatives);
-			context.lineTo(x_end, hStat_nbTentatives );
+			context.fillRect( timeW_start, hStat_nbTentatives, deltawidth, height - hStat_nbTentatives);
+			context.fill();
 		}
+		context.moveTo(wLegende, height + 40);
+		context.lineTo(wLegende+10,height + 35 );
+		context.fillText(""+legende , wLegende+15, height + 40);
+		wLegende+=70;
 		context.stroke();
 	}
 
@@ -200,11 +188,11 @@ public class StatistiqueSyntheseCanvas {
 	}
 
 	public int getWidth() {
-		return width;
+		return width+marge_w_g;
 	}
 
 	public int getHeight() {
-		return height;
+		return height+marge_h_b;
 	}
 
 

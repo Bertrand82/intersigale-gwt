@@ -2,6 +2,8 @@ package bg.client.inter.sigale.model.statistic.curve;
 
 import java.util.Date;
 
+import bg.client.inter.sigale.model.statistic.StatistiquesItem;
+
 public class StatistiquesSynthese {
 
 	public static final long DUREE_MINUTE = 60 * 1000;
@@ -36,17 +38,13 @@ public class StatistiquesSynthese {
 		this.date_Debut= new Date(date_Fin.getTime()-dureeTotale);
 		
 		pointsCurve = new PointsCourbe[nbUnite];
+		for(int i=0; i<nbUnites;i++){
+			pointsCurve[i]= new PointsCourbe(date_Debut, duree, 0, 0, 0);
+		}
 	}
 
 	
 	
-	public void initTest() {
-		for(int i=0;i<nbUnites;i++){
-			Date dateDebut = new Date(date_Debut.getTime()+i*dureeUnitaire);
-			PointsCourbe pc = new PointsCourbe(dateDebut,dureeUnitaire, 5*i+5, 3*i+5, 2*i+5);
-			this.pointsCurve[i]=pc;
-		}
-	}
 
 	public int getNbMax() {
 		if(nbMax == -1){
@@ -91,4 +89,46 @@ public class StatistiquesSynthese {
 		}
 		return nbTotalTentatives;
 	}
+
+
+
+	public void process(StatistiquesItem statItem) {
+		Date d = statItem.getDate();
+		if (d.before(date_Debut)){
+			// Trop tot
+		}else if (d.after(date_Fin)){
+			//trop tard
+		} else {
+			int i = getIntervalle(d);
+			pointsCurve[i].process(statItem);
+		}
+	}
+
+
+
+	private int getIntervalle(Date d) {
+		long time = d.getTime();
+		long timeDebut = date_Debut.getTime();
+		for(int i=0; i<pointsCurve.length;i++){
+			timeDebut += dureeUnitaire;
+			if (time < timeDebut){
+				return i;
+			}
+		}
+		return -1; 
+	}
+	
+	
+	public void initTest() {
+		for(int i=0;i<nbUnites;i++){
+			Date dateDebut = new Date(date_Debut.getTime()+i*dureeUnitaire);
+			int nbEchec = (int) (100*Math.random());
+			int nbSuuces = (int) (100*Math.random());
+			int nbTentatives = nbSuuces+nbEchec;
+			PointsCourbe pc = new PointsCourbe(dateDebut,dureeUnitaire,nbTentatives,nbSuuces , nbEchec);
+			this.pointsCurve[i]=pc;
+		}
+		initNbMax();
+	}
+
 }

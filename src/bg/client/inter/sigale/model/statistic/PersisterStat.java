@@ -20,7 +20,7 @@ public class PersisterStat {
 		storage.setItem(key, jsonStr);
 	}
 
-	public String getJson(String lexiqueName, String id) {
+	public String getJsonUL(String lexiqueName, String id) {
 		Storage storage = Storage.getLocalStorageIfSupported();
 		String key = getStatULKeyStoreFromName(lexiqueName, id);
 		String s = storage.getItem(key);
