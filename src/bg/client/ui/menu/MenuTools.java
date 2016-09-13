@@ -9,6 +9,7 @@ import bg.client.inter.sigale.util.ILogListener;
 import bg.client.ui.admin.AdminGUI;
 import bg.client.ui.debug.Debug;
 import bg.client.ui.edit.EditLexiqueGUI;
+import bg.client.ui.importTranslate.ImportTranslate;
 import bg.client.ui.lesson.Lesson;
 import bg.client.ui.register.RegisterForm;
 import bg.client.ui.stat.Statistiques;
@@ -18,6 +19,8 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
@@ -26,22 +29,21 @@ import com.google.gwt.user.client.ui.Widget;
  * @author Bertrand
  *
  */
-public class Menu extends Composite {
+public class MenuTools extends Composite {
 
 	private static MenuUiBinder uiBinder = GWT.create(MenuUiBinder.class);
 	private ILogListener logListener = new LogGWT();
-	interface MenuUiBinder extends UiBinder<Widget, Menu> {
+	interface MenuUiBinder extends UiBinder<Widget, MenuTools> {
 	}
 
 	// @UiField
 	Button buttonRegister = new Button();
 	@UiField
-	Button buttonLesson;
+	Button buttonEdit;
 	@UiField
-	Button buttonAdmin;
+	Button buttonDebug;
 	@UiField
-	Button buttonStat;
-
+	Button buttonImportTranslate;
 	/**
 	 * Because this class has a default constructor, it can be used as a binder
 	 * template. In other words, it can be used in other *.ui.xml files as
@@ -51,7 +53,7 @@ public class Menu extends Composite {
 	 * depending on the widget that is used, it may be necessary to implement
 	 * HasHTML instead of HasText.
 	 */
-	private Menu() {
+	private MenuTools() {
 		initWidget(uiBinder.createAndBindUi(this));
 		buttonRegister.addClickHandler(new ClickHandler() {
 
@@ -62,53 +64,55 @@ public class Menu extends Composite {
 				logListener.logText("Register");
 			}
 		});
-		buttonLesson.addClickHandler(new ClickHandler() {
+
+		buttonEdit.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				setBorders(buttonLesson);
-				EntryPointSigale.showView(Lesson.getInstance());
-				logListener.logText("Lesson");
-			}
-		});
-		buttonAdmin.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				setBorders(buttonAdmin);
-				EntryPointSigale.showView(AdminGUI.getInstance());
-				logListener.logText("Admin");
+				setBorders(buttonEdit);
+				EntryPointSigale.showView(EditLexiqueGUI.getInstance());
+				logListener.logText("Edit");
 			}
 		});
 
-		buttonStat.addClickHandler(new ClickHandler() {
+		buttonDebug.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				setBorders(buttonStat);
-				EntryPointSigale.showView(Statistiques.getInstance());
-				logListener.logText("Stat");
+				setBorders(buttonDebug);
+				EntryPointSigale.showView(Debug.getInstance());
+				logListener.logText("Debug");
+			}
+		});
+		
+		buttonImportTranslate.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				setBorders(buttonImportTranslate);
+				EntryPointSigale.showView(ImportTranslate.getInstance());
+				logListener.logText("Debug");
 			}
 		});
 	}
-	public  void setBorders() {
-		buttonAdmin.getElement().getStyle().setProperty("borderWidth", "1px");
-		buttonLesson.getElement().getStyle().setProperty("borderWidth", "1px");
+	
+	
+	public void setBorders() {
+		buttonDebug.getElement().getStyle().setProperty("borderWidth", "1px");
+		buttonEdit.getElement().getStyle().setProperty("borderWidth", "1px");
 		buttonRegister.getElement().getStyle().setProperty("borderWidth", "1px");
-		buttonStat.getElement().getStyle().setProperty("borderWidth", "1px");
-
+		
 	}
-
-	private  void setBorders(Button buttonSelected) {
+	private void setBorders(Button buttonSelected) {
 		setBorders();
 		MenuUtil.selectButton(buttonSelected);
-		MenuTools.getInstance().setBorders();
+		Menu.getInstance().setBorders();
 
 	}
 
-	private static Menu instance = new Menu();
+	private static MenuTools instance = new MenuTools();
 
-	public static Menu getInstance() {
+	public static MenuTools getInstance() {
 
 		return instance;
 	}

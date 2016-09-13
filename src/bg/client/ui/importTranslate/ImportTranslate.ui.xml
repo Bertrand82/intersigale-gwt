@@ -1,0 +1,83 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		.important {
+		font-weight: bold;
+		}
+	</ui:style>
+	<g:HTMLPanel>
+		<h2>Translate and import Lexique</h2>
+		<table>
+			<tr>
+				<td colspan="1">
+					<g:Label styleName="{style.important}" ui:field="labelTitle"
+						text="Name of the Lexique" />
+				</td>
+				<td colspan="1">
+					<g:TextBox styleName="{style.important}" ui:field="textBoxLexiqueNAme"
+						text=" " width="100" />
+				</td>
+			</tr>
+			<tr>
+			    <td colspan="1">
+					<g:Label styleName="{style.important}" ui:field="labelTitleTextArea"
+						text="Text To translate" />
+				</td>
+				<td colspan="1">
+					<g:TextArea styleName="{style.important}" ui:field="textAeraSource"
+						height="100" width="100" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1">
+					<g:Label styleName="{style.important}" ui:field="labelSelectLangageSrc"
+						text="Langage Text Source" />
+				</td>
+				<td>
+					<g:ListBox ui:field="listBoxLangageSource">
+						<g:item value='fr'>
+							French
+						</g:item>
+						<g:item value='es'>
+							Spanish
+						</g:item>
+						<g:item value='en'>
+							English
+						</g:item>
+					</g:ListBox>
+				</td>
+			</tr>
+						<tr>
+				<td colspan="1">
+					<g:Label styleName="{style.important}" ui:field="labelSelectLangageDest"
+						text="Langage Text Translated" />
+				</td>
+				<td>
+					<g:ListBox ui:field="listBoxLangageDest">
+						<g:item value='fr'>
+							French
+						</g:item>
+						<g:item value='es'>
+							Spanish
+						</g:item>
+						<g:item value='en'>
+							English
+						</g:item>
+					</g:ListBox>
+				</td>
+			</tr>
+			
+			<tr>
+			    <td></td>
+				<td colspan="1">
+					<g:Button styleName="{style.important}" ui:field="buttonImportTranslate"
+			ui:text="Import and Translate" />
+				</td>
+			</tr>
+
+
+		</table>
+		
+	</g:HTMLPanel>
+</ui:UiBinder> 

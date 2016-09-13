@@ -5,6 +5,7 @@ import bg.client.inter.sigale.model.SigalePropertiesGWT;
 import bg.client.ui.lesson.Lesson;
 import bg.client.ui.log.LogUI;
 import bg.client.ui.menu.Menu;
+import bg.client.ui.menu.MenuTools;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -36,6 +37,15 @@ public class EntryPointSigale implements EntryPoint {
 		 */
 		GWT.setUncaughtExceptionHandler(uncaughtExceptionHandler);
 		new LexiqueFactory(new SigalePropertiesGWT(), new LogGWT());
+		
+		
+		
+		RootPanel rootPanelMenuTools = RootPanel.get("sigaleMenuTools");
+		if (rootPanelMenuTools != null) {
+			final MenuTools menuTools = MenuTools.getInstance();
+			rootPanelMenuTools.add(menuTools);
+		}
+		
 		RootPanel rootPanelMenu = RootPanel.get("sigaleMenu");
 		if (rootPanelMenu != null) {
 			final Menu menu = Menu.getInstance();

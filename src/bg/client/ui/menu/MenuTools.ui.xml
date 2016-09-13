@@ -1,0 +1,18 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	.important {
+		font-weight: bold;
+	}
+	</ui:style>
+	<g:HTMLPanel>
+		<table>
+		<tr>
+		<td><g:Button styleName="{style.important}" ui:field="buttonEdit" text="Edit"/></td>
+		<td><g:Button styleName="{style.important}" ui:field="buttonImportTranslate" text="Translate and Import"/></td>
+		<td><g:Button styleName="{style.important}" ui:field="buttonDebug" text="Debug"/></td>
+		</tr>
+		</table>
+	</g:HTMLPanel>
+</ui:UiBinder> 
