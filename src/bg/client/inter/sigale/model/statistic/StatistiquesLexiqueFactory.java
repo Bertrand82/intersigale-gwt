@@ -59,9 +59,7 @@ public class StatistiquesLexiqueFactory {
 		}
 	}
 
-	public void fetchStatistique() {
-		// fetchStatistiqueLocalInFile();
-	}
+	
 
 	public void saveStatistic(String name) {
 		logListener.log("saveStatistic");

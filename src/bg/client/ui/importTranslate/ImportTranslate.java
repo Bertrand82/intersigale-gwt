@@ -62,8 +62,8 @@ public class ImportTranslate extends Composite {
 		String lexiqueName = textBoxLexiqueNAme.getText();
 		String textSrc = this.textAeraSource.getText();
 		String s = "src : "+langageSrc+" | dest : "+langageDest+" | lexique Name :"+lexiqueName+" | textSrc :"+textSrc;
-		Window.alert("Before Translate "+s);
-		TranslateServiceGoogle.getInstance().translate();
+		GWT.log("process Translate");
+		TranslateServiceGoogle.getInstance().translate(langageSrc,langageDest,textSrc);
 	}
 
 }

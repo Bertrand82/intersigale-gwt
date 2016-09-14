@@ -1,14 +1,21 @@
 package bg.client.ui.importTranslate;
 
+import java.net.URLEncoder;
+
 import bg.client.LogGWT;
 
 import com.google.gwt.core.client.Callback;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.dev.json.JsonString;
+import com.google.gwt.json.client.*;
+import com.google.gwt.http.client.URL;
 import com.google.gwt.jsonp.client.JsonpRequest;
 import com.google.gwt.jsonp.client.JsonpRequestBuilder;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+
+//import com.google.gwt.language.client.translation.Translation;
 
 public class TranslateServiceGoogle {
 
@@ -20,77 +27,61 @@ public class TranslateServiceGoogle {
 	}
 
 	public static TranslateServiceGoogle getInstance() {
+		if (instance == null) {
+			instance = new TranslateServiceGoogle();
+		}
 		return instance;
 	}
 
+	String key = "AIzaSyDouqYxNhF8U1vfI7YM7uzEzZi9DjYzJQ4BG";
+	String url0 = "https://www.googleapis.com/language/translate/v2?";
 	// String url =
 	// "http://www.google.com/calendar/feeds/developer-calendar@google.com/public/full?alt=json-in-script";
-	String url = "https://www.googleapis.com/language/translate/v2?key=AIzaSyDouqYxNhF8U1vfI7YM7uzEzZi9DjYzJQ4&q=hello%20world&source=en&target=de";
-
-	public void translate_____() {
+	String url__ = "https://www.googleapis.com/language/translate/v2?key=AIzaSyDouqYxNhF8U1vfI7YM7uzEzZi9DjYzJQ4&q=hello%20world&source=en&target=de";
+    private String buildUrl(String langageSrc, String langageDest, final String textSrc){
+    	String s = url0;
+    	s +="key="+key;
+    	s +="&q="+URL.encode(textSrc) ;
+    	s +="&source="+langageSrc;
+    	s += "&target="+langageDest;
+    	return s;
+    }
+	public void translate(String langageSrc, String langageDest, final String textSrc) {
 		JsonpRequestBuilder jsonp = new JsonpRequestBuilder();
 		jsonp.setTimeout(60000);
 		AsyncCallback<JavaScriptObject> callBack = new AsyncCallback<JavaScriptObject>() {
 
 			@Override
 			public void onFailure(Throwable e) {
-				Window.alert("onFAilure " + e);
+				Window.alert("onFAilure0 :" + e);
 			}
 
 			@Override
-			public void onSuccess(JavaScriptObject feed) {
-				Window.alert("onSuccese " + feed);
+			public void onSuccess(JavaScriptObject jsonResponse) {
+				parseJsonTranslateResponse(textSrc, jsonResponse);
 			}
 
 		};
+		String url = buildUrl(langageSrc, langageDest, textSrc);
 		jsonp.requestObject(url, callBack);
 	}
 
-	public void translate() {
-		log.log("translate start");
-		Callback<JavaScriptObject, Void> callback = new Callback<JavaScriptObject, Void>() {
-
-			@Override
-			public void onFailure(Void e) {
-				Window.alert("OnFAilure 43333" + e);
+	public void parseJsonTranslateResponse(String textSrc, JavaScriptObject jsonResponse) {
+		JSONObject json = new JSONObject(jsonResponse);
+		if (json.containsKey("data")) {
+			JSONValue jsonDataValue = json.get("data");
+			JSONObject jsonData = jsonDataValue.isObject();
+			JSONValue jsonTranslationsValue = jsonData.get("translations");
+			JSONArray jsonTranslationsArray = jsonTranslationsValue.isArray();
+			for (int i = 0; i < jsonTranslationsArray.size(); i++) {
+				JSONValue jsonTanslatedItemValue = jsonTranslationsArray.get(i);
+				JSONObject jsonTranslatedItem = jsonTanslatedItemValue.isObject();
+				JSONValue jsonTranslated = jsonTranslatedItem.get("translatedText");
+				JSONString jsonStringtranslated = jsonTranslated.isString();
+				String translated = jsonStringtranslated.stringValue();
+				Window.alert("onSuccese3 : " + i + "|Translated : " + translated);
 			}
-
-			@Override
-			public void onSuccess(JavaScriptObject result) {
-				Window.alert("OnFAilure 4350003344 " + result);
-
-			}
-		};
-		processJSONRequest(url, callback);
-		log.log("translate request done");
-	}
-
-	/**
-	 * Process json request.
-	 * 
-	 * @param url
-	 *            the url
-	 * @param callback
-	 *            the callback
-	 */
-	public static void processJSONRequest(final String url, final Callback<JavaScriptObject, Void> callback) {
-		final JsonpRequestBuilder builder = new JsonpRequestBuilder();
-		builder.setTimeout(60000);
-		@SuppressWarnings("unused")
-		final JsonpRequest<JavaScriptObject> request = builder.requestObject(url, new AsyncCallback<JavaScriptObject>() {
-			@Override
-			public void onFailure(final Throwable e) {
-				Window.alert("OnFAilure 435 " + e);
-				callback.onFailure(null);
-			}
-
-			@Override
-			public void onSuccess(final JavaScriptObject result) {
-				Window.alert("OnFAilure 435000 " + result);
-				callback.onSuccess(result);
-			}
-		});
-		log.log("processJSONRequestdone url: " + url);
+		}
 	}
 
 }
