@@ -86,7 +86,7 @@ public class LexiqueFactory {
 	 * @param name
 	 * @throws Exception
 	 */
-	public void createLexique(String name) {
+	public Lexique createLexique(String name) {
 		this.lexique = new Lexique();
 		lexique.setName(name);
 		this.saveLexique();
@@ -94,6 +94,7 @@ public class LexiqueFactory {
 		this.logListener.logTitle(name);
 		UtilInterSigale.saveProperties(KEY_LexiqueName, name);
 		StatistiquesLexiqueFactory.getInstance().createNewStatistique();
+		return lexique;
 	}
 
 	/**
