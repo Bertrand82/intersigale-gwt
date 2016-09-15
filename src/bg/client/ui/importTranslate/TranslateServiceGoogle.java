@@ -46,12 +46,14 @@ public class TranslateServiceGoogle {
 		return instance;
 	}
 
-	String key = "AIzaSyDouqYxNhF8U1vfI7YM7uzEzZi9DjYzJQ4BG";
+	String key = "AIzaSyDouqYxNhF8U1vfI7YM7uzEzZi9DjYzJQ4";
 	String url0 = "https://www.googleapis.com/language/translate/v2?";
 	// String url =
 	// "http://www.google.com/calendar/feeds/developer-calendar@google.com/public/full?alt=json-in-script";
 	String url__ = "https://www.googleapis.com/language/translate/v2?key=AIzaSyDouqYxNhF8U1vfI7YM7uzEzZi9DjYzJQ4&q=hello%20world&source=en&target=de";
-
+	String url__tts = "https://www.googleapis.com/language/translate_tts/v2?key=AIzaSyDouqYxNhF8U1vfI7YM7uzEzZi9DjYzJQ4&q=hello%20world&source=en&target=de";
+	// Pour avoir la liste des langues proposées par google :
+	// https://www.googleapis.com/language/translate/v2/languages?key=AIzaSyDouqYxNhF8U1vfI7YM7uzEzZi9DjYzJQ4BG&target=en
 	private String buildUrl(String langageSrc, String langageDest, final List<String> list) {
 		String s = url0;
 		s += "key=" + key;
@@ -112,7 +114,8 @@ public class TranslateServiceGoogle {
 				JSONObject jsonTranslatedItem = jsonTanslatedItemValue.isObject();
 				JSONValue jsonTranslated = jsonTranslatedItem.get("translatedText");
 				JSONString jsonStringtranslated = jsonTranslated.isString();
-				String translated = jsonStringtranslated.stringValue();
+				String translatedEncoded = jsonStringtranslated.stringValue();
+				String translated = decode(translatedEncoded);
 				listTranslated.add(translated);
 				// String noTranslated = list.get(i);
 				// Window.alert("onSuccese3 : " + i +" No Translated "
@@ -127,9 +130,7 @@ public class TranslateServiceGoogle {
 	}
 
 	private void createLexique(String nameLexique, boolean srcIsQuestion, List<String> list, List<String> listTranslated) {
-		if (nameLexique.trim().isEmpty()) {
-			nameLexique = "No Name";
-		}
+		
 		Lexique lexique = LexiqueFactory.getInstance().getLexiqueByNameInLocalStore(nameLexique.trim());
 		for (int i = 0; i < list.size(); i++) {
 			String text1 = list.get(i);
@@ -143,6 +144,12 @@ public class TranslateServiceGoogle {
 			lexique.add(ul);
 		}
 		log.logText("create lexique done  : listsize " + list.size());
+		ImportTranslateGUI.getInstance().showPopupSave(nameLexique, lexique);
+	}
+	
+	private static String decode(String s){
+		String r =s.replace("&#39;", "'");
+		return r;
 	}
 
 }

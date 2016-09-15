@@ -9,7 +9,7 @@ import bg.client.inter.sigale.util.ILogListener;
 import bg.client.ui.admin.AdminGUI;
 import bg.client.ui.debug.Debug;
 import bg.client.ui.edit.EditLexiqueGUI;
-import bg.client.ui.importTranslate.ImportTranslate;
+import bg.client.ui.importTranslate.ImportTranslateGUI;
 import bg.client.ui.lesson.Lesson;
 import bg.client.ui.register.RegisterForm;
 import bg.client.ui.stat.Statistiques;
@@ -90,7 +90,7 @@ public class MenuTools extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				setBorders(buttonImportTranslate);
-				EntryPointSigale.showView(ImportTranslate.getInstance());
+				EntryPointSigale.showView(ImportTranslateGUI.getInstance());
 				logListener.logText("Debug");
 			}
 		});

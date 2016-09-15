@@ -34,7 +34,7 @@ public class LexiqueSaveIn extends Composite {
 	void onClick(ClickEvent e) {
 		String newName = this.textBox.getText();
 		AdminGUI.getInstance().hidePopup();
-		LexiqueFactory.getInstance().saveLexique(newName);
+		LexiqueFactory.getInstance().saveLexiqueInLocal(newName);
 	}
 
 	public TextBox getTextBox() {

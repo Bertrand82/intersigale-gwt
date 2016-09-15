@@ -1,0 +1,22 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	.important {
+		font-weight: bold;
+	}
+	</ui:style>
+	<g:HTMLPanel>
+	    <table>
+		<tr><td>Save Lexique in :
+		<g:TextBox ui:field="textBox" ui:text="1234567890123456679"/>
+		</td></tr>
+		<tr><td>
+		<g:Button styleName="{style.important}" ui:field="buttonSaveInLocal" ui:text="Save In Local Store"/>
+		<g:Button styleName="{style.important}" ui:field="buttonSaveInRemote" ui:text="Save In Remote Store"/>
+		<g:Button styleName="{style.important}" ui:field="buttonDontSave" ui:text="Cancel"/>
+		</td></tr>
+		
+		</table>
+	</g:HTMLPanel>
+</ui:UiBinder> 

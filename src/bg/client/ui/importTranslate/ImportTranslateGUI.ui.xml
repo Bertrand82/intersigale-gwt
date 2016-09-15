@@ -36,15 +36,19 @@
 				</td>
 				<td>
 					<g:ListBox ui:field="listBoxLangageSource">
+					    <g:item value='en'>
+							English
+						</g:item>
 						<g:item value='fr'>
 							French
+						</g:item>
+						<g:item value='it'>
+							Italian
 						</g:item>
 						<g:item value='es'>
 							Spanish
 						</g:item>
-						<g:item value='en'>
-							English
-						</g:item>
+						
 					</g:ListBox>
 					<span>
 						<g:RadioButton ui:field="radioQuestion" name="radio"
@@ -61,15 +65,29 @@
 				</td>
 				<td>
 					<g:ListBox ui:field="listBoxLangageDest">
+						  <g:item value='en'>
+							English
+						</g:item>
+						  
 						<g:item value='fr'>
 							French
+						</g:item>
+						<g:item value='el'>
+							Greek
+						</g:item>
+						<g:item value='de'>
+							Germain
+						</g:item>
+						<g:item value='it'>
+							Italian
 						</g:item>
 						<g:item value='es'>
 							Spanish
 						</g:item>
-						<g:item value='en'>
-							English
+						<g:item value='sw'>
+							Swahili
 						</g:item>
+												
 					</g:ListBox>
 				</td>
 			</tr>

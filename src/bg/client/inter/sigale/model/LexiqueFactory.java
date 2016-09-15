@@ -89,7 +89,7 @@ public class LexiqueFactory {
 	public Lexique createLexique(String name) {
 		this.lexique = new Lexique();
 		lexique.setName(name);
-		this.saveLexique();
+		this.saveLexiqueInLocal();
 		this.logListener.logText("Create Lexique " + name);
 		this.logListener.logTitle(name);
 		UtilInterSigale.saveProperties(KEY_LexiqueName, name);
@@ -101,11 +101,14 @@ public class LexiqueFactory {
 	 * 
 	 * @throws Exception
 	 */
-	public void saveLexique() {
+	public void saveLexiqueInLocal() {
+		saveLexiqueInLocal(this.getLexique());
+	}
+	public  void saveLexiqueInLocal(Lexique lexique_) {
 		logListener.log("saveLexique");
 		try {
-			String name = "" + this.getLexique().getName();
-			String xml = toXml(lexique);
+			String name = "" + lexique_.getName();
+			String xml = toXml(lexique_);
 			GWT.log("saveLexique " + xml);
 			this.persister.save(xml, name);
 			this.logListener.logText("Lexique " + name + " saved");
@@ -121,7 +124,7 @@ public class LexiqueFactory {
 	 * @param item
 	 */
 	public void saveItem(UniteLexicale item) {
-		this.saveLexique();
+		this.saveLexiqueInLocal();
 	}
 
 	/*
@@ -163,9 +166,9 @@ public class LexiqueFactory {
 		return this.persister.getListLexiqueInStorage();
 	}
 
-	public void saveLexique(String newName) {
+	public void saveLexiqueInLocal(String newName) {
 		this.getLexique().setName(newName);
-		saveLexique();
+		saveLexiqueInLocal();
 		logListener.logTitle(newName);
 		logListener.logText("Save Lexique " + newName + " done");
 
@@ -178,6 +181,8 @@ public class LexiqueFactory {
 		if (this.lexique == null) {
 			this.lexique = new Lexique();
 		}
+		this.logListener.logTitle(name);
+		this.lexique.setName(name);
 		return lexique;
 	}
 
