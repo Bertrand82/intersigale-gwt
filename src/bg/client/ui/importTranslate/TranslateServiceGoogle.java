@@ -63,7 +63,7 @@ public class TranslateServiceGoogle {
 		return s;
 	}
 
-	public void translate(final String nameLexique,final String langageSrc,final String langageDest, final String textSrc) {
+	public void translate(final String nameLexique, final String langageSrc, final String langageDest, final boolean srcIsQuestion, final String textSrc) {
 		final List<String> list = getStrings(textSrc);
 		JsonpRequestBuilder jsonp = new JsonpRequestBuilder();
 		jsonp.setTimeout(60000);
@@ -71,18 +71,20 @@ public class TranslateServiceGoogle {
 
 			@Override
 			public void onFailure(Throwable e) {
+				log.log("Request to google translate Exception: ", e);
 				Window.alert("translate onFAilure 1230 :" + e);
+
 			}
 
 			@Override
 			public void onSuccess(JavaScriptObject jsonResponse) {
-				parseJsonTranslateResponse(nameLexique, list, jsonResponse);
+				parseJsonTranslateResponse(nameLexique, srcIsQuestion, list, jsonResponse);
 			}
 
 		};
 
 		String url = buildUrl(langageSrc, langageDest, list);
-		log.logText("Request to google translate : "+list.size());
+		log.logText("Request to google translate : " + list.size());
 		jsonp.requestObject(url, callBack);
 	}
 
@@ -97,7 +99,7 @@ public class TranslateServiceGoogle {
 		return list;
 	}
 
-	public void parseJsonTranslateResponse(String nameLexique,List<String> list, JavaScriptObject jsonResponse) {
+	public void parseJsonTranslateResponse(String nameLexique, boolean srcIsQuestion, List<String> list, JavaScriptObject jsonResponse) {
 		try {
 			JSONObject json = new JSONObject(jsonResponse);
 			JSONValue jsonDataValue = json.get("data");
@@ -112,25 +114,35 @@ public class TranslateServiceGoogle {
 				JSONString jsonStringtranslated = jsonTranslated.isString();
 				String translated = jsonStringtranslated.stringValue();
 				listTranslated.add(translated);
-				//String noTranslated = list.get(i);
+				// String noTranslated = list.get(i);
 				// Window.alert("onSuccese3 : " + i +" No Translated "
 				// +noTranslated+ "|Translated : " + translated);
 			}
-			createLexique(nameLexique, list,listTranslated );
+			log.logText("Request to google translated : " + listTranslated.size());
+			createLexique(nameLexique, srcIsQuestion, list, listTranslated);
 		} catch (Exception e) {
 			log.log("Exception parsing translation from google", e);
 		}
 
 	}
 
-	private void createLexique(String nameLexique, List<String> list, List<String> listTranslated) {
-		Lexique lexique = LexiqueFactory.getInstance().createLexique(nameLexique);
-		for(int i=0; i<list.size();i++){
+	private void createLexique(String nameLexique, boolean srcIsQuestion, List<String> list, List<String> listTranslated) {
+		if (nameLexique.trim().isEmpty()) {
+			nameLexique = "No Name";
+		}
+		Lexique lexique = LexiqueFactory.getInstance().getLexiqueByNameInLocalStore(nameLexique.trim());
+		for (int i = 0; i < list.size(); i++) {
 			String text1 = list.get(i);
 			String text2 = listTranslated.get(i);
-			UniteLexicale ul = new UniteLexicale(text1, text2);
+			UniteLexicale ul;
+			if (srcIsQuestion) {
+				ul = new UniteLexicale(text1, text2);
+			} else {
+				ul = new UniteLexicale(text2, text1);
+			}
 			lexique.add(ul);
 		}
+		log.logText("create lexique done  : listsize " + list.size());
 	}
 
 }

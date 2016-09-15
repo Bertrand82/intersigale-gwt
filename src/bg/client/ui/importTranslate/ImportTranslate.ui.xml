@@ -20,7 +20,7 @@
 				</td>
 			</tr>
 			<tr>
-			    <td colspan="1">
+				<td colspan="1">
 					<g:Label styleName="{style.important}" ui:field="labelTitleTextArea"
 						text="Text To translate" />
 				</td>
@@ -46,9 +46,15 @@
 							English
 						</g:item>
 					</g:ListBox>
+					<span>
+						<g:RadioButton ui:field="radioQuestion" name="radio"
+							value="true" enabled="true">Questions</g:RadioButton>
+						<g:RadioButton ui:field="radioResponse" name="radio"
+							value="false" enabled="true">Responses</g:RadioButton>
+					</span>
 				</td>
 			</tr>
-						<tr>
+			<tr>
 				<td colspan="1">
 					<g:Label styleName="{style.important}" ui:field="labelSelectLangageDest"
 						text="Langage Text Translated" />
@@ -67,17 +73,17 @@
 					</g:ListBox>
 				</td>
 			</tr>
-			
+
 			<tr>
-			    <td></td>
+				<td></td>
 				<td colspan="1">
 					<g:Button styleName="{style.important}" ui:field="buttonImportTranslate"
-			ui:text="Import and Translate" />
+						ui:text="Import and Translate" />
 				</td>
 			</tr>
 
 
 		</table>
-		
+
 	</g:HTMLPanel>
 </ui:UiBinder> 

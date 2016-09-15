@@ -171,10 +171,14 @@ public class LexiqueFactory {
 
 	}
 
-	public void getLexiqueByNameInLocalStore(String name) {
+	public Lexique getLexiqueByNameInLocalStore(String name) {
 		this.logListener.logText("get Lexique in local storage by Name : " + name);
 		this.sigaleProperties.setNameLexique(name);
 		this.lexique = fetchLexiqueInLocalStorage(name);
+		if (this.lexique == null) {
+			this.lexique = new Lexique();
+		}
+		return lexique;
 	}
 
 	private Lexique fetchLexiqueInLocalStorage(String name) {
@@ -183,13 +187,18 @@ public class LexiqueFactory {
 		}
 		String xml = this.persister.getLexiqueXMLFromName(name);
 		GWT.log(xml);
-		Lexique lexiqueParsed = parse(xml);
-		GWT.log("Parse xml done nb ul : " + lexiqueParsed.getListUniteLexicale().size());
+		if (xml == null) {
+			logListener.log("No xml in localstore for name :"+name);
+			return null;
+		} else {
+			Lexique lexiqueParsed = parse(xml);
+			GWT.log("Parse xml done nb ul : " + lexiqueParsed.getListUniteLexicale().size());
 
-		logListener.logTitle(name);
-		logListener.logText("Fetch and display Display " + lexiqueParsed.getName());
-		StatistiquesLexiqueFactory.getInstance().fetchStatitistiqueInLocaleStorage(lexiqueParsed);
-		return lexiqueParsed;
+			logListener.logTitle(name);
+			logListener.logText("Fetch and display Display " + lexiqueParsed.getName());
+			StatistiquesLexiqueFactory.getInstance().fetchStatitistiqueInLocaleStorage(lexiqueParsed);
+			return lexiqueParsed;
+		}
 	}
 
 	public void deleteLexiqueByName(String name) {
@@ -317,8 +326,8 @@ public class LexiqueFactory {
 		Lexique lexique2 = parse(lmd.getXml());
 		lexique2.setId(lmd.getId());
 		lexique2.setName(lmd.getName());
-		this.lexique=lexique2;
-	
+		this.lexique = lexique2;
+
 	}
 
 }

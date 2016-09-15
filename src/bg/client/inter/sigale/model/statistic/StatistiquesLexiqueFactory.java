@@ -59,8 +59,6 @@ public class StatistiquesLexiqueFactory {
 		}
 	}
 
-	
-
 	public void saveStatistic(String name) {
 		logListener.log("saveStatistic");
 		try {
@@ -197,6 +195,9 @@ public class StatistiquesLexiqueFactory {
 	}
 
 	public void fetchStatitistiqueInLocaleStorage(Lexique lexique) {
+		if (lexique == null) {
+			return;
+		}
 		this.statistique = new StatistiquesLexique();
 		lexique.setStatistiquesLexique(this.statistique);
 

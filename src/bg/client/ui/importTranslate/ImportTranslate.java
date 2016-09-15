@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -32,15 +33,20 @@ public class ImportTranslate extends Composite {
 	ListBox listBoxLangageSource;
 	@UiField
 	ListBox listBoxLangageDest;
+	@UiField
+	RadioButton radioQuestion;
+
+	@UiField
+	RadioButton radioResponse;
 
 	public ImportTranslate() {
 		initWidget(uiBinder.createAndBindUi(this));
 		buttonImportTranslate.addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
 				process();
-				
+
 			}
 		});
 	}
@@ -53,17 +59,19 @@ public class ImportTranslate extends Composite {
 		}
 		return instance;
 	}
-	
+
 	private void process() {
+		boolean srcIsQuestion =radioQuestion.getValue();
 		int selectedIndexLanageSrc = this.listBoxLangageSource.getSelectedIndex();
 		String langageSrc = this.listBoxLangageSource.getValue(selectedIndexLanageSrc);
 		int selectedIndexLanageDest = this.listBoxLangageDest.getSelectedIndex();
 		String langageDest = this.listBoxLangageDest.getValue(selectedIndexLanageDest);
 		String lexiqueName = textBoxLexiqueNAme.getText();
 		String textSrc = this.textAeraSource.getText();
-		String s = "src : "+langageSrc+" | dest : "+langageDest+" | lexique Name :"+lexiqueName+" | textSrc :"+textSrc;
-		GWT.log("process Translate");
-		TranslateServiceGoogle.getInstance().translate(lexiqueName,langageSrc,langageDest,textSrc);
+		String s = "src : " + langageSrc + " | dest : " + langageDest + " | lexique Name :" + lexiqueName + " | textSrc :" + textSrc;
+		
+		GWT.log("process Translate "+lexiqueName+" "+langageSrc+"  "+langageDest+"  "+srcIsQuestion);
+		TranslateServiceGoogle.getInstance().translate(lexiqueName, langageSrc, langageDest,srcIsQuestion, textSrc);
 	}
 
 }
