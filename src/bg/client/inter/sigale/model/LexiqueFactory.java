@@ -113,7 +113,7 @@ public class LexiqueFactory {
 			this.persister.save(xml, name);
 			this.logListener.logText("Lexique " + name + " saved");
 		} catch (Throwable e) {
-			this.logListener.logText("Exception 201 " + e.getMessage());
+			this.logListener.logText("Save Lexique In Local Exception 201 " + e.getMessage());
 			GWT.log("saveLexique", e);
 			throw e;
 		}
@@ -130,7 +130,7 @@ public class LexiqueFactory {
 	/*
 	 * 
 	 */
-	public String toXml(Lexique lexique2) {
+	public static String toXml(Lexique lexique2) {
 		Document document = XMLParser.createDocument();
 		document.appendChild(document.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"UTF-8\""));
 		Element elementLexique = document.createElement(Lexique.TAG_ROOT);
@@ -149,7 +149,7 @@ public class LexiqueFactory {
 		return document.toString();
 	}
 
-	private Element toXML(Phrase phrase, Document document) {
+	private static Element toXML(Phrase phrase, Document document) {
 		Element elementPhrase = document.createElement(Phrase.TAG_ROOT);
 		elementPhrase.appendChild(document.createTextNode("" + phrase.getText()));
 		for (Visible visible : phrase.getListVisible()) {

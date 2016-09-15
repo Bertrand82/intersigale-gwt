@@ -95,6 +95,7 @@ public class ImportTranslateGUI extends Composite {
 	
 	public void showPopupSave(String lexiqueName, Lexique lexique) {
 		lexiqueSaveIn.getTextBox().setText(lexiqueName);
+		lexiqueSaveIn.setLexique(lexique);
 		myPopup.showWidget(lexiqueSaveIn);
 	}
 	
