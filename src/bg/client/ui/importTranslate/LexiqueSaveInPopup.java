@@ -1,7 +1,10 @@
 package bg.client.ui.importTranslate;
 
+import bg.client.SigaleUtil;
+import bg.client.inter.sigal.beans.LexiqueMetaData;
 import bg.client.inter.sigale.model.Lexique;
 import bg.client.inter.sigale.model.LexiqueFactory;
+import bg.client.ui.admin.AdminGUI;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -10,6 +13,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.TextBox;
@@ -44,7 +48,19 @@ public class LexiqueSaveInPopup extends Composite {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				Window.alert("No Implemented yet");
+				LexiqueMetaData lexiqueMetaData = LexiqueFactory.getInstance().getLexiqueMetaData(LexiqueSaveInPopup.this.lexique);
+				SigaleUtil.getSigaleService().storeLexiqueMetadata(lexiqueMetaData, new AsyncCallback<Long>() {
+					
+					@Override
+					public void onSuccess(Long result) {
+						Window.alert(" Lexique  registered in remote");
+					}
+					
+					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert("Exception: Lexique No registered in remote");
+					}
+				});
 				hidePopup();
 			}
 		});

@@ -5,6 +5,7 @@ import java.util.List;
 import bg.client.LogGWT;
 import bg.client.SigaleService;
 import bg.client.SigaleServiceAsync;
+import bg.client.SigaleUtil;
 import bg.client.inter.sigal.beans.LexiqueMetaData;
 import bg.client.inter.sigale.model.Lexique;
 import bg.client.inter.sigale.model.LexiqueFactory;
@@ -14,6 +15,7 @@ import bg.client.ui.admin.chooserLexique.IAction;
 import bg.client.ui.admin.chooserLexique.BeanChooser;
 import bg.client.ui.util.popup.IPopupListener;
 import bg.client.ui.util.popup.PopupDialogOption;
+
 
 
 
@@ -58,11 +60,7 @@ public class AdminGUI extends Composite {
 			LexiqueFactory.getInstance().deleteInRemoteStore(id,name);
 		}
 	};
-	/**
-	 * Create a remote service proxy to talk to the server-side Greeting
-	 * service.
-	 */
-	private final SigaleServiceAsync sigaleService = GWT.create(SigaleService.class);
+	
 
 	interface AdminGUIUiBinder extends UiBinder<Widget, AdminGUI> {
 	}
@@ -153,7 +151,7 @@ public class AdminGUI extends Composite {
 					}
 				};
 				log.log("Send request to server ");
-				sigaleService.getListLexiquesByOwner(email, callback);
+				SigaleUtil.getSigaleService().getListLexiquesByOwner(email, callback);
 			}
 
 		});
@@ -183,7 +181,7 @@ public class AdminGUI extends Composite {
 					};
 					LexiqueMetaData lmd = LexiqueFactory.getInstance().getLexiqueMetaData(lexique);
 					
-					sigaleService.storeLexiqueMetadata(lmd, callback);
+					SigaleUtil.getSigaleService().storeLexiqueMetadata(lmd, callback);
 				} catch (Exception e) {
 					log.log("Fail to save Lexique", e);
 					Window.alert("Save Lexique Exception " + e.getMessage());
@@ -232,5 +230,6 @@ public class AdminGUI extends Composite {
 		this.myPopup.hide();
 	}
 
+	
 
 }
