@@ -11,7 +11,6 @@ import bg.client.inter.sigale.model.statistic.StatistiquesLexiqueFactory;
 import bg.client.inter.sigale.util.ILogListener;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.xml.client.Document;
 import com.google.gwt.xml.client.Element;
@@ -31,7 +30,7 @@ public class LexiqueFactory {
 
 	private Lexique lexique;
 
-	private ILogListener logListener = new LogGWT();
+	private static ILogListener logListener = new LogGWT();
 
 	private static LexiqueFactory instance;
 
@@ -41,12 +40,16 @@ public class LexiqueFactory {
 		instance = this;
 		try {
 			String name = sigaleProperties.getNameLexique();
+			GWT.log("LexiqueFactory constructeur name: "+name);
 			if (name == null) {
 				logListener.logText("No file in LocalStorage !");
 			} else {
 				this.lexique = fetchLexiqueInLocalStorage(name);
 				this.logListener.logTitle(name);
 				this.logListener.logText("Display former context. Lexique :" + lexique.getName());
+			}
+			if (this.lexique == null){
+				this.lexique=this.getLexiqueDefault();
 			}
 		} catch (Exception e) {
 			this.logListener.log("Exception Constructor LexiqueFactory", e);
@@ -191,18 +194,22 @@ public class LexiqueFactory {
 			return null;
 		}
 		String xml = this.persister.getLexiqueXMLFromName(name);
-		GWT.log(xml);
+		GWT.log("fetchLexiqueInLocalStorage xml :"+xml);
 		if (xml == null) {
 			logListener.log("No xml in localstore for name :"+name);
 			return null;
 		} else {
 			Lexique lexiqueParsed = parse(xml);
+			if (lexiqueParsed== null){
+				return null;
+			}else {
 			GWT.log("Parse xml done nb ul : " + lexiqueParsed.getListUniteLexicale().size());
 
 			logListener.logTitle(name);
 			logListener.logText("Fetch and display Display " + lexiqueParsed.getName());
-			StatistiquesLexiqueFactory.getInstance().fetchStatitistiqueInLocaleStorage(lexiqueParsed);
+			
 			return lexiqueParsed;
+			}
 		}
 	}
 
@@ -212,7 +219,7 @@ public class LexiqueFactory {
 		logListener.logText("Deleted : " + name);
 	}
 
-	public Lexique parse(String xml) {
+	public static Lexique parse(String xml) {
 		if (xml == null) {
 			logListener.logText("try to parse null xml !");
 			return null;
@@ -234,7 +241,7 @@ public class LexiqueFactory {
 		return lexique;
 	}
 
-	private UniteLexicale parseUniteLexicale(Node node) {
+	private static UniteLexicale parseUniteLexicale(Node node) {
 		UniteLexicale ul = new UniteLexicale();
 		NodeList nodeList = node.getChildNodes();
 		int k = 0;
@@ -250,7 +257,7 @@ public class LexiqueFactory {
 		return ul;
 	}
 
-	private Phrase parsePhrase(Node nodePhrase) {
+	private static Phrase parsePhrase(Node nodePhrase) {
 		Phrase phrase = new Phrase();
 		String text = nodePhrase.getFirstChild().getNodeValue();
 		phrase.setText(text);
@@ -266,7 +273,7 @@ public class LexiqueFactory {
 		return phrase;
 	}
 
-	private Visible parseVisible(Node nodeVisible) {
+	private static Visible parseVisible(Node nodeVisible) {
 		Visible visible = new Visible();
 		NodeList nodeList = nodeVisible.getChildNodes();
 		for (int i = 0; i < nodeList.getLength(); i++) {

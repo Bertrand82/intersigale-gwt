@@ -3,6 +3,7 @@ package bg.client;
 import java.util.List;
 
 import bg.client.inter.sigal.beans.LexiqueMetaData;
+import bg.client.inter.sigal.beans.UserBean;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -22,5 +23,8 @@ public interface SigaleServiceAsync {
 
 
 	void getLexiqueMetadataById(String lexiqueId, String email, AsyncCallback<LexiqueMetaData> callback);
+
+
+	void register(UserBean user, AsyncCallback<Integer> callback);
 
 }

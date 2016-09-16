@@ -4,6 +4,7 @@ import java.util.List;
 
 import bg.client.SigaleService;
 import bg.client.inter.sigal.beans.LexiqueMetaData;
+import bg.client.inter.sigal.beans.UserBean;
 import bg.server.inter.sigale.data.LexiqueEntityFactory;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -39,6 +40,12 @@ public class SigaleServiceImpl extends RemoteServiceServlet implements SigaleSer
 	public LexiqueMetaData getLexiqueMetadataById(String lexiqueId, String email) throws Exception {
 		LexiqueMetaData lmd = LexiqueEntityFactory.getInstance().getLexique(lexiqueId);
 		return lmd;
+	}
+
+	@Override
+	public int register(UserBean user) throws Exception {
+		
+		return 0;
 	}
 
 	

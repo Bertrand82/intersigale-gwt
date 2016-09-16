@@ -3,30 +3,16 @@ package bg.client.ui.admin;
 import java.util.List;
 
 import bg.client.LogGWT;
-import bg.client.SigaleService;
-import bg.client.SigaleServiceAsync;
 import bg.client.SigaleUtil;
 import bg.client.inter.sigal.beans.LexiqueMetaData;
 import bg.client.inter.sigale.model.Lexique;
 import bg.client.inter.sigale.model.LexiqueFactory;
 import bg.client.inter.sigale.util.ILogListener;
 import bg.client.ui.admin.chooser.ListSimpleBeanChooser;
-import bg.client.ui.admin.chooserLexique.IAction;
 import bg.client.ui.admin.chooserLexique.BeanChooser;
+import bg.client.ui.admin.chooserLexique.IAction;
 import bg.client.ui.util.popup.IPopupListener;
 import bg.client.ui.util.popup.PopupDialogOption;
-
-
-
-
-
-
-
-
-
-
-
-
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;

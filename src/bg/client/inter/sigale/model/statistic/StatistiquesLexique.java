@@ -7,7 +7,6 @@ import java.util.List;
 import bg.client.inter.sigale.model.Lexique;
 import bg.client.inter.sigale.model.LexiqueFactory;
 import bg.client.inter.sigale.model.UniteLexicale;
-import bg.client.inter.sigale.model.statistic.curve.PointsCourbe;
 import bg.client.inter.sigale.model.statistic.curve.StatistiquesSynthese;
 
 public class StatistiquesLexique {

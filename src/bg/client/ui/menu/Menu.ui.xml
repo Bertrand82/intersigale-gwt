@@ -9,10 +9,11 @@
 	<g:HTMLPanel>
 		<table>
 		<tr>
-	<!-- <td><g:Button styleName="{style.important}" ui:field="buttonRegister" text="Register" /></td>  -->	
 		<td><g:Button styleName="{style.important}" ui:field="buttonLesson" text="Lesson"/></td>
 		<td><g:Button styleName="{style.important}" ui:field="buttonStat" text="Stat"/></td>
 		<td><g:Button styleName="{style.important}" ui:field="buttonAdmin" text="Admin"/></td>
+	    <td><g:Button styleName="{style.important}" ui:field="buttonLogin" text="Login" /></td>	
+		
 		</tr>
 		</table>
 	</g:HTMLPanel>

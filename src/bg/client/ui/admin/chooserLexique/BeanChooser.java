@@ -3,9 +3,6 @@ package bg.client.ui.admin.chooserLexique;
 
 import java.util.List;
 
-
-
-
 import bg.client.LogGWT;
 import bg.client.inter.sigal.beans.IBean;
 import bg.client.inter.sigale.util.ILogListener;

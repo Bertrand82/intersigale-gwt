@@ -1,7 +1,6 @@
 package bg.client.ui.stat.statCanvas;
 
 import bg.client.inter.sigale.model.Lexique;
-import bg.client.inter.sigale.model.UniteLexicale;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;

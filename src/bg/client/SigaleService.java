@@ -3,7 +3,7 @@ package bg.client;
 import java.util.List;
 
 import bg.client.inter.sigal.beans.LexiqueMetaData;
-import bg.client.inter.sigale.model.Lexique;
+import bg.client.inter.sigal.beans.UserBean;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -22,4 +22,6 @@ public interface SigaleService extends RemoteService {
 	LexiqueMetaData getLexiqueMetadataById(String lexiqueId, String email) throws Exception;
 	
 	List<LexiqueMetaData> getListLexiquesByOwner(String email) throws Exception;
+	
+	int register(UserBean user) throws Exception;
 }

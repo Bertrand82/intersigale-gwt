@@ -4,8 +4,6 @@ import java.util.Date;
 
 import bg.client.inter.sigale.model.statistic.StatistiquesItem;
 
-import com.sun.org.apache.bcel.internal.generic.RETURN;
-
 public class PointsCourbe {
 	public Date dateDebut;
 	public long duree;

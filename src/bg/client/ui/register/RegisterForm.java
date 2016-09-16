@@ -1,13 +1,15 @@
 package bg.client.ui.register;
 
-import bg.client.SigaleService;
-import bg.client.SigaleServiceAsync;
+import bg.client.SigaleUtil;
+import bg.client.inter.sigal.beans.UserBean;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.InlineLabel;
@@ -17,12 +19,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class RegisterForm extends Composite {
 
-	/**
-	 * Create a remote service proxy to talk to the server-side Greeting
-	 * service.
-	 */
-	private final SigaleServiceAsync greetingService = GWT.create(SigaleService.class);
-
+	
 	private static RegisterFormUiBinder uiBinder = GWT.create(RegisterFormUiBinder.class);
 
 	private static RegisterForm instance;
@@ -56,10 +53,10 @@ public class RegisterForm extends Composite {
 	PasswordTextBox password2;
 
 	@UiField
-	TextBox email;
+	TextBox textBoxEmail;
 
 	@UiField
-	TextBox name;
+	TextBox textBoxName;
 
 	@UiField
 	Button buttonRegister;
@@ -71,19 +68,23 @@ public class RegisterForm extends Composite {
 		boolean valid = this.valid();
 
 		if (valid) {
-			// Window.Location.replace("page_home.jsp"); // break History
-			/*
-			 * greetingService.register(email.getText(), name.getText(),
-			 * password1.getText(), new AsyncCallback<String>(){
-			 * 
-			 * @Override public void onFailure(Throwable e) {
-			 * labelComment.setText("Exception "+e.getMessage()); }
-			 * 
-			 * @Override public void onSuccess(String result) {
-			 * Window.Location.assign("page_home.jsp"); }
-			 * 
-			 * });
-			 */
+			String password = password1.getText();
+			String name = textBoxName.getText();
+			String email = textBoxEmail.getText();
+			UserBean user = new UserBean(name, email, password);
+			SigaleUtil.getSigaleService().register(user, new AsyncCallback<Integer>() {
+
+				@Override
+				public void onSuccess(Integer id) {
+					Window.alert("succes Registering " + id);
+				}
+
+				@Override
+				public void onFailure(Throwable e) {
+					Window.alert("Failure Registering " + e);
+				}
+
+			});
 		}
 	}
 
@@ -91,21 +92,17 @@ public class RegisterForm extends Composite {
 		boolean b = true;
 		String comment = "";
 
-		if (email.getText().trim().length() < 5) {
+		if (textBoxEmail.getText().trim().length() < 5) {
 			b = false;
-			comment = " Email non nalide ,";
+			comment = " e-mail is not Valid  ,";
 		}
-		if (email.getText().indexOf("@") < 0) {
+		if (textBoxEmail.getText().indexOf("@") < 0) {
 			b = false;
-			comment = " Email non nalide ,";
+			comment = " e-mail isnot Valid  ,";
 		}
 		if (!password1.getText().equals(password2.getText())) {
 			b = false;
-			comment += " Les mots de passe ne sont pas égaux,";
-		}
-		if (password1.getText().length() < 6) {
-			b = false;
-			comment += " Le mot de passe doit être supérieur à 6 caract�res";
+			comment += "passwords are not equals ,";
 		}
 
 		labelComment.setText(comment);

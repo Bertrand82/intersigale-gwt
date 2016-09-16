@@ -7,9 +7,8 @@ import bg.client.EntryPointSigale;
 import bg.client.LogGWT;
 import bg.client.inter.sigale.util.ILogListener;
 import bg.client.ui.admin.AdminGUI;
-import bg.client.ui.debug.Debug;
-import bg.client.ui.edit.EditLexiqueGUI;
 import bg.client.ui.lesson.Lesson;
+import bg.client.ui.login.LoginForm;
 import bg.client.ui.register.RegisterForm;
 import bg.client.ui.stat.Statistiques;
 
@@ -30,11 +29,12 @@ public class Menu extends Composite {
 
 	private static MenuUiBinder uiBinder = GWT.create(MenuUiBinder.class);
 	private ILogListener logListener = new LogGWT();
+
 	interface MenuUiBinder extends UiBinder<Widget, Menu> {
 	}
 
-	// @UiField
-	Button buttonRegister = new Button();
+	@UiField
+	Button buttonLogin;
 	@UiField
 	Button buttonLesson;
 	@UiField
@@ -53,13 +53,13 @@ public class Menu extends Composite {
 	 */
 	private Menu() {
 		initWidget(uiBinder.createAndBindUi(this));
-		buttonRegister.addClickHandler(new ClickHandler() {
+		buttonLogin.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				setBorders(buttonRegister);
-				EntryPointSigale.showView(RegisterForm.getInstance());
-				logListener.logText("Register");
+				setBorders(buttonLogin);
+				EntryPointSigale.showView(LoginForm.getInstance());
+				logListener.logText("Login");
 			}
 		});
 		buttonLesson.addClickHandler(new ClickHandler() {
@@ -90,16 +90,28 @@ public class Menu extends Composite {
 				logListener.logText("Stat");
 			}
 		});
+
+		buttonLogin.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				setBorders(buttonLogin);
+				EntryPointSigale.showView(LoginForm.getInstance());
+				LoginForm.getInstance().loginLogout();
+				logListener.logText("Register");
+			}
+		});
 	}
-	public  void setBorders() {
+
+	public void setBorders() {
 		buttonAdmin.getElement().getStyle().setProperty("borderWidth", "1px");
 		buttonLesson.getElement().getStyle().setProperty("borderWidth", "1px");
-		buttonRegister.getElement().getStyle().setProperty("borderWidth", "1px");
+		buttonLogin.getElement().getStyle().setProperty("borderWidth", "1px");
 		buttonStat.getElement().getStyle().setProperty("borderWidth", "1px");
 
 	}
 
-	private  void setBorders(Button buttonSelected) {
+	private void setBorders(Button buttonSelected) {
 		setBorders();
 		MenuUtil.selectButton(buttonSelected);
 		MenuTools.getInstance().setBorders();
@@ -111,6 +123,19 @@ public class Menu extends Composite {
 	public static Menu getInstance() {
 
 		return instance;
+	}
+
+	public void setLogout(boolean isLogged) {
+		if (isLogged) {
+			this.buttonLogin.setText("Logout");
+		} else {
+			this.buttonLogin.setText("Login");
+		}
+	}
+
+	public void register() {
+		setBorders(null);
+		EntryPointSigale.showView(RegisterForm.getInstance());
 	}
 
 }

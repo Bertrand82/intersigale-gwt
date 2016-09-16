@@ -9,8 +9,8 @@
 	<g:HTMLPanel>
 	   
 		<table>
-		<tr> <td>Email </td> <td> <g:TextBox ui:field="email"/> </td> </tr>
-		<tr> <td>name </td> <td> <g:TextBox ui:field="name"/> </td> </tr>
+		<tr> <td>Email </td> <td> <g:TextBox ui:field="textBoxEmail"/> </td> </tr>
+		<tr> <td>name </td> <td> <g:TextBox ui:field="textBoxName"/> </td> </tr>
 		<tr> <td>Password </td> <td><g:PasswordTextBox ui:field="password1" /></td> </tr>
 		<tr> <td>Password (again)</td> <td><g:PasswordTextBox ui:field="password2" /></td> </tr>
 		<tr> <td> </td> <td><g:Button styleName="{style.important}" ui:field="buttonRegister" text="Register" /></td> </tr>

@@ -6,7 +6,7 @@ import com.google.gwt.storage.client.Storage;
 public class SigalePropertiesGWT implements ISigalePropertes {
 
 	private String nameLexique;
-	private static final String KEY_nameLexique = "lexique";
+	private static final String KEY_nameLexique = "nameLexiqueCurrent";
 
 	public SigalePropertiesGWT() {
 	}
