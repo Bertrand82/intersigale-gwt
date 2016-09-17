@@ -71,17 +71,18 @@ public class RegisterForm extends Composite {
 			String password = password1.getText();
 			String name = textBoxName.getText();
 			String email = textBoxEmail.getText();
-			UserBean user = new UserBean(name, email, password);
-			SigaleUtil.getSigaleService().register(user, new AsyncCallback<Integer>() {
+			final UserBean user = new UserBean(name, email, password);
+			SigaleUtil.getSigaleService().register(user, new AsyncCallback<Long>() {
 
 				@Override
-				public void onSuccess(Integer id) {
+				public void onSuccess(Long id) {
+					user.setId(id);
 					Window.alert("succes Registering " + id);
 				}
 
 				@Override
 				public void onFailure(Throwable e) {
-					Window.alert("Failure Registering " + e);
+					Window.alert("Failure Registering " + user.getEmail());
 				}
 
 			});

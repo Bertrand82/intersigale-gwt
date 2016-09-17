@@ -16,6 +16,9 @@ public class UtilCopyBean {
 	 * @throws Exception
 	 */
 	public static Object copyTo(Class clazz, Object src) throws Exception {
+		if (src == null){
+			return null;
+		}
 		Object o = clazz.newInstance();
 		Method[] gettersSrc = src.getClass().getMethods();
 		for (int i = 0; i < gettersSrc.length; i++) {
