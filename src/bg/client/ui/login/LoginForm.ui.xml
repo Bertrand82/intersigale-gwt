@@ -10,7 +10,7 @@
 		<table>
 		<tr> <td>Email </td> <td> <g:TextBox ui:field="textBoxEmail"/> </td> </tr>
 		<tr> <td>Password </td> <td><g:PasswordTextBox ui:field="password" /></td> </tr>
-		<tr> <td> </td> <td><g:Button styleName="{style.important}" ui:field="buttonLogin2" text="Login2" /></td> </tr>
+		<tr> <td> </td> <td><g:Button styleName="{style.important}" ui:field="buttonLogin2" text="Login" /></td> </tr>
 		<tr> <td> </td> <td><g:Button  ui:field="buttonRegister" text="Register" /></td> </tr>
 		</table>
 		

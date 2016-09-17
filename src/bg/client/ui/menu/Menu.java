@@ -5,6 +5,7 @@ package bg.client.ui.menu;
 
 import bg.client.EntryPointSigale;
 import bg.client.LogGWT;
+import bg.client.inter.sigal.beans.UserBean;
 import bg.client.inter.sigale.util.ILogListener;
 import bg.client.ui.admin.AdminGUI;
 import bg.client.ui.lesson.Lesson;
@@ -56,15 +57,7 @@ public class Menu extends Composite {
 	 */
 	private Menu() {
 		initWidget(uiBinder.createAndBindUi(this));
-		buttonLogin.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				setBorders(buttonLogin);
-				EntryPointSigale.showView(LoginForm.getInstance());
-				logListener.logText("Login");
-			}
-		});
+		
 		buttonLesson.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -99,11 +92,17 @@ public class Menu extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				setBorders(buttonLogin);
-				EntryPointSigale.showView(LoginForm.getInstance());
-				LoginService.getInstance().logout();
+				if(LoginService.getInstance().isLogged()){
+					EntryPointSigale.showView(WelcomeUI.getInstance());
+				}else {
+					EntryPointSigale.showView(LoginForm.getInstance());
+				}
 				logListener.logText(" "+buttonLogin.getText());
 			}
 		});
+		if(LoginService.getInstance().isLogged()){
+			this.buttonLogin.setText(LoginService.getInstance().getUserBean().getName());
+		}
 	}
 
 	public void setBorders() {
@@ -128,12 +127,12 @@ public class Menu extends Composite {
 		return instance;
 	}
 
-	public void setLogout(boolean isLogged) {
-		if (isLogged) {
-			this.buttonLogin.setText("Logout");
-			EntryPointSigale.showView(WelcomeUI.getInstance());
-		} else {
+	public void setLogout(UserBean userBean) {
+		if (userBean==null) {
 			this.buttonLogin.setText("Login");
+		}else{
+			this.buttonLogin.setText(""+userBean.getName());
+			EntryPointSigale.showView(WelcomeUI.getInstance());
 		}
 	}
 
@@ -143,8 +142,10 @@ public class Menu extends Composite {
 	}
 
 	public void logoutByebye() {
-		setLogout(false);
+		setLogout(null);
+		LoginService.getInstance().logoutByebye();
 		EntryPointSigale.showView(LogoutByebye.getInstance());
+		this.buttonLogin.setText("Login");
 	}
 
 }

@@ -4,6 +4,7 @@ import bg.client.inter.sigal.beans.UserBean;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -23,6 +24,14 @@ public class WelcomeUI extends Composite {
 
 	public WelcomeUI() {
 		initWidget(uiBinder.createAndBindUi(this));
+		buttonLogout.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				logout();
+				
+			}
+		});
 	}
 
 	@UiField
@@ -30,6 +39,9 @@ public class WelcomeUI extends Composite {
 
 	@UiField
 	Label labelEMail;
+	
+	@UiField
+	Button buttonLogout;
 
 	private static WelcomeUI instance;
 
@@ -48,6 +60,10 @@ public class WelcomeUI extends Composite {
 			this.labelName.setText(" "+user.getName());
 			this.labelEMail.setText(" "+user.getEmail());
 		}
+	}
+	
+	private void logout(){
+		LoginService.getInstance().logout();
 	}
 
 }

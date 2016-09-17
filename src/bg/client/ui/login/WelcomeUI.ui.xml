@@ -8,13 +8,17 @@
 	</ui:style>
 	<g:HTMLPanel>
 	    <table>
-	        <tr>  <td>Welcome : </td>
+	        <tr>  <td>name : </td>
 	            
 	        	<td> <g:Label styleName="{style.important}" ui:field="labelName" /> </td>
 	        </tr>
-	         <tr>  <td></td>
+	         <tr>  <td>Email : </td>
 	            
 	        	<td> <g:Label styleName="{style.important}" ui:field="labelEMail" /> </td>
+	        </tr>
+	         <tr>  <td></td>
+	            
+	        	<td> <g:Button styleName="{style.important}" ui:field="buttonLogout"  ui:text="Logout"/> </td>
 	        </tr>
 	        
 	    </table>
