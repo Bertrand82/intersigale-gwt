@@ -64,7 +64,7 @@ public class LoginForm extends Composite {
 		return instance;
 	}
 
-	boolean isLogged = false;
+	
 	private void loginRequest() {
 		
 		final String email = this.textBoxEmail.getText();
@@ -74,7 +74,7 @@ public class LoginForm extends Composite {
 			
 			@Override
 			public void onSuccess(UserBean user) {
-				login(user);
+				LoginService.getInstance().login(user);
 				buttonLogin2.setEnabled(true);
 			}
 			
@@ -86,25 +86,8 @@ public class LoginForm extends Composite {
 		});
 		
 	}
-	UserBean user;
-	private void login(UserBean user){
-		this.user =user;
-		if(user== null){
-			isLogged= false;
-			log.log("No Login");
-		}else {
-			log.log(""+user.getName()+" "+user.getEmail());
-			isLogged= true;
-			Menu.getInstance().setLogout(isLogged);
-		}
-	}
 	
-	public void logout() {
-		if (isLogged){
-			Menu.getInstance().logoutByebye();
-			isLogged=false;
-		}		
-	}
+	
 	
 	public void register() {
 		Menu.getInstance().register();

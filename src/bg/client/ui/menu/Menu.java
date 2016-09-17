@@ -9,6 +9,7 @@ import bg.client.inter.sigale.util.ILogListener;
 import bg.client.ui.admin.AdminGUI;
 import bg.client.ui.lesson.Lesson;
 import bg.client.ui.login.LoginForm;
+import bg.client.ui.login.LoginService;
 import bg.client.ui.login.LogoutByebye;
 import bg.client.ui.login.WelcomeUI;
 import bg.client.ui.register.RegisterForm;
@@ -99,7 +100,7 @@ public class Menu extends Composite {
 			public void onClick(ClickEvent event) {
 				setBorders(buttonLogin);
 				EntryPointSigale.showView(LoginForm.getInstance());
-				LoginForm.getInstance().logout();
+				LoginService.getInstance().logout();
 				logListener.logText(" "+buttonLogin.getText());
 			}
 		});

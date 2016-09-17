@@ -2,6 +2,7 @@ package bg.client.ui.register;
 
 import bg.client.SigaleUtil;
 import bg.client.inter.sigal.beans.UserBean;
+import bg.client.ui.login.LoginService;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -72,12 +73,12 @@ public class RegisterForm extends Composite {
 			String name = textBoxName.getText();
 			String email = textBoxEmail.getText();
 			final UserBean user = new UserBean(name, email, password);
-			SigaleUtil.getSigaleService().register(user, new AsyncCallback<Long>() {
+			SigaleUtil.getSigaleService().register(user, new AsyncCallback<UserBean>() {
 
 				@Override
-				public void onSuccess(Long id) {
-					user.setId(id);
-					Window.alert("succes Registering " + id);
+				public void onSuccess(UserBean userBean) {
+					
+					LoginService.getInstance().login(user);
 				}
 
 				@Override

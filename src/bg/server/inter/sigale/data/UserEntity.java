@@ -1,5 +1,7 @@
 package bg.server.inter.sigale.data;
 
+import java.util.Date;
+
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
@@ -10,31 +12,24 @@ import javax.jdo.annotations.PrimaryKey;
 public class UserEntity {
 	
 	private static final long serialVersionUID = 1L;
-	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)   
 	@PrimaryKey
-	private Long id;
-	
-	@Persistent
-	private String name;
-	
 	@Persistent
 	private String email;
 	
 	@Persistent
-	private String password;
+	private String name;	
 
+	@Persistent
+	private String password;
+	
+	@Persistent
+	private Date dateRegister;
+	
 	public UserEntity(){
 		
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
+	
 	public String getName() {
 		return name;
 	}
@@ -57,6 +52,14 @@ public class UserEntity {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Date getDateRegister() {
+		return dateRegister;
+	}
+
+	public void setDateRegister(Date dateRegister) {
+		this.dateRegister = dateRegister;
 	}
 	
 	

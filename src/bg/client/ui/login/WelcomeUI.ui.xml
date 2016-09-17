@@ -7,7 +7,18 @@
 	}
 	</ui:style>
 	<g:HTMLPanel>
-		Hello,
-		<g:Button styleName="{style.important}" ui:field="button" />
+	    <table>
+	        <tr>  <td>Welcome : </td>
+	            
+	        	<td> <g:Label styleName="{style.important}" ui:field="labelName" /> </td>
+	        </tr>
+	         <tr>  <td></td>
+	            
+	        	<td> <g:Label styleName="{style.important}" ui:field="labelEMail" /> </td>
+	        </tr>
+	        
+	    </table>
+		
+		
 	</g:HTMLPanel>
 </ui:UiBinder> 

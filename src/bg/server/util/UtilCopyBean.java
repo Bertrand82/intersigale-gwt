@@ -15,22 +15,21 @@ public class UtilCopyBean {
 	 * @return
 	 * @throws Exception
 	 */
-	public static Object copyTo(Class clazz, Object src) throws Exception {
+	public static <T> T copyTo(Class<T> clazz, Object src) throws Exception {
 		if (src == null){
 			return null;
 		}
-		Object o = clazz.newInstance();
+		T o = clazz.newInstance();
 		Method[] gettersSrc = src.getClass().getMethods();
 		for (int i = 0; i < gettersSrc.length; i++) {
 			String methodName = gettersSrc[i].getName();
 			final String methodNameSetter = getSetter(gettersSrc[i]);
 			List<Method> listMethod = Arrays.asList(clazz.getMethods());
-			System.out.println("method :" + methodName + " |  setter :" + methodNameSetter);
 			if (methodNameSetter != null) {
 				Object data = gettersSrc[i].invoke(src, null);
 				Class returnType = gettersSrc[i].getReturnType();
 				Method method;
-				// Leve une exception method =
+				// Leve une exception method 
 				// clazz.getMethod(methodNameSetter,returnType);
 				method = getMethod(methodNameSetter, returnType, clazz.getMethods());
 				if (method != null) {

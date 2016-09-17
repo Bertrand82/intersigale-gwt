@@ -10,7 +10,7 @@
   <inherits name='com.google.gwt.user.User'/>
   <inherits name="com.google.gwt.xml.XML" />
   <inherits name="com.google.gwt.json.JSON" />
-  <inherits name='com.googlecode.gwt.crypto.Crypto'/>
+
   <!--  La ligne ci-dessous fait apparaitre une fenetre de log 
   	Utilise avec le code java :  Logger logger = Logger.getLogger("NameOfYourLogger");
     logger.log(Level.SEVERE, "this message should get logged");

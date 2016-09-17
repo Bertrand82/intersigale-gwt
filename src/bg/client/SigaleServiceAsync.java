@@ -25,7 +25,7 @@ public interface SigaleServiceAsync {
 	void getLexiqueMetadataById(String lexiqueId, String email, AsyncCallback<LexiqueMetaData> callback);
 
 
-	void register(UserBean user, AsyncCallback<Long> callback);
+	void register(UserBean user, AsyncCallback<UserBean> callback);
 
 
 	void login(String email, String password, AsyncCallback<UserBean> callback);

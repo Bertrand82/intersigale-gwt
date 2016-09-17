@@ -18,9 +18,6 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 @SuppressWarnings("serial")
 public class SigaleServiceImpl extends RemoteServiceServlet implements SigaleService {
 
-	
-
-	
 	@Override
 	public long storeLexiqueMetadata(LexiqueMetaData lexique) throws Exception {
 		long id = LexiqueEntityFactory.getInstance().makePersistent(lexique);
@@ -29,7 +26,7 @@ public class SigaleServiceImpl extends RemoteServiceServlet implements SigaleSer
 
 	@Override
 	public List<LexiqueMetaData> getListLexiquesByOwner(String email) throws Exception {
-		
+
 		return LexiqueEntityFactory.getInstance().getListLexiqueLight();
 	}
 
@@ -46,21 +43,21 @@ public class SigaleServiceImpl extends RemoteServiceServlet implements SigaleSer
 	}
 
 	@Override
-	public long register(UserBean userBean) throws Exception {
-		UserEntity userEntity=(UserEntity) UtilCopyBean.copyTo(UserEntity.class, userBean);
-		UserEntity user = UserEntityFactory.getInstance().register(userEntity);
-		return user.getId();
+	public UserBean register(UserBean userBean) throws Exception {
+		UserEntity userEntity = UtilCopyBean.copyTo(UserEntity.class, userBean);
+		UserEntity userEntity2 = UserEntityFactory.getInstance().register(userEntity);
+		UserBean userBean2 = UtilCopyBean.copyTo(UserBean.class, userEntity2);
+		return userBean2;
 	}
 
 	@Override
 	public UserBean login(String email, String password) throws Exception {
 		UserEntity userEntity = UserEntityFactory.getInstance().getUserEntity(email, password);
-		UserBean userBean = (UserBean) UtilCopyBean.copyTo(UserBean.class, userEntity);
-		return null;
+		UserBean userBean = UtilCopyBean.copyTo(UserBean.class, userEntity);
+		if (userBean == null) {
+			throw new Exception("No User or password for " + email);
+		}
+		return userBean;
 	}
 
-	
-
-
-	
 }
