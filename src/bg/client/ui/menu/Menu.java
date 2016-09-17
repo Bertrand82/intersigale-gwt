@@ -9,6 +9,8 @@ import bg.client.inter.sigale.util.ILogListener;
 import bg.client.ui.admin.AdminGUI;
 import bg.client.ui.lesson.Lesson;
 import bg.client.ui.login.LoginForm;
+import bg.client.ui.login.LogoutByebye;
+import bg.client.ui.login.WelcomeUI;
 import bg.client.ui.register.RegisterForm;
 import bg.client.ui.stat.Statistiques;
 
@@ -97,8 +99,8 @@ public class Menu extends Composite {
 			public void onClick(ClickEvent event) {
 				setBorders(buttonLogin);
 				EntryPointSigale.showView(LoginForm.getInstance());
-				LoginForm.getInstance().loginLogout();
-				logListener.logText("Register");
+				LoginForm.getInstance().logout();
+				logListener.logText(" "+buttonLogin.getText());
 			}
 		});
 	}
@@ -128,6 +130,7 @@ public class Menu extends Composite {
 	public void setLogout(boolean isLogged) {
 		if (isLogged) {
 			this.buttonLogin.setText("Logout");
+			EntryPointSigale.showView(WelcomeUI.getInstance());
 		} else {
 			this.buttonLogin.setText("Login");
 		}
@@ -136,6 +139,11 @@ public class Menu extends Composite {
 	public void register() {
 		setBorders(null);
 		EntryPointSigale.showView(RegisterForm.getInstance());
+	}
+
+	public void logoutByebye() {
+		setLogout(false);
+		EntryPointSigale.showView(LogoutByebye.getInstance());
 	}
 
 }

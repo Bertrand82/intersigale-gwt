@@ -24,4 +24,6 @@ public interface SigaleService extends RemoteService {
 	List<LexiqueMetaData> getListLexiquesByOwner(String email) throws Exception;
 	
 	int register(UserBean user) throws Exception;
+	
+	UserBean login(String email, String password) throws Exception;
 }

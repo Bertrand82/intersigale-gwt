@@ -27,4 +27,7 @@ public interface SigaleServiceAsync {
 
 	void register(UserBean user, AsyncCallback<Integer> callback);
 
+
+	void login(String email, String password, AsyncCallback<UserBean> callback);
+
 }

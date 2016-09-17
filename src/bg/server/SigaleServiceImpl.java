@@ -48,6 +48,12 @@ public class SigaleServiceImpl extends RemoteServiceServlet implements SigaleSer
 		return 0;
 	}
 
+	@Override
+	public UserBean login(String email, String password) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 
