@@ -6,6 +6,8 @@ package bg.client.ui.importTranslate;
 
 
 
+import java.util.List;
+
 import bg.client.inter.sigale.model.Lexique;
 
 import com.google.gwt.core.client.GWT;
@@ -45,7 +47,10 @@ public class ImportTranslateGUI extends Composite {
 
 	@UiField
 	RadioButton radioResponse;
-
+	
+	@UiField
+	Button buttonMoreLanguages;
+	
 	MyPopup myPopup = new MyPopup();
 	LexiqueSaveInPopup lexiqueSaveIn = new LexiqueSaveInPopup();
 	public ImportTranslateGUI() {
@@ -55,6 +60,14 @@ public class ImportTranslateGUI extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				process();
+
+			}
+		});
+		buttonMoreLanguages.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				addMoreLangage();
 
 			}
 		});
@@ -84,7 +97,7 @@ public class ImportTranslateGUI extends Composite {
 			Window.alert("Langage src must be different than langage target");
 			return;
 		}
-		String s = "src : " + langageSrc + " | dest : " + langageDest + " | lexique Name :" + lexiqueName + " | textSrc :" + textSrc;
+		//String s = "src : " + langageSrc + " | dest : " + langageDest + " | lexique Name :" + lexiqueName + " | textSrc :" + textSrc;
 		
 		GWT.log("process Translate "+lexiqueName+" "+langageSrc+"  "+langageDest+"  "+srcIsQuestion);
 		TranslateServiceGoogle.getInstance().translate(lexiqueName, langageSrc, langageDest,srcIsQuestion, textSrc);
@@ -100,6 +113,18 @@ public class ImportTranslateGUI extends Composite {
 	public void hidePopup() {
 		this.myPopup.hide();
 	}
+	
+	private void addMoreLangage(){
+		TranslateServiceGoogle.getInstance().fetchLangages();
+	}
+	
+	public void setListLangages(List<Langage> list) {
+		for( Langage langage : list) {
+			this.listBoxLangageDest.addItem( langage.getName(),langage.getLanguage());
+			this.listBoxLangageSource.addItem(langage.getName(),langage.getLanguage());
+		}
+	}
+	
 	
 	private static class MyPopup extends PopupPanel {
 
@@ -119,7 +144,8 @@ public class ImportTranslateGUI extends Composite {
 			MyPopup.this.center();
 			MyPopup.this.show();
 		}
-
 	}
+
+
 
 }

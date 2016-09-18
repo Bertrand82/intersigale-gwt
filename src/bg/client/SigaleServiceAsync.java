@@ -30,4 +30,11 @@ public interface SigaleServiceAsync {
 
 	void login(String email, String password, AsyncCallback<UserBean> callback);
 
+
+	void getKey(UserBean userBean, AsyncCallback<String> callback);
+
+
+	
+	
+
 }

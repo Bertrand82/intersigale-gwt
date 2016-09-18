@@ -9,6 +9,8 @@ import bg.client.SigaleServiceAsync;
 import bg.client.inter.sigal.beans.LexiqueMetaData;
 import bg.client.inter.sigale.model.statistic.StatistiquesLexiqueFactory;
 import bg.client.inter.sigale.util.ILogListener;
+import bg.client.ui.edit.EditLexiqueGUI;
+import bg.client.ui.lesson.Lesson;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -71,7 +73,7 @@ public class LexiqueFactory {
 	public Lexique getLexiqueDefault() {
 		Lexique lexique = new Lexique();
 		lexique.setName("Welcome Lexique");
-		lexique.add(new UniteLexicale(new Phrase("Qui a créé intersigale ?"), new Phrase("Bertrand")));
+		lexique.add(new UniteLexicale(new Phrase("Inte ?"), new Phrase("Bertrand")));
 		lexique.add(new UniteLexicale(new Phrase("Pourquoi il a fait ça ?"), new Phrase("Pour apprendre")));
 		lexique.add(new UniteLexicale(new Phrase("Pour apprendre quoi ?"), new Phrase("Tout")));
 		Phrase p1 = new Phrase("La capitale du Quercy est ?");
@@ -340,6 +342,12 @@ public class LexiqueFactory {
 		lexique2.setName(lmd.getName());
 		this.lexique = lexique2;
 
+	}
+
+	public void notifyNewLexique() {
+		Lesson.getInstance().notifyNewLexique();
+		EditLexiqueGUI.getInstance().notifyNewLexique();
+		
 	}
 
 }

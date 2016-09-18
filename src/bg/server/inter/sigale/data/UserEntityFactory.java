@@ -1,6 +1,5 @@
 package bg.server.inter.sigale.data;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.jdo.PersistenceManager;
@@ -33,7 +32,7 @@ public class UserEntityFactory {
 		return user;
 	}
 	
-	private UserEntity getUserEntity(String email){
+	public UserEntity getUserEntity(String email){
 		try {
 			PersistenceManager pm = persistenceManagerFactory.getPersistenceManager();
 			UserEntity u = pm.getObjectById(UserEntity.class, email);

@@ -26,4 +26,6 @@ public interface SigaleService extends RemoteService {
 	UserBean register(UserBean user) throws Exception;
 	
 	UserBean login(String email, String password) throws Exception;
+	
+	String getKey(UserBean userBean) throws Exception;
 }

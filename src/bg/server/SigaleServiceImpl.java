@@ -53,11 +53,23 @@ public class SigaleServiceImpl extends RemoteServiceServlet implements SigaleSer
 	@Override
 	public UserBean login(String email, String password) throws Exception {
 		UserEntity userEntity = UserEntityFactory.getInstance().getUserEntity(email, password);
+		
 		UserBean userBean = UtilCopyBean.copyTo(UserBean.class, userEntity);
 		if (userBean == null) {
 			throw new Exception("No User or password for " + email);
 		}
 		return userBean;
+	}
+
+	@Override
+	public String getKey(UserBean userBean) throws Exception {
+		
+		UserEntity userEntity = UserEntityFactory.getInstance().getUserEntity(userBean.getEmail());
+		if (userEntity==null){
+			throw new Exception("No registered "+userBean.getEmail());
+		}
+		String key = "AIzaSyDouqYxNhF8U1vfI7YM7uzEzZi9DjYzJQ4";
+		return key;
 	}
 
 }

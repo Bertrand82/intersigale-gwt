@@ -165,4 +165,8 @@ public class Lesson extends Composite {
 			positionCuror = ul.getPhrase_1().getEndVisible();
 		}
 	}
+
+	public void notifyNewLexique() {
+		displayUniteLexicaleCourante();
+	}
 }

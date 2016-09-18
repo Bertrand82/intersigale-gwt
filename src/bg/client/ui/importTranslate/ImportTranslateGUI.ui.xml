@@ -91,7 +91,13 @@
 					</g:ListBox>
 				</td>
 			</tr>
-
+			<tr>
+				<td></td>
+				<td colspan="1">
+					<g:Button styleName="{style.important}" ui:field="buttonMoreLanguages"
+						ui:text="More Languages" />
+				</td>
+			</tr>
 			<tr>
 				<td></td>
 				<td colspan="1">

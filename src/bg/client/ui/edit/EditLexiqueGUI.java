@@ -206,4 +206,8 @@ public class EditLexiqueGUI extends Composite {
 
 	}
 
+	public void notifyNewLexique() {
+		displayUniteLexicaleCourante();
+	}
+
 }

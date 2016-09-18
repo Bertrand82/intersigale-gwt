@@ -1,10 +1,10 @@
 package bg.client.ui.login;
 
-import com.google.gwt.storage.client.Storage;
-
 import bg.client.LogGWT;
 import bg.client.inter.sigal.beans.UserBean;
 import bg.client.ui.menu.Menu;
+
+import com.google.gwt.storage.client.Storage;
 
 public class LoginService {
 
