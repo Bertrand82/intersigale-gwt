@@ -73,13 +73,10 @@ public class LexiqueFactory {
 	public Lexique getLexiqueDefault() {
 		Lexique lexique = new Lexique();
 		lexique.setName("Welcome Lexique");
-		lexique.add(new UniteLexicale(new Phrase("Inte ?"), new Phrase("Bertrand")));
-		lexique.add(new UniteLexicale(new Phrase("Pourquoi il a fait ça ?"), new Phrase("Pour apprendre")));
-		lexique.add(new UniteLexicale(new Phrase("Pour apprendre quoi ?"), new Phrase("Tout")));
-		Phrase p1 = new Phrase("La capitale du Quercy est ?");
-		Phrase p2 = new Phrase("Montpezat de Quercy ");
-		p2.setSelected(0, 9);
-		lexique.add(new UniteLexicale(p1, p2));
+		lexique.add(new UniteLexicale(new Phrase("Is Inter-Sigale a free Application ?"), new Phrase("Yes")));
+		lexique.add(new UniteLexicale(new Phrase("Is Inter-Sigale a computer-assisted language learning (CALL)?"), new Phrase("Yes")));
+		lexique.add(new UniteLexicale(new Phrase("Can i customize Inter-Sigale for learning anything ?"), new Phrase("yes")));
+		lexique.add(new UniteLexicale(new Phrase("Can i have a contact ?"), new Phrase("bertrand.guiral@gmail.com")));
 		logListener.logText("Load welcome Listener");
 		logListener.logTitle(lexique.getName());
 		StatistiquesLexiqueFactory.getInstance().fetchStatitistiqueInLocaleStorage(lexique);

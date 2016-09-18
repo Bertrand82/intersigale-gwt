@@ -48,11 +48,6 @@ public class TranslateServiceGoogle {
 
 	
 	String url0 = "https://www.googleapis.com/language/translate/v2?";
-	// String url =
-	// "http://www.google.com/calendar/feeds/developer-calendar@google.com/public/full?alt=json-in-script";
-	String url__ = "https://www.googleapis.com/language/translate/v2?key=AIzaSyDouqYxNhF8U1vfI7YM7uzEzZi9DjYzJQ4&q=hello%20world&source=en&target=de";
-	// Pour avoir la liste des langues proposées par google :
-	// https://www.googleapis.com/language/translate/v2/languages?key=AIzaSyDouqYxNhF8U1vfI7YM7uzEzZi9DjYzJQ4BG&target=en
 	private String buildUrl(String langageSrc, String langageDest, String key, final List<String> list) {
 		String s = url0;
 		s += "key=" + key;
@@ -138,9 +133,6 @@ public class TranslateServiceGoogle {
 				String translatedEncoded = jsonStringtranslated.stringValue();
 				String translated = decode(translatedEncoded);
 				listTranslated.add(translated);
-				// String noTranslated = list.get(i);
-				// Window.alert("onSuccese3 : " + i +" No Translated "
-				// +noTranslated+ "|Translated : " + translated);
 			}
 			log.logText("Request to google translated : " + listTranslated.size());
 			createLexique(nameLexique, srcIsQuestion, list, listTranslated);
@@ -244,9 +236,6 @@ public class TranslateServiceGoogle {
 				
 				Langage langage = new Langage(langageStr, name);
 				listLangages.add(langage);
-				// String noTranslated = list.get(i);
-				// Window.alert("onSuccese3 : " + i +" No Translated "
-				// +noTranslated+ "|Translated : " + translated);
 			}
 			log.logText("Request to google langages : " + listLangages.size());
 		} catch (Exception e) {
@@ -254,5 +243,4 @@ public class TranslateServiceGoogle {
 		}
 		return listLangages;
 	}
-
 }

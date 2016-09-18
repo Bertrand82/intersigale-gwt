@@ -5,6 +5,8 @@ import java.util.List;
 import bg.client.SigaleService;
 import bg.client.inter.sigal.beans.LexiqueMetaData;
 import bg.client.inter.sigal.beans.UserBean;
+import bg.server.inter.sigale.data.ConstanteEntity;
+import bg.server.inter.sigale.data.ConstanteEntityFactory;
 import bg.server.inter.sigale.data.LexiqueEntityFactory;
 import bg.server.inter.sigale.data.UserEntity;
 import bg.server.inter.sigale.data.UserEntityFactory;
@@ -69,7 +71,11 @@ public class SigaleServiceImpl extends RemoteServiceServlet implements SigaleSer
 			throw new Exception("No registered "+userBean.getEmail());
 		}
 		String key = "AIzaSyDouqYxNhF8U1vfI7YM7uzEzZi9DjYzJQ4";
-		return key;
+		ConstanteEntity constante = new ConstanteEntity();
+		constante.setKey("KeyGT");;
+		constante.setValue(key);;
+		constante = ConstanteEntityFactory.getInstance().persisteValue(constante);
+		return constante.getValue();
 	}
 
 }
