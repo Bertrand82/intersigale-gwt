@@ -18,9 +18,12 @@ Il faut quelques configurations coté google:
 a- aller dans la console google:
 https://console.cloud.google.com/apis/
 Choisir un projet existant ou en créer un . (Dans mon cas sigale est un projet appengine que je retrouve donc)
-b- Rechercher l'api "Google translate api" (utiliser la recherche, à a main c'est difficile)
+b- Rechercher l'api "Google translate api" (utiliser la recherche, à la main c'est difficile)
 c- Credentials (Créer une clé sans restriction dans un premier temps, dans un deuxiemme temps, il faudra mettre kes restrictions qui conviennent)
 
 
 3 - requete Restfull cross site
 Voir http://www.gwtproject.org/doc/latest/tutorial/Xsite.html
+com.google.gwt.language.client.translation.Translation
+gwt-language.jar
+https://github.com/googlearchive/gwt-google-apis/blob/master/language/language/src/com/google/gwt/language/client/translation/Translation.java
