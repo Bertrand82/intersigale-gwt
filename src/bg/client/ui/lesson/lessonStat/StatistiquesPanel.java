@@ -1,6 +1,6 @@
 package bg.client.ui.lesson.lessonStat;
 
-import bg.client.inter.sigale.model.UniteLexicale;
+import bg.client.inter.cicada.model.UniteLexicale;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;

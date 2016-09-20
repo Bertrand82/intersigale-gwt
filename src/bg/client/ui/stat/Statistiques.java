@@ -1,7 +1,7 @@
 package bg.client.ui.stat;
 
-import bg.client.inter.sigale.model.Lexique;
-import bg.client.inter.sigale.model.LexiqueFactory;
+import bg.client.inter.cicada.model.Lexique;
+import bg.client.inter.cicada.model.LexiqueFactory;
 import bg.client.ui.stat.statCanvas.StatistiquesGlobalPanel;
 
 import com.google.gwt.core.client.GWT;

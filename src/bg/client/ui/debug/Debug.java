@@ -5,8 +5,8 @@ import java.util.List;
 import bg.client.LogGWT;
 import bg.client.SigaleService;
 import bg.client.SigaleServiceAsync;
-import bg.client.inter.sigal.beans.LexiqueMetaData;
-import bg.client.inter.sigale.util.ILogListener;
+import bg.client.inter.cicada.beans.LexiqueMetaData;
+import bg.client.inter.cicada.util.ILogListener;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.core.client.GWT;

@@ -2,8 +2,8 @@ package bg.client.test;
 
 import org.junit.Test;
 
-import bg.client.inter.sigale.model.statistic.curve.PointsCourbe;
-import bg.client.inter.sigale.model.statistic.curve.StatistiquesSynthese;
+import bg.client.inter.cicada.model.statistic.curve.PointsCourbe;
+import bg.client.inter.cicada.model.statistic.curve.StatistiquesSynthese;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.junit.client.GWTTestCase;

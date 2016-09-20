@@ -3,13 +3,13 @@ package bg.server;
 import java.util.List;
 
 import bg.client.SigaleService;
-import bg.client.inter.sigal.beans.LexiqueMetaData;
-import bg.client.inter.sigal.beans.UserBean;
-import bg.server.inter.sigale.data.ConstanteEntity;
-import bg.server.inter.sigale.data.ConstanteEntityFactory;
-import bg.server.inter.sigale.data.LexiqueEntityFactory;
-import bg.server.inter.sigale.data.UserEntity;
-import bg.server.inter.sigale.data.UserEntityFactory;
+import bg.client.inter.cicada.beans.LexiqueMetaData;
+import bg.client.inter.cicada.beans.UserBean;
+import bg.server.inter.cicada.data.ConstanteEntity;
+import bg.server.inter.cicada.data.ConstanteEntityFactory;
+import bg.server.inter.cicada.data.LexiqueEntityFactory;
+import bg.server.inter.cicada.data.UserEntity;
+import bg.server.inter.cicada.data.UserEntityFactory;
 import bg.server.util.UtilCopyBean;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;

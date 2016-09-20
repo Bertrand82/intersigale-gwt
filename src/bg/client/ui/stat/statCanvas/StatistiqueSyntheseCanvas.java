@@ -2,10 +2,10 @@ package bg.client.ui.stat.statCanvas;
 
 import java.util.Date;
 
-import bg.client.inter.sigale.model.Lexique;
-import bg.client.inter.sigale.model.statistic.StatistiquesLexique;
-import bg.client.inter.sigale.model.statistic.curve.PointsCourbe;
-import bg.client.inter.sigale.model.statistic.curve.StatistiquesSynthese;
+import bg.client.inter.cicada.model.Lexique;
+import bg.client.inter.cicada.model.statistic.StatistiquesLexique;
+import bg.client.inter.cicada.model.statistic.curve.PointsCourbe;
+import bg.client.inter.cicada.model.statistic.curve.StatistiquesSynthese;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.canvas.dom.client.Context2d;

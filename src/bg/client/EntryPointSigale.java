@@ -1,7 +1,7 @@
 package bg.client;
 
-import bg.client.inter.sigale.model.LexiqueFactory;
-import bg.client.inter.sigale.model.SigalePropertiesGWT;
+import bg.client.inter.cicada.model.LexiqueFactory;
+import bg.client.inter.cicada.model.CicadaPropertiesGWT;
 import bg.client.ui.lesson.Lesson;
 import bg.client.ui.log.LogUI;
 import bg.client.ui.menu.Menu;
@@ -36,35 +36,35 @@ public class EntryPointSigale implements EntryPoint {
 		 * super dev) dans la console.
 		 */
 		GWT.setUncaughtExceptionHandler(uncaughtExceptionHandler);
-		new LexiqueFactory(new SigalePropertiesGWT(), new LogGWT());
+		new LexiqueFactory(new CicadaPropertiesGWT(), new LogGWT());
 		
 		
 		
-		RootPanel rootPanelMenuTools = RootPanel.get("sigaleMenuTools");
+		RootPanel rootPanelMenuTools = RootPanel.get("cicadaMenuTools");
 		if (rootPanelMenuTools != null) {
 			final MenuTools menuTools = MenuTools.getInstance();
 			rootPanelMenuTools.add(menuTools);
 		}
 		
-		RootPanel rootPanelMenu = RootPanel.get("sigaleMenu");
+		RootPanel rootPanelMenu = RootPanel.get("cicadaMenu");
 		if (rootPanelMenu != null) {
 			final Menu menu = Menu.getInstance();
 			rootPanelMenu.add(menu);
 		}
 
-		rootPanelRegister = RootPanel.get("sigalePanel");
+		rootPanelRegister = RootPanel.get("cicadaPanel");
 		if (rootPanelRegister != null) {
 			final Lesson widget = Lesson.getInstance();
 			rootPanelRegister.add(widget);
 		}
 
-		RootPanel rootPanelTitle = RootPanel.get("sigaleTitle");
+		RootPanel rootPanelTitle = RootPanel.get("cicadaTitle");
 		if (rootPanelTitle != null) {
 
 			rootPanelTitle.add(labelTitle);
 		}
 
-		RootPanel rootPanelLog = RootPanel.get("sigaleLog");
+		RootPanel rootPanelLog = RootPanel.get("cicadaLog");
 		if (rootPanelLog != null) {
 			final LogUI logUI = LogUI.getInstance();
 			rootPanelLog.add(logUI);

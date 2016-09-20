@@ -1,7 +1,7 @@
 package bg.client.ui.register;
 
 import bg.client.SigaleUtil;
-import bg.client.inter.sigal.beans.UserBean;
+import bg.client.inter.cicada.beans.UserBean;
 import bg.client.ui.login.LoginService;
 
 import com.google.gwt.core.client.GWT;

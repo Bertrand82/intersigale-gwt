@@ -2,7 +2,7 @@ package bg.client.ui.login;
 
 import bg.client.LogGWT;
 import bg.client.SigaleUtil;
-import bg.client.inter.sigal.beans.UserBean;
+import bg.client.inter.cicada.beans.UserBean;
 import bg.client.ui.menu.Menu;
 
 import com.google.gwt.core.client.GWT;

@@ -4,10 +4,10 @@ import java.util.List;
 
 import bg.client.LogGWT;
 import bg.client.SigaleUtil;
-import bg.client.inter.sigal.beans.LexiqueMetaData;
-import bg.client.inter.sigale.model.Lexique;
-import bg.client.inter.sigale.model.LexiqueFactory;
-import bg.client.inter.sigale.util.ILogListener;
+import bg.client.inter.cicada.beans.LexiqueMetaData;
+import bg.client.inter.cicada.model.Lexique;
+import bg.client.inter.cicada.model.LexiqueFactory;
+import bg.client.inter.cicada.util.ILogListener;
 import bg.client.ui.admin.chooser.ListSimpleBeanChooser;
 import bg.client.ui.admin.chooserLexique.BeanChooser;
 import bg.client.ui.admin.chooserLexique.IAction;

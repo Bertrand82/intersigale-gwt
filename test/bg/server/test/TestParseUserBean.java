@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import bg.client.inter.sigal.beans.UserBean;
+import bg.client.inter.cicada.beans.UserBean;
 import bg.client.ui.login.LoginService;
 
 public class TestParseUserBean {

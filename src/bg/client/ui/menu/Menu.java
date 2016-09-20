@@ -5,8 +5,8 @@ package bg.client.ui.menu;
 
 import bg.client.EntryPointSigale;
 import bg.client.LogGWT;
-import bg.client.inter.sigal.beans.UserBean;
-import bg.client.inter.sigale.util.ILogListener;
+import bg.client.inter.cicada.beans.UserBean;
+import bg.client.inter.cicada.util.ILogListener;
 import bg.client.ui.admin.AdminGUI;
 import bg.client.ui.lesson.Lesson;
 import bg.client.ui.login.LoginForm;

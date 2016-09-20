@@ -5,10 +5,10 @@ import java.util.List;
 
 import bg.client.LogGWT;
 import bg.client.SigaleUtil;
-import bg.client.inter.sigal.beans.UserBean;
-import bg.client.inter.sigale.model.Lexique;
-import bg.client.inter.sigale.model.LexiqueFactory;
-import bg.client.inter.sigale.model.UniteLexicale;
+import bg.client.inter.cicada.beans.UserBean;
+import bg.client.inter.cicada.model.Lexique;
+import bg.client.inter.cicada.model.LexiqueFactory;
+import bg.client.inter.cicada.model.UniteLexicale;
 import bg.client.ui.login.LoginService;
 
 import com.google.gwt.core.client.JavaScriptObject;

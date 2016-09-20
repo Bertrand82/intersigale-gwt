@@ -1,9 +1,9 @@
 package bg.client.ui.importTranslate;
 
 import bg.client.SigaleUtil;
-import bg.client.inter.sigal.beans.LexiqueMetaData;
-import bg.client.inter.sigale.model.Lexique;
-import bg.client.inter.sigale.model.LexiqueFactory;
+import bg.client.inter.cicada.beans.LexiqueMetaData;
+import bg.client.inter.cicada.model.Lexique;
+import bg.client.inter.cicada.model.LexiqueFactory;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;

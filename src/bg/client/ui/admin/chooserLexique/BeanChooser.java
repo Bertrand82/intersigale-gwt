@@ -4,8 +4,8 @@ package bg.client.ui.admin.chooserLexique;
 import java.util.List;
 
 import bg.client.LogGWT;
-import bg.client.inter.sigal.beans.IBean;
-import bg.client.inter.sigale.util.ILogListener;
+import bg.client.inter.cicada.beans.IBean;
+import bg.client.inter.cicada.util.ILogListener;
 import bg.client.ui.admin.AdminGUI;
 
 import com.google.gwt.cell.client.ButtonCell;

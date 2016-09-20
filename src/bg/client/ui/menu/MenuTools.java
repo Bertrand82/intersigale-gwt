@@ -5,7 +5,7 @@ package bg.client.ui.menu;
 
 import bg.client.EntryPointSigale;
 import bg.client.LogGWT;
-import bg.client.inter.sigale.util.ILogListener;
+import bg.client.inter.cicada.util.ILogListener;
 import bg.client.ui.debug.Debug;
 import bg.client.ui.edit.EditLexiqueGUI;
 import bg.client.ui.importTranslate.ImportTranslateGUI;

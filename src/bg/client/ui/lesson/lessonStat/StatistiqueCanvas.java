@@ -3,9 +3,9 @@ package bg.client.ui.lesson.lessonStat;
 import java.util.Date;
 import java.util.List;
 
-import bg.client.inter.sigale.model.UniteLexicale;
-import bg.client.inter.sigale.model.statistic.StatistiquesItem;
-import bg.client.inter.sigale.model.statistic.StatistiquesUL;
+import bg.client.inter.cicada.model.UniteLexicale;
+import bg.client.inter.cicada.model.statistic.StatistiquesItem;
+import bg.client.inter.cicada.model.statistic.StatistiquesUL;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.canvas.dom.client.Context2d;

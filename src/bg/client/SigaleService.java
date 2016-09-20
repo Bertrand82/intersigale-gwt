@@ -2,8 +2,8 @@ package bg.client;
 
 import java.util.List;
 
-import bg.client.inter.sigal.beans.LexiqueMetaData;
-import bg.client.inter.sigal.beans.UserBean;
+import bg.client.inter.cicada.beans.LexiqueMetaData;
+import bg.client.inter.cicada.beans.UserBean;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;

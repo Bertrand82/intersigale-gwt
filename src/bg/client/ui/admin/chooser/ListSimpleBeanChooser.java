@@ -3,7 +3,7 @@ package bg.client.ui.admin.chooser;
 import java.util.ArrayList;
 import java.util.List;
 
-import bg.client.inter.sigale.model.LexiqueFactory;
+import bg.client.inter.cicada.model.LexiqueFactory;
 import bg.client.ui.admin.AdminGUI;
 
 import com.google.gwt.cell.client.ButtonCell;

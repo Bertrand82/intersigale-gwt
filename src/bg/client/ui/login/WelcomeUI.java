@@ -1,6 +1,6 @@
 package bg.client.ui.login;
 
-import bg.client.inter.sigal.beans.UserBean;
+import bg.client.inter.cicada.beans.UserBean;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;

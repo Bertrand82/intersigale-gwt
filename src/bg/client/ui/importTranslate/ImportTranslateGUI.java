@@ -8,7 +8,7 @@ package bg.client.ui.importTranslate;
 
 import java.util.List;
 
-import bg.client.inter.sigale.model.Lexique;
+import bg.client.inter.cicada.model.Lexique;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;

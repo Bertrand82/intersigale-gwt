@@ -2,13 +2,13 @@ package bg.client.test;
 
 import org.junit.Test;
 
-import bg.client.inter.sigale.model.ISigalePropertes;
-import bg.client.inter.sigale.model.Lexique;
-import bg.client.inter.sigale.model.LexiqueFactory;
-import bg.client.inter.sigale.model.statistic.StatistiquesLexique;
-import bg.client.inter.sigale.model.statistic.StatistiquesLexiqueFactory;
-import bg.client.inter.sigale.model.statistic.StatistiquesUL;
-import bg.client.inter.sigale.util.ILogListener;
+import bg.client.inter.cicada.model.ICicadaPropertes;
+import bg.client.inter.cicada.model.Lexique;
+import bg.client.inter.cicada.model.LexiqueFactory;
+import bg.client.inter.cicada.model.statistic.StatistiquesLexique;
+import bg.client.inter.cicada.model.statistic.StatistiquesLexiqueFactory;
+import bg.client.inter.cicada.model.statistic.StatistiquesUL;
+import bg.client.inter.cicada.util.ILogListener;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.json.client.JSONObject;
@@ -22,7 +22,7 @@ import com.google.gwt.junit.client.GWTTestCase;
  *
  */
 public class LexiqueGwtTest extends GWTTestCase {
-	ISigalePropertes sigaleProperties = new ISigalePropertes() {
+	ICicadaPropertes cicadaProperties = new ICicadaPropertes() {
 
 		@Override
 		public void setNameLexique(String nameLexique) {
@@ -69,7 +69,7 @@ public class LexiqueGwtTest extends GWTTestCase {
 
 	@Test
 	public void test_1() {
-		LexiqueFactory lexiqueFactory = new LexiqueFactory(sigaleProperties, logListener);
+		LexiqueFactory lexiqueFactory = new LexiqueFactory(cicadaProperties, logListener);
 		Lexique lexique_1 = lexiqueFactory.getLexique();
 		String xml_1 = lexiqueFactory.toXml(lexique_1);
 		System.out.println("lexique xml : " + xml_1);

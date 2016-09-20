@@ -1,8 +1,8 @@
 package bg.client.ui.lesson;
 
-import bg.client.inter.sigale.model.Lexique;
-import bg.client.inter.sigale.model.LexiqueFactory;
-import bg.client.inter.sigale.model.UniteLexicale;
+import bg.client.inter.cicada.model.Lexique;
+import bg.client.inter.cicada.model.LexiqueFactory;
+import bg.client.inter.cicada.model.UniteLexicale;
 import bg.client.ui.lesson.lessonStat.StatistiquesPanel;
 
 import com.google.gwt.core.client.GWT;

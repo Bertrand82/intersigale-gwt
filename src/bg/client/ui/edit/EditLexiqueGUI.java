@@ -1,9 +1,9 @@
 package bg.client.ui.edit;
 
-import bg.client.inter.sigale.model.Lexique;
-import bg.client.inter.sigale.model.LexiqueFactory;
-import bg.client.inter.sigale.model.Phrase;
-import bg.client.inter.sigale.model.UniteLexicale;
+import bg.client.inter.cicada.model.Lexique;
+import bg.client.inter.cicada.model.LexiqueFactory;
+import bg.client.inter.cicada.model.Phrase;
+import bg.client.inter.cicada.model.UniteLexicale;
 import bg.client.ui.util.popup.IPopupListener;
 import bg.client.ui.util.popup.PopupDialogOption;
 
