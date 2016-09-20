@@ -31,11 +31,9 @@ public class Lesson extends Composite {
 	}
 
 	@UiField
-	Button buttonOK;
+	Button button_OK_NEXT;
 
-	@UiField
-	Button buttonNext;
-
+	
 	@UiField
 	TextBox textBoxReponse;
 
@@ -53,21 +51,16 @@ public class Lesson extends Composite {
 
 	public Lesson() {
 		initWidget(uiBinder.createAndBindUi(this));
-		buttonOK.addClickHandler(new ClickHandler() {
+		button_OK_NEXT.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				validResult();
+				ok_next();
 			}
-		});
-		buttonNext.setEnabled(false);
-		buttonNext.addClickHandler(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				nextPhrase();
-			}
+		
 		});
+		
 		textBoxReponse.addKeyUpHandler(new KeyUpHandler() {
 
 			@Override
@@ -89,6 +82,7 @@ public class Lesson extends Composite {
 		panelStat.add(StatistiquesPanel.getInstance());
 	}
 
+	
 	private static Lesson instance = new Lesson();
 
 	public static Lesson getInstance() {
@@ -98,25 +92,28 @@ public class Lesson extends Composite {
 	private Lexique getLexique() {
 		return LexiqueFactory.getInstance().getLexique();
 	}
-
+	private void ok_next() {
+		if(button_OK_NEXT.getText().equalsIgnoreCase("OK")){
+			validResult();
+			button_OK_NEXT.setText("Next");
+		}else {
+			nextPhrase();
+			button_OK_NEXT.setText("OK");
+		}
+	}
 	private void nextPhrase() {
 		getLexique().next();
 		displayUniteLexicaleCourante();
 		labelCorrection.setText(STR_VIDE);
 		displayResult(null, " ");
-		setButtonsEtat(true);
-
+		
 		this.textBoxReponse.setText(reponseStr);
 		this.textBoxReponse.setCursorPos(this.positionCuror);
 		this.textBoxReponse.setFocus(true);
 		StatistiquesPanel.getInstance().removeStat();
 	}
 
-	private void setButtonsEtat(boolean b) {
-		this.buttonOK.setEnabled(b);
-		this.buttonNext.setEnabled(!b);
-
-	}
+	
 
 	private void displayResult(Boolean ok, String stat) {
 		String color;
@@ -141,7 +138,6 @@ public class Lesson extends Composite {
 			StatistiquesPanel.getInstance().updateStat(ulCourrante, ok);
 			System.out.println("ValidResult " + ok);
 			// this.textFieldResponse.setText(text);
-			setButtonsEtat(false);
 			if (ok) {
 				stat = " ok ";
 			} else {
