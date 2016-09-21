@@ -3,6 +3,8 @@ package bg.client.inter.cicada.beans;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.google.appengine.api.datastore.Text;
+
 
 
 
@@ -70,6 +72,9 @@ public class LexiqueMetaData implements Serializable,IBean{
 	public void setXml(String xml) {
 		this.xml = xml;
 	}
+	
+
+
 
 
 	public long getTimeRegistered() {
@@ -106,6 +111,8 @@ public class LexiqueMetaData implements Serializable,IBean{
 		}
 		this.timeModified = dateModified.getTime();
 	}
+
+
 
 
 

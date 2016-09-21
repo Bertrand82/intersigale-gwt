@@ -9,6 +9,8 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 
+import com.google.appengine.api.datastore.Text;
+
 import bg.client.inter.cicada.beans.LexiqueMetaData;
 
 public class LexiqueEntityFactory {
@@ -95,7 +97,7 @@ public class LexiqueEntityFactory {
 		lexiqueEntity.setEmailOwner(lexique.getEmailOwner());
 		lexiqueEntity.setId(lexique.getId());
 		lexiqueEntity.setName(lexique.getName());
-		lexiqueEntity.setXml(lexique.getXml());
+		lexiqueEntity.setXml(new Text(lexique.getXml()));
 		return lexiqueEntity;
 	}
 	
@@ -150,7 +152,7 @@ public class LexiqueEntityFactory {
 		lmd.setDateRegistered(le.getDateRegistered());
 		lmd.setEmailOwner(le.getEmailOwner());
 		lmd.setId(le.getId());
-		lmd.setXml(le.getXml());
+		lmd.setXml(le.getXmlAsStr());
 		return lmd;
 	}
 

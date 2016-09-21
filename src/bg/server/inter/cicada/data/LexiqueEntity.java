@@ -8,6 +8,8 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import com.google.appengine.api.datastore.Text;
+
 
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
@@ -27,7 +29,7 @@ public class LexiqueEntity {
 	
 	
 	@Persistent
-	private String xml ;
+	private Text xml ;
 
 	@Persistent
 	private Date dateRegistered = new Date();
@@ -71,12 +73,12 @@ public class LexiqueEntity {
 	}
 
 
-	public String getXml() {
+	public Text getXml() {
 		return xml;
 	}
 
 
-	public void setXml(String xml) {
+	public void setXml(Text xml) {
 		this.xml = xml;
 	}
 
@@ -112,6 +114,14 @@ public class LexiqueEntity {
 		if (timeRegistered != 0){
 			this.dateRegistered= new Date(timeRegistered);
 		}
+	}
+
+
+	public String getXmlAsStr() {
+		if (xml == null){
+			return null;
+		}
+		return xml.getValue();
 	}
 	
 	
