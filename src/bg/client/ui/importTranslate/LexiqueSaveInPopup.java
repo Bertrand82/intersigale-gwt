@@ -55,8 +55,8 @@ public class LexiqueSaveInPopup extends Composite {
 					}
 					
 					@Override
-					public void onFailure(Throwable caught) {
-						Window.alert("Exception: Lexique No registered in remote");
+					public void onFailure(Throwable t) {
+						Window.alert("Exception: Lexique No registered in remote "+t.getMessage());
 					}
 				});
 				hidePopup();

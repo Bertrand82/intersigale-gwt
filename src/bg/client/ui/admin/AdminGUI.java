@@ -154,8 +154,9 @@ public class AdminGUI extends Composite {
 					AsyncCallback<Long> callback = new AsyncCallback<Long>() {
 
 						@Override
-						public void onFailure(Throwable t) {
+						public void onFailure(Throwable t) {							
 							log.log("Fail to save Lexique", t);
+							Window.alert("Store remote failure "+t.getMessage());
 						}
 
 						@Override
